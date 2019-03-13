@@ -1,5 +1,5 @@
 module Types
   class MutationType < Types::BaseObject
-    field :createAnonymousUser, mutation: Mutations::CreateAnonymousUser
+    field :createAnonymousIdentity, mutation: Mutations::CreateAnonymousIdentity
   end
 end

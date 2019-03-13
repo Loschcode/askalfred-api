@@ -1,5 +1,5 @@
 module Mutations
-  class CreateAnonymousUser < Mutations::BaseMutation
+  class CreateAnonymousIdentity < Mutations::BaseMutation
     field :token, String, null: true
 
     def resolve
