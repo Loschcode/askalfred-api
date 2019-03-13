@@ -6,6 +6,7 @@ class GraphqlController < ApplicationController
     context = {
       current_identity: current_identity
     }
+
     result = AskalfredApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue => e
