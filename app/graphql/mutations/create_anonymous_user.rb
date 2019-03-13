@@ -1,9 +1,9 @@
 module Mutations
-  class CreateAnonymousIdentity < Mutations::BaseMutation
+  class CreateAnonymousUser < Mutations::BaseMutation
     field :token, String, null: true
 
     def resolve
-      return if current_identity
+      return if current_user
 
       {
         token: user.token
@@ -13,7 +13,7 @@ module Mutations
     private
 
     def user
-      @user ||= Identity.create
+      @user ||= User.create!(role: 'anonymous')
     end
   end
 end

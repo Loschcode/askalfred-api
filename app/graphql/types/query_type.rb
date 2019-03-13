@@ -2,6 +2,6 @@ module Types
   class QueryType < Types::BaseObject
     extend ActiveSupport::Concern
 
-    field :currentIdentity, resolver: Queries::ShowCurrentIdentity
+    field :currentUser, resolver: Queries::ShowCurrentUser
   end
 end

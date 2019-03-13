@@ -1,4 +1,4 @@
-class AddIdentityTable < ActiveRecord::Migration[5.2]
+class AddUserTable < ActiveRecord::Migration[5.2]
   def change
     create_table :users, id: :uuid, default: -> { "uuid_generate_v4()" } do |t|
       t.string :role
@@ -10,8 +10,8 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.timestamps
 
       t.index :email
-      t.index :password
-      t.index [:email, :password]
+      t.index :encrypted_password
+      t.index [:email, :encrypted_password]
     end
   end
 end
