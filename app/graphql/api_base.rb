@@ -1,5 +1,5 @@
 module ApiBase
-  def current_user
-    context[:current_user]
+  def current_identity
+    context[:current_identity]
   end
 end

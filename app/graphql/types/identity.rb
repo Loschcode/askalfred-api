@@ -1,5 +1,5 @@
 module Types
-  class User < Types::BaseObject
+  class Identity < Types::BaseObject
     description "user"
 
     field :id, ID, null: false

@@ -1,2 +1,2 @@
 # fake token for development
-GraphiQL::Rails.config.headers['token'] = -> (context) { User.first.token }
+GraphiQL::Rails.config.headers['token'] = -> (context) { Identity.first.token }

@@ -1,11 +1,11 @@
-class User < ActiveRecord::Base
+class Identity < ActiveRecord::Base
   EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i.freeze
   validates :email, presence: true,
                     uniqueness: true,
                     format: { with: EMAIL_FORMAT },
-                    if: -> { role != 'anonymous' }
+                    if: -> { role != 'guest' }
 
-  validates :encrypted_password, presence: true, if: -> { role != 'anonymous' }
+  validates :encrypted_password, presence: true, if: -> { role != 'guest' }
   validates :role, presence: true
 
   validates :token, presence: false

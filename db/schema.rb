@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2019_03_12_200958) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+  create_table "identities", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "role"
     t.string "email"
     t.string "encrypted_password"
@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(version: 2019_03_12_200958) do
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email", "encrypted_password"], name: "index_users_on_email_and_encrypted_password"
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["encrypted_password"], name: "index_users_on_encrypted_password"
+    t.index ["email", "encrypted_password"], name: "index_identities_on_email_and_encrypted_password"
+    t.index ["email"], name: "index_identities_on_email"
+    t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
   end
 
 end
