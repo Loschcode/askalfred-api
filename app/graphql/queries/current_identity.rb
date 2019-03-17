@@ -1,5 +1,5 @@
 module Queries
-  class ShowCurrentIdentity < Queries::BaseQuery
+  class CurrentIdentity < Queries::BaseQuery
     type Types::Identity, null: true
     description 'Get the current user'
 
