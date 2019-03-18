@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-
   # NOTE : to see error details in development
   # please comment this
   around_action :exception_handler
@@ -30,6 +29,6 @@ class ApplicationController < ActionController::API
   end
 
   def current_token
-    params[:token] || request.headers[:token]
+    request.headers[:token]
   end
 end
