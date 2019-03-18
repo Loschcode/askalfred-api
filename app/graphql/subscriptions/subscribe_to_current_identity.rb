@@ -1,5 +1,5 @@
 module Subscriptions
-  class SubscribeToBullshit < Mutations::BaseMutation
+  class SubscribeToCurrentIdentity < Mutations::BaseMutation
     description 'yes'
 
     field :id, String, null: true

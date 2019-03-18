@@ -30,7 +30,7 @@ module Mutations
         last_name: current_identity.last_name
       }
 
-      AskalfredApiSchema.subscriptions.trigger('subscribeToBullshit', {}, changeset, scope: current_identity.id)
+      AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, changeset, scope: current_identity.id)
 
       changeset
     end

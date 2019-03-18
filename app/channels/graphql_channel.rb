@@ -10,7 +10,7 @@ class GraphqlChannel < ApplicationCable::Channel
 
     context = {
       current_identity_id: current_identity.id,
-      channel: self,
+      channel: self
     }
 
     result = AskalfredApiSchema.execute(
