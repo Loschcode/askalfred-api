@@ -9,7 +9,7 @@ class GraphqlChannel < ApplicationCable::Channel
     operation_name = data["operationName"]
 
     context = {
-      current_identity: current_identity,
+      current_identity_id: current_identity.id,
       channel: self,
     }
 

@@ -24,17 +24,15 @@ module Mutations
         last_name: input[:last_name]
       )
 
-      AskalfredApiSchema.subscriptions.trigger('subscribeToBullshit', {}, {
-        id: current_identity.id,
-        first_name: current_identity.first_name,
-        last_name: current_identity.last_name
-      })
-
-      {
+      changeset = {
         id: current_identity.id,
         first_name: current_identity.first_name,
         last_name: current_identity.last_name
       }
+
+      AskalfredApiSchema.subscriptions.trigger('subscribeToBullshit', {}, changeset, scope: current_identity.id)
+
+      changeset
     end
 
     private
