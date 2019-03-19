@@ -23,16 +23,9 @@ module Mutations
         last_name: input[:last_name]
       )
 
-      changeset = {
-        current_identity: {
-          first_name: current_identity.first_name,
-          last_name: current_identity.last_name
-        }
-      }
+      AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, { current_identity: current_identity.slice(:first_name, :last_name) }, scope: current_identity.id)
 
-      AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, changeset, scope: current_identity.id)
-
-      changeset
+      current_identity.slice(:first_name, :last_name)
     end
 
     private
