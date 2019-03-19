@@ -12,7 +12,6 @@ module Mutations
     description 'store the first and last name within the getting started'
 
     argument :input, Types::StoreIdentityNameInput, required: true
-    field :id, String, null: true
     field :first_name, String, null: true
     field :last_name, String, null: true
 
@@ -25,9 +24,10 @@ module Mutations
       )
 
       changeset = {
-        id: current_identity.id,
-        first_name: current_identity.first_name,
-        last_name: current_identity.last_name
+        current_identity: {
+          first_name: current_identity.first_name,
+          last_name: current_identity.last_name
+        }
       }
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, changeset, scope: current_identity.id)
