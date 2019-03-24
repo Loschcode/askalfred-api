@@ -1,9 +1,7 @@
 class Identity < ActiveRecord::Base
   EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i.freeze
-  validates :email, presence: true,
-                    uniqueness: true,
-                    format: { with: EMAIL_FORMAT },
-                    if: -> { role != 'guest' }
+  validates :email, presence: true, if: -> { role != 'guest' }
+  validates :email, uniqueness: true, format: { with: EMAIL_FORMAT }
 
   validates :encrypted_password, presence: true, if: -> { role != 'guest' }
   validates :role, presence: true

@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(version: 2019_03_12_200958) do
     t.string "first_name"
     t.string "last_name"
     t.string "token"
+    t.datetime "confirmed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["confirmed_at"], name: "index_identities_on_confirmed_at"
     t.index ["email", "encrypted_password"], name: "index_identities_on_email_and_encrypted_password"
     t.index ["email"], name: "index_identities_on_email"
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
