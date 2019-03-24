@@ -1,4 +1,3 @@
-# TODO : maybe move this elsewhere ? Or maybe not who knows.
 module Types
   class StoreIdentityNameInput < Types::BaseInputObject
     description 'attributes to update the store identity name'
@@ -23,15 +22,13 @@ module Mutations
         last_name: input[:last_name]
       )
 
-      AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, { current_identity: current_identity.slice(:first_name, :last_name) }, scope: current_identity.id)
+      AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
+        current_identity: current_identity.slice(:first_name, :last_name)
+      }, scope: current_identity.id)
 
       current_identity.slice(:first_name, :last_name)
     end
 
     private
-
-    def user
-      @user ||= Identity.create!(role: 'guest')
-    end
   end
 end

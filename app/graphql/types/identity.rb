@@ -11,6 +11,7 @@ module Types
     field :first_name, String, null: true
     field :last_name, String, null: true
     field :encrypted_password, String, null: true
+    field :confirmed_at, GraphQL::Types::ISO8601DateTime, null: true
 
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false

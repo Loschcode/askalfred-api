@@ -9,6 +9,7 @@ class Identity < ActiveRecord::Base
   validates :role, presence: true
 
   validates :token, presence: false
+  validates :confirmed_at, presence: false
 
   before_create :ensure_token
 

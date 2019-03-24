@@ -7,11 +7,13 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.string :first_name
       t.string :last_name
       t.string :token
+      t.datetime :confirmed_at
       t.timestamps
 
       t.index :email
       t.index :encrypted_password
       t.index [:email, :encrypted_password]
+      t.index :confirmed_at
     end
   end
 end
