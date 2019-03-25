@@ -36,7 +36,7 @@ class GraphqlChannel < ApplicationCable::Channel
 
   def unsubscribed
     @subscription_ids.each { |sid|
-      MySchema.subscriptions.delete_subscription(sid)
+      AskalfredApiSchema.subscriptions.delete_subscription(sid)
     }
   end
 
