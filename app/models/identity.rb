@@ -1,23 +1,25 @@
 class Identity < ActiveRecord::Base
   EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i.freeze
-  validates :email, presence: true, if: -> { role != 'guest' }
-  validates :email, uniqueness: true, format: { with: EMAIL_FORMAT }
+  validates :email, presence: true, unless: -> { guest? }
+  validates :email, uniqueness: true, format: { with: EMAIL_FORMAT }, unless: -> { guest? }
 
-  validates :encrypted_password, presence: true, if: -> { role != 'guest' }
+  validates :encrypted_password, presence: true, unless: -> { guest? }
   validates :role, presence: true
 
   validates :token, presence: false
   validates :confirmed_at, presence: false
+  validates :confirmation_sent_at, presence: false
+  validates :confirmation_token, presence: false
 
   before_create :ensure_token
 
   private
 
   def ensure_token
-    self.token = BCrypt::Password.create(token_chain)
+    self.token = TokenService.new(self).perform
   end
 
-  def token_chain
-    "#{email}#{encrypted_password}#{Time.now}"
+  def guest?
+    role == 'guest'
   end
 end

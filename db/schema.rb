@@ -24,8 +24,12 @@ ActiveRecord::Schema.define(version: 2019_03_12_200958) do
     t.string "last_name"
     t.string "token"
     t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "confirmation_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_identities_on_confirmation_token"
     t.index ["confirmed_at"], name: "index_identities_on_confirmed_at"
     t.index ["email", "encrypted_password"], name: "index_identities_on_email_and_encrypted_password"
     t.index ["email"], name: "index_identities_on_email"

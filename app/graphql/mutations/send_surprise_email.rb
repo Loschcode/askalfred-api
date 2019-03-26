@@ -5,7 +5,15 @@ module Mutations
     field :current_identity, ::Types::Identity, null: false
 
     def resolve
-      # TODO : dispatch things here
+      return unless current_identity
+
+      current_identity.update!(
+        confirmation_sent_at: Time.now,
+        confirmation_token: TokenService.new(current_identity).perform
+      )
+
+      IdentityMailer.with(identity: current_identity).surprise_email.deliver_later
+
       {
         current_identity: current_identity
       }
