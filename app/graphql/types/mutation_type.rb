@@ -5,5 +5,6 @@ module Types
     field :storeIdentityName, mutation: Mutations::StoreIdentityName
     field :storeIdentityEmail, mutation: Mutations::StoreIdentityEmail
     field :sendSurpriseEmail, mutation: Mutations::SendSurpriseEmail
+    field :getForFree, mutation: Mutations::GetForFree
   end
 end

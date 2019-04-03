@@ -11,6 +11,8 @@ class Identity < ActiveRecord::Base
   validates :confirmation_sent_at, presence: false
   validates :confirmation_token, presence: false
 
+  has_many :credits
+
   before_create :ensure_token
 
   private
