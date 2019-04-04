@@ -1,7 +1,7 @@
 module Queries
   class CurrentIdentity < Queries::BaseQuery
     type Types::Identity, null: true
-    description 'Get the current user'
+    description 'Get the current identity'
 
     def resolve
       current_identity

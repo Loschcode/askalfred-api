@@ -1,6 +1,6 @@
 module Types
   class Identity < Types::BaseObject
-    description "user"
+    description 'identity'
 
     field :id, ID, null: false
 
@@ -18,5 +18,7 @@ module Types
 
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+
+    field :credits, [Types::Credit], null: true
   end
 end

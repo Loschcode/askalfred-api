@@ -1,12 +1,9 @@
 module Mutations
   class GetForFree < Mutations::BaseMutation
     class Error < StandardError; end
-
     TWENTY_MINUTES = 20 * 60
 
     description 'creates a guest identity'
-
-    field :success, Boolean, null: false
 
     def resolve
       return unless current_identity
@@ -17,10 +14,6 @@ module Mutations
         identity: current_identity,
         time: TWENTY_MINUTES
       )
-
-      {
-        success: true
-      }
     end
   end
 end
