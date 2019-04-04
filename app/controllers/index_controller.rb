@@ -1,5 +1,5 @@
-class GraphqlController < ApplicationController
-  def execute
+class IndexController < ApplicationController
+  def show
     render json: {}, status: :not_found
   end
 end

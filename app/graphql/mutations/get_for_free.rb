@@ -5,15 +5,21 @@ module Mutations
 
     description 'creates a guest identity'
 
+    field :credit, ::Types::Credit, null: false
+
     def resolve
       return unless current_identity
 
       throw Error, 'You already got this surprise.' if current_identity.credits.count > 0
 
-      Credit.create!(
+      credit = Credit.create!(
         identity: current_identity,
         time: TWENTY_MINUTES
       )
+
+      {
+        credit: credit
+      }
     end
   end
 end
