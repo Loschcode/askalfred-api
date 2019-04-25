@@ -6,6 +6,7 @@ module Mutations
 
     def resolve
       return unless current_identity
+      return GraphQL::ExecutionError.new('Your email was already confirmed.') if current_identity.confirmed_at.present?
 
       current_identity.update!(
         confirmation_sent_at: Time.now,

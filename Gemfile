@@ -14,6 +14,7 @@ gem 'puma', '~> 3.11'
 
 # GraphQL
 gem 'graphql'
+gem 'graphql-errors'
 gem 'graphiql-rails'
 # dependencies of graphiql
 gem 'sass-rails'
