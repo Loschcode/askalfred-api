@@ -14,10 +14,7 @@ module Mutations
 
     def resolve(input:)
       identity = Identity.find_by! confirmation_token: input[:confirmation_token]
-
-      if identity.confirmed_at.present?
-        raise ActiveRecord::RecordInvalid, 'Your email has already been confirmed'
-      end
+      return GraphQL::ExecutionError.new('Your email has already been confirmed') if identity.confirmed_at.present?
 
       identity.update!(
         confirmed_at: Time.now
