@@ -13,7 +13,8 @@ module Mutations
     field :current_identity, ::Types::Identity, null: false
 
     def resolve(input:)
-      identity = Identity.find_by! confirmation_token: input[:confirmation_token]
+      identity = Identity.find_by confirmation_token: input[:confirmation_token]
+      return GraphQL::ExecutionError.new('Your identity has not been recognized') unless identity.present?
       return GraphQL::ExecutionError.new('Your email has already been confirmed') if identity.confirmed_at.present?
 
       identity.update!(
