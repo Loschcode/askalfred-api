@@ -16,12 +16,12 @@ module Mutations
       identity = Identity.find_by email: input[:email]
       return GraphQL::ExecutionError.new('Your email was not found') unless identity.present?
 
-      identity.update!(
+      identity.update(
         recovery_sent_at: Time.now,
-        recovery_token: TokenService.new(current_identity).perform
+        recovery_token: TokenService.new(identity).perform
       )
 
-      IdentityMailer.with(identity: current_identity).recovery_email.deliver_later
+      IdentityMailer.with(identity: identity).recovery_email.deliver_later
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
         current_identity: identity

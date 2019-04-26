@@ -8,9 +8,10 @@ class GraphqlController < ApplicationController
     }
     result = AskalfredApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
-  rescue => e
-    raise e unless Rails.env.development?
-    handle_error_in_development e
+  rescue => error
+    raise error unless Rails.env.development?
+    puts "[e[31m#{error}e[0m]"
+    handle_error_in_development error
   end
 
   private
