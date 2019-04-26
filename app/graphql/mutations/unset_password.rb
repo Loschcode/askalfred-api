@@ -17,7 +17,9 @@ module Mutations
       return GraphQL::ExecutionError.new('Your identity has not been recognized') unless identity.present?
 
       identity.update!(
-        encrypted_password: nil
+        encrypted_password: nil,
+        recovery_token: nil,
+        recovery_sent_at: nil
       )
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
