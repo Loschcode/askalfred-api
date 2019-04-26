@@ -8,5 +8,6 @@ module Types
     field :sendRecoveryEmail, mutation: Mutations::SendRecoveryEmail
     field :getForFree, mutation: Mutations::GetForFree
     field :storeIdentityPassword, mutation: Mutations::StoreIdentityPassword
+    field :unsetPassword, mutation: Mutations::UnsetPassword
   end
 end
