@@ -17,7 +17,7 @@ module Mutations
     def resolve(input:)
       return unless current_identity
 
-      return GraphQL::ExecutionError.new('You have already set your password') if current_identity.encrypted_password.present?
+      return GraphQL::ExecutionError.new('You have already set your password') unless current_identity.encrypted_password.blank?
 
       password_hash = BCrypt::Password.create(input[:password])
       encrypted_password = BCrypt::Password.new(password_hash)

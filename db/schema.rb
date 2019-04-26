@@ -34,7 +34,9 @@ ActiveRecord::Schema.define(version: 2019_04_03_023604) do
     t.string "token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.datetime "recovery_sent_at"
     t.string "confirmation_token"
+    t.string "recovery_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
@@ -43,6 +45,8 @@ ActiveRecord::Schema.define(version: 2019_04_03_023604) do
     t.index ["email", "encrypted_password"], name: "index_identities_on_email_and_encrypted_password"
     t.index ["email"], name: "index_identities_on_email"
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
+    t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
+    t.index ["recovery_token"], name: "index_identities_on_recovery_token"
   end
 
 end

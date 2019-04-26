@@ -9,7 +9,9 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.string :token
       t.datetime :confirmed_at
       t.datetime :confirmation_sent_at
+      t.datetime :recovery_sent_at
       t.string :confirmation_token
+      t.string :recovery_token
 
       t.timestamps
 
@@ -19,6 +21,8 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.index :confirmed_at
       t.index :confirmation_sent_at
       t.index :confirmation_token
+      t.index :recovery_sent_at
+      t.index :recovery_token
     end
   end
 end
