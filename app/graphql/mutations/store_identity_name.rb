@@ -17,10 +17,14 @@ module Mutations
     def resolve(input:)
       return unless current_identity
 
-      current_identity.update!(
+      current_identity.update(
         first_name: input[:first_name],
         last_name: input[:last_name]
       )
+
+      if current_identity.errors.any?
+        return GraphQL::ExecutionError.new current_identity.errors.full_messages.join(', ')
+      end
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
         current_identity: current_identity.slice(:first_name, :last_name)

@@ -8,10 +8,14 @@ module Mutations
       return unless current_identity
       return GraphQL::ExecutionError.new('Your email was already confirmed.') if current_identity.confirmed_at.present?
 
-      current_identity.update!(
+      current_identity.update(
         confirmation_sent_at: Time.now,
         confirmation_token: TokenService.new(current_identity).perform
       )
+
+      if current_identity.errors.any?
+        return GraphQL::ExecutionError.new current_identity.errors.full_messages.join(', ')
+      end
 
       IdentityMailer.with(identity: current_identity).surprise_email.deliver_later
 

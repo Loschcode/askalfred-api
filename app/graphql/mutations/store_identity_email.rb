@@ -15,9 +15,17 @@ module Mutations
     def resolve(input:)
       return unless current_identity
 
-      current_identity.update!(
+      if current_identity.email.present? && current_identity.confirmed_at.present?
+        return GraphQL::ExecutionError.new('You already confirmed your email. You can\'t change it here.')
+      end
+
+      current_identity.update(
         email: input[:email],
       )
+
+      if current_identity.errors.any?
+        return GraphQL::ExecutionError.new current_identity.errors.full_messages.join(', ')
+      end
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
         current_identity: current_identity.slice(:email)

@@ -21,6 +21,10 @@ module Mutations
         recovery_token: TokenService.new(identity).perform
       )
 
+      if identity.errors.any?
+        return GraphQL::ExecutionError.new identity.errors.full_messages.join(', ')
+      end
+
       IdentityMailer.with(identity: identity).recovery_email.deliver_later
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {

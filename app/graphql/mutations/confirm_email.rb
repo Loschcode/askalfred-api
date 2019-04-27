@@ -17,9 +17,13 @@ module Mutations
       return GraphQL::ExecutionError.new('Your identity has not been recognized') unless identity.present?
       return GraphQL::ExecutionError.new('Your email has already been confirmed') if identity.confirmed_at.present?
 
-      identity.update!(
+      identity.update(
         confirmed_at: Time.now
       )
+
+      if identity.errors.any?
+        return GraphQL::ExecutionError.new identity.errors.full_messages.join(', ')
+      end
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
         current_identity: identity

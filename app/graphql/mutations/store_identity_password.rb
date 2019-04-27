@@ -22,9 +22,13 @@ module Mutations
       password_hash = BCrypt::Password.create(input[:password])
       encrypted_password = BCrypt::Password.new(password_hash)
 
-      current_identity.update!(
+      current_identity.update(
         encrypted_password: encrypted_password,
       )
+
+      if current_identity.errors.any?
+        return GraphQL::ExecutionError.new current_identity.errors.full_messages.join(', ')
+      end
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
         current_identity: current_identity.slice(:encrypted_password)
