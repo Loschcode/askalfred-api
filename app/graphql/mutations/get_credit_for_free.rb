@@ -1,5 +1,5 @@
 module Mutations
-  class GetForFree < Mutations::BaseMutation
+  class GetCreditForFree < Mutations::BaseMutation
     TWENTY_MINUTES = 20 * 60
 
     description 'creates a guest identity'
