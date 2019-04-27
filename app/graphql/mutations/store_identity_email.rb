@@ -13,7 +13,7 @@ module Mutations
     field :email, String, null: true
 
     def resolve(input:)
-      return unless current_identity
+      return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
 
       if current_identity.email.present? && current_identity.confirmed_at.present?
         return GraphQL::ExecutionError.new('You already confirmed your email. You can\'t change it here.')

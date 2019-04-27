@@ -15,7 +15,7 @@ module Mutations
     field :encrypted_password, String, null: true
 
     def resolve(input:)
-      return unless current_identity
+      return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
 
       return GraphQL::ExecutionError.new('You have already set your password') unless current_identity.encrypted_password.blank?
 

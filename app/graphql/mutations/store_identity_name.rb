@@ -15,7 +15,7 @@ module Mutations
     field :last_name, String, null: true
 
     def resolve(input:)
-      return unless current_identity
+      return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
 
       current_identity.update(
         first_name: input[:first_name],

@@ -7,7 +7,7 @@ module Mutations
     field :credit, ::Types::Credit, null: false
 
     def resolve
-      return unless current_identity
+      return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
       return GraphQL::ExecutionError.new('You already got this surprise.') if current_identity.credits.count > 0
 
       credit = Credit.create(
