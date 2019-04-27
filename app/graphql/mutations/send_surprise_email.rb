@@ -17,6 +17,8 @@ module Mutations
         return GraphQL::ExecutionError.new current_identity.errors.full_messages.join(', ')
       end
 
+      IdentityMailer.with(identity: current_identity).surprise_email.deliver_later
+
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
         current_identity: current_identity.slice(:confirmation_sent_at, :confirmation_token)
       }, scope: current_identity.id)
