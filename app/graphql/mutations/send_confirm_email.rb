@@ -7,6 +7,7 @@ module Mutations
     def resolve
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
       return GraphQL::ExecutionError.new('Your email was already confirmed.') if current_identity.confirmed_at.present?
+      return GraphQL::ExecutionError.new('You didn\'t define any email.') unless current_identity.email.present?
 
       current_identity.update(
         confirmation_sent_at: Time.now,

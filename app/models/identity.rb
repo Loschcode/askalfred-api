@@ -17,13 +17,13 @@ class Identity < ActiveRecord::Base
 
   before_create :ensure_token
 
+  def guest?
+    role == 'guest'
+  end
+
   private
 
   def ensure_token
     self.token = TokenService.new(self).perform
-  end
-
-  def guest?
-    role == 'guest'
   end
 end
