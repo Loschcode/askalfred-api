@@ -16,7 +16,6 @@ module Mutations
 
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
-
       return GraphQL::ExecutionError.new('You have already set your password') unless current_identity.encrypted_password.blank?
 
       password_hash = BCrypt::Password.create(input[:password])
@@ -24,6 +23,7 @@ module Mutations
 
       current_identity.update(
         encrypted_password: encrypted_password,
+        recovery_token: nil,
       )
 
       if current_identity.errors.any?

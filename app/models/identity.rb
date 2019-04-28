@@ -3,13 +3,15 @@ class Identity < ActiveRecord::Base
   validates :email, presence: true, unless: -> { guest? }
   validates :email, uniqueness: true, format: { with: EMAIL_FORMAT }, if: -> { email.present? }
 
-  validates :encrypted_password, presence: true, unless: -> { guest? }
+  validates :encrypted_password, presence: true, unless: -> { guest? || recovery_token.present? }
   validates :role, presence: true
 
   validates :token, presence: false
   validates :confirmed_at, presence: false
   validates :confirmation_sent_at, presence: false
   validates :confirmation_token, presence: false
+  validates :recovery_sent_at, presence: false
+  validates :recovery_token, presence: false
 
   has_many :credits
 

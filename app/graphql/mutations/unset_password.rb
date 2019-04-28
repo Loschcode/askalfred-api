@@ -14,11 +14,10 @@ module Mutations
 
     def resolve(input:)
       identity = Identity.find_by recovery_token: input[:recovery_token]
-      return GraphQL::ExecutionError.new('Your identity has not been recognized. Please ask for a new recovery.') unless identity.present?
+      return GraphQL::ExecutionError.new('This recovery link is invalid. Please ask for a new recovery.') unless identity.present?
 
       identity.update(
         encrypted_password: nil,
-        recovery_token: nil,
       )
 
       if identity.errors.any?
