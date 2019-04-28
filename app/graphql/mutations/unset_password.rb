@@ -19,7 +19,6 @@ module Mutations
       identity.update(
         encrypted_password: nil,
         recovery_token: nil,
-        recovery_sent_at: nil
       )
 
       if identity.errors.any?
@@ -27,7 +26,7 @@ module Mutations
       end
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
-        current_identity: identity.slice(:encrypted_password, :recovery_token, :recovery_sent_at)
+        current_identity: identity.slice(:encrypted_password, :recovery_token)
       }, scope: identity.id)
 
       {

@@ -19,6 +19,7 @@ module Mutations
 
       identity.update(
         confirmed_at: Time.now
+        confirmation_token: nil
       )
 
       if identity.errors.any?
