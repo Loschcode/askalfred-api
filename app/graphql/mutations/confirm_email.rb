@@ -18,7 +18,7 @@ module Mutations
       return GraphQL::ExecutionError.new('Your email has already been confirmed') if identity.confirmed_at.present?
 
       identity.update(
-        confirmed_at: Time.now
+        confirmed_at: Time.now,
         confirmation_token: nil
       )
 
