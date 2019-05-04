@@ -27,7 +27,7 @@ module Mutations
       end
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
-        current_identity: current_identity.slice(:first_name, :last_name)
+        current_identity: current_identity
       }, scope: current_identity.id)
 
       current_identity.slice(:first_name, :last_name)
