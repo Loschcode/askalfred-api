@@ -16,6 +16,9 @@ module Types
     field :confirmation_sent_at, GraphQL::Types::ISO8601DateTime, null: true
     field :confirmation_token, String, null: true
 
+    field :recovery_sent_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :recovery_token, String, null: true
+
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 

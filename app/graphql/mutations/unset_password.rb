@@ -25,7 +25,7 @@ module Mutations
       end
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
-        current_identity: identity.slice(:encrypted_password, :recovery_token)
+        current_identity: identity
       }, scope: identity.id)
 
       {

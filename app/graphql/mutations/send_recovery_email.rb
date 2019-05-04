@@ -28,8 +28,8 @@ module Mutations
       IdentityMailer.with(identity: identity).recovery_email.deliver_later
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
-        current_identity: identity.slice(:recovery_sent_at, :recovery_token)
-      }, scope: identity.id)
+        current_identity: current_identity
+      }, scope: current_identity.id)
 
       {
         current_identity: identity

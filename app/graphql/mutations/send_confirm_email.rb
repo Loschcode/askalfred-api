@@ -21,7 +21,7 @@ module Mutations
       IdentityMailer.with(identity: current_identity).confirm_email.deliver_later
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
-        current_identity: current_identity.slice(:confirmation_sent_at, :confirmation_token)
+        current_identity: current_identity
       }, scope: current_identity.id)
 
       {

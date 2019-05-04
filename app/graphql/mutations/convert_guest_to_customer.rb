@@ -20,7 +20,7 @@ module Mutations
       end
 
       AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
-        current_identity: current_identity.slice(:role)
+        current_identity: current_identity
       }, scope: current_identity.id)
 
       {
