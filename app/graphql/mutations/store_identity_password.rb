@@ -34,7 +34,9 @@ module Mutations
         current_identity: current_identity
       }, scope: current_identity.id)
 
-      current_identity.slice(:encrypted_password)
+      {
+        current_identity: current_identity
+      }
     end
 
     private
