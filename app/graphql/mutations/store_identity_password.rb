@@ -19,10 +19,9 @@ module Mutations
       return GraphQL::ExecutionError.new('You have already set your password') unless current_identity.encrypted_password.blank?
 
       password_hash = BCrypt::Password.create(input[:password])
-      encrypted_password = BCrypt::Password.new(password_hash)
 
       current_identity.update(
-        encrypted_password: encrypted_password,
+        encrypted_password: password_hash,
         recovery_token: nil,
       )
 
