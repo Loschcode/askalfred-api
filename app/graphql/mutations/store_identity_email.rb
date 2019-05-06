@@ -10,7 +10,7 @@ module Mutations
     description 'store the first and last name within the getting started'
 
     argument :input, Types::StoreIdentityEmailInput, required: true
-    field :email, String, null: true
+    field :current_identity, ::Types::Identity, null: false
 
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
@@ -31,7 +31,9 @@ module Mutations
         current_identity: current_identity
       }, scope: current_identity.id)
 
-      current_identity.slice(:email)
+      {
+        current_identity: current_identity
+      }
     end
 
     private

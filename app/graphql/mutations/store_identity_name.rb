@@ -11,8 +11,7 @@ module Mutations
     description 'store the first and last name within the getting started'
 
     argument :input, Types::StoreIdentityNameInput, required: true
-    field :first_name, String, null: true
-    field :last_name, String, null: true
+    field :current_identity, ::Types::Identity, null: false
 
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
@@ -30,7 +29,9 @@ module Mutations
         current_identity: current_identity
       }, scope: current_identity.id)
 
-      current_identity.slice(:first_name, :last_name)
+      {
+        current_identity: current_identity
+      }
     end
 
     private

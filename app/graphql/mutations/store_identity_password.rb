@@ -12,7 +12,7 @@ module Mutations
     description 'store the password'
 
     argument :input, Types::StoreIdentityPasswordInput, required: true
-    field :encrypted_password, String, null: true
+    field :current_identity, ::Types::Identity, null: false
 
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
