@@ -1,4 +1,4 @@
-class Thread < ActiveRecord::Base
+class Ticket < ActiveRecord::Base
   validates :identity_id, presence: true
 
   validates :title, presence: false
@@ -6,4 +6,5 @@ class Thread < ActiveRecord::Base
 
   belongs_to :identity
   has_one :credit
+  has_many :events
 end

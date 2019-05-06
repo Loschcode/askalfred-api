@@ -4,7 +4,9 @@ class AddEventsTable < ActiveRecord::Migration[5.2]
       t.string :identity_id
       t.string :ticket_id
 
-      t.references :eventable, polymorphic: true
+      # polymorphic
+      t.string :eventable_type
+      t.string :eventable_id
 
       t.timestamps
 

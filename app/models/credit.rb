@@ -4,5 +4,5 @@ class Credit < ActiveRecord::Base
   validates :ticket_id, presence: false
 
   belongs_to :identity
-  belongs_to :ticket
+  belongs_to :ticket, optional: true
 end
