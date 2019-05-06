@@ -35,4 +35,16 @@ ActiveRecord::Base.transaction do
     identity: identity,
     eventable: message
   )
+
+  # file inside the ticket
+  file = EventFile.create!(
+    url: 'https://url-of-image.svg'
+  )
+
+  # we link the ticket  with the message through event
+  event = Event.create!(
+    ticket: ticket,
+    identity: identity,
+    eventable: file
+  )
 end
