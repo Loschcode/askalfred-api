@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_03_023604) do
+ActiveRecord::Schema.define(version: 2019_05_06_192131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,30 @@ ActiveRecord::Schema.define(version: 2019_04_03_023604) do
     t.datetime "updated_at", null: false
     t.index ["identity_id"], name: "index_credits_on_identity_id"
     t.index ["time"], name: "index_credits_on_time"
+  end
+
+  create_table "event_files", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_messages", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "identity_id"
+    t.string "thread_id"
+    t.string "eventable_type"
+    t.bigint "eventable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id"
+    t.index ["identity_id"], name: "index_events_on_identity_id"
+    t.index ["thread_id"], name: "index_events_on_thread_id"
   end
 
   create_table "identities", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -47,6 +71,16 @@ ActiveRecord::Schema.define(version: 2019_04_03_023604) do
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
     t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
+  end
+
+  create_table "threads", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "identity_id"
+    t.string "title"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identity_id"], name: "index_threads_on_identity_id"
+    t.index ["status"], name: "index_threads_on_status"
   end
 
 end
