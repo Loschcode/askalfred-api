@@ -18,7 +18,6 @@ ActiveRecord::Base.transaction do
   )
 
   %w(opened processing completed canceled).each_with_index do |status, index|
-
     ticket = if index.zero?
       Ticket.create!(
         identity: identity,
@@ -32,15 +31,17 @@ ActiveRecord::Base.transaction do
     )
     end
 
-    event = Event.create!(
-      ticket: ticket,
-      identity: identity,
-      eventable: EventMessage.create!(
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
+    3.times do |time|
+      Event.create!(
+        ticket: ticket,
+        identity: identity,
+        eventable: EventMessage.create!(
+          body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
+        )
       )
-    )
+    end
 
-    event = Event.create!(
+    Event.create!(
       ticket: ticket,
       identity: identity,
       eventable: EventFile.create!(

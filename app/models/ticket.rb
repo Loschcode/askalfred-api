@@ -7,4 +7,15 @@ class Ticket < ActiveRecord::Base
   belongs_to :identity
   has_one :credit
   has_many :events
+
+  scope :event_messages, -> { events.where(eventable_type: 'EventMessage') }
+  scope :event_files, -> { events.where(eventable_type: 'EventFile') }
+
+  def event_messages
+    events.where(eventable_type: 'EventMessage')
+  end
+
+  def event_files
+    events.where(eventable_type: 'EventFile')
+  end
 end

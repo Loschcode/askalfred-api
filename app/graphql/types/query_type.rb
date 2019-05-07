@@ -3,5 +3,6 @@ module Types
     extend ActiveSupport::Concern
 
     field :currentIdentity, resolver: Queries::CurrentIdentity
+    field :ticketsList, resolver: Queries::TicketsList
   end
 end

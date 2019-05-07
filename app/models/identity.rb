@@ -14,6 +14,7 @@ class Identity < ActiveRecord::Base
   validates :recovery_token, presence: false
 
   has_many :credits
+  has_many :tickets
 
   before_create :ensure_token
 
