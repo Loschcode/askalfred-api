@@ -15,7 +15,7 @@ module Types
       argument :input, Types::EventMessageInput, required: false
     end
 
-    def messages(input: nil)
+    def messages(input: {})
       messages = object.event_messages
       messages = messages.limit(input[:limit]) if input[:limit].present?
       messages.map(&:eventable)
