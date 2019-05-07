@@ -16,7 +16,7 @@ module Types
     end
 
     def messages(input: {})
-      messages = object.event_messages
+      messages = object.events.messages
       messages = messages.limit(input[:limit]) if input[:limit].present?
       messages.map(&:eventable)
     end

@@ -9,10 +9,10 @@ class Ticket < ActiveRecord::Base
   has_many :events
 
   def event_messages
-    events.where(eventable_type: 'EventMessage')
+    events.messages
   end
 
   def event_files
-    events.where(eventable_type: 'EventFile')
+    events.files
   end
 end
