@@ -17,34 +17,35 @@ ActiveRecord::Base.transaction do
     time: 1200
   )
 
-  # first ticket
-  ticket = Ticket.create!(
-    identity: identity,
-    title: 'This is a ticket !',
-    status: 'waiting'
-  )
+  %w(opened processing completed canceled).each_with_index do |status, index|
 
-  # message inside the ticket
-  message = EventMessage.create!(
-    body: 'This is a message!'
-  )
+    ticket = if index.zero?
+      Ticket.create!(
+        identity: identity,
+        status: status
+      )
+    else
+      Ticket.create!(
+      identity: identity,
+      title: 'This is a ticket !',
+      status: status
+    )
+    end
 
-  # we link the ticket  with the message through event
-  event = Event.create!(
-    ticket: ticket,
-    identity: identity,
-    eventable: message
-  )
+    event = Event.create!(
+      ticket: ticket,
+      identity: identity,
+      eventable: EventMessage.create!(
+        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
+      )
+    )
 
-  # file inside the ticket
-  file = EventFile.create!(
-    url: 'https://url-of-image.svg'
-  )
-
-  # we link the ticket  with the message through event
-  event = Event.create!(
-    ticket: ticket,
-    identity: identity,
-    eventable: file
-  )
+    event = Event.create!(
+      ticket: ticket,
+      identity: identity,
+      eventable: EventFile.create!(
+        url: 'https://url-of-image.svg'
+      )
+    )
+  end
 end
