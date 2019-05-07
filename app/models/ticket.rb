@@ -6,13 +6,8 @@ class Ticket < ActiveRecord::Base
 
   belongs_to :identity
   has_one :credit
+
   has_many :events
-
-  def event_messages
-    events.messages
-  end
-
-  def event_files
-    events.files
-  end
+  has_many :event_messages, through: :events
+  has_many :events_files, through: :events
 end

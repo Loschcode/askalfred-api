@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2019_05_06_192131) do
   enable_extension "uuid-ossp"
 
   create_table "credits", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "identity_id"
-    t.string "ticket_id"
+    t.uuid "identity_id"
+    t.uuid "ticket_id"
     t.integer "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,10 +41,10 @@ ActiveRecord::Schema.define(version: 2019_05_06_192131) do
   end
 
   create_table "events", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "identity_id"
-    t.string "ticket_id"
+    t.uuid "identity_id"
+    t.uuid "ticket_id"
     t.string "eventable_type"
-    t.string "eventable_id"
+    t.uuid "eventable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id"], name: "index_events_on_identity_id"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2019_05_06_192131) do
   end
 
   create_table "tickets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "identity_id"
+    t.uuid "identity_id"
     t.string "title"
     t.string "status"
     t.datetime "created_at", null: false

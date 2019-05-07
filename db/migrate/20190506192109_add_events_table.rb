@@ -1,12 +1,12 @@
 class AddEventsTable < ActiveRecord::Migration[5.2]
   def change
     create_table :events, id: :uuid, default: -> { "uuid_generate_v4()" } do |t|
-      t.string :identity_id
-      t.string :ticket_id
+      t.uuid :identity_id
+      t.uuid :ticket_id
 
       # polymorphic
       t.string :eventable_type
-      t.string :eventable_id
+      t.uuid :eventable_id
 
       t.timestamps
 
