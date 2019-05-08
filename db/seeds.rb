@@ -17,7 +17,7 @@ ActiveRecord::Base.transaction do
     time: 1200
   )
 
-  %w(opened processing completed canceled).each_with_index do |status, index|
+  %w(opened processing opened processing canceled completed canceled).each_with_index do |status, index|
     ticket = if index.zero?
       Ticket.create!(
         identity: identity,
@@ -31,7 +31,7 @@ ActiveRecord::Base.transaction do
     )
     end
 
-    3.times do |time|
+    5.times do |time|
       Event.create!(
         ticket: ticket,
         identity: identity,
