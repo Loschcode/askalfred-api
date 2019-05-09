@@ -5,15 +5,6 @@ module Types
   end
 end
 
-module Types
-  class TicketsList < Types::BaseObject
-    description 'tickets list'
-
-    field :items, [Types::Ticket], null: true
-    field :page_info, Types::PageInfo, null: true
-  end
-end
-
 module Queries
   class TicketsList < Queries::BaseQuery
     type Types::TicketsList, null: true
