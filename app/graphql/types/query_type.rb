@@ -3,7 +3,7 @@ module Types
     extend ActiveSupport::Concern
 
     field :currentIdentity, resolver: Resolvers::CurrentIdentity
-    # field :ticketsList, resolver: Resolvers::ticketsList
+    # field :ticketsConnection, resolver: Resolvers::ticketsConnection
 
     field :tickets_connection, resolver: Resolvers::TicketsConnection
   end
