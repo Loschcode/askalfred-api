@@ -5,8 +5,17 @@ module Types
   end
 end
 
-module Queries
-  class TicketsList < Queries::BaseQuery
+module Types
+  class TicketsList < Types::BaseObject
+    description 'tickets list'
+
+    field :items, [Types::Ticket], null: true
+    field :page_info, Types::PageInfo, null: true
+  end
+end
+
+module Resolvers
+  class TicketsList < Resolvers::BaseResolver
     type Types::TicketsList, null: true
     description 'Get the tickets list'
 

@@ -1,5 +1,5 @@
-module Queries
-  class CurrentIdentity < Queries::BaseQuery
+module Resolvers
+  class CurrentIdentity < Resolvers::BaseResolver
     type Types::Identity, null: true
     description 'Get the current identity'
 
