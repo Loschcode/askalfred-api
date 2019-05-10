@@ -1,11 +1,4 @@
 module Types
-  class EventMessageInput < Types::BaseInputObject
-    description 'event message arguments'
-    argument :limit, Integer, 'limit of the messages', required: false
-  end
-end
-
-module Types
   class EventMessage < Types::BaseObject
     description 'event message'
 
