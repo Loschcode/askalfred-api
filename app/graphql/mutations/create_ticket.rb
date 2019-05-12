@@ -10,7 +10,7 @@ module Mutations
     description 'store the first and last name within the getting started'
 
     argument :input, Types::CreateTicketInput, required: true
-    field :ticket, ::Types::Ticket, null: false
+    field :tickets_connection, Types::TicketsConnection, null: false
 
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
@@ -38,8 +38,10 @@ module Mutations
         end
 
         {
-          ticket: ticket
-        }
+          tickets_connection: [ticket]
+        }.tap do |payload|
+          AskalfredApiSchema.subscriptions.trigger('subscribeToTickets', {}, payload, scope: current_identity.id)
+        end
       end
     end
   end
