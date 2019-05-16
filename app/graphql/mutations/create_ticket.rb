@@ -37,11 +37,11 @@ module Mutations
           raise GraphQL::ExecutionError.new event_message.errors.full_messages.join(', ')
         end
 
+        AskalfredApiSchema.subscriptions.trigger('refreshTicketsConnection', {}, { success: true }, scope: current_identity.id)
+
         {
-          tickets_connection: [ticket]
-        }.tap do |payload|
-          AskalfredApiSchema.subscriptions.trigger('subscribeToTickets', {}, payload, scope: current_identity.id)
-        end
+          tickets_connection: current_identity.tickets
+        }
       end
     end
   end
