@@ -40,7 +40,7 @@ module Mutations
         AskalfredApiSchema.subscriptions.trigger('refreshTicketsConnection', {}, { success: true }, scope: current_identity.id)
 
         {
-          tickets_connection: current_identity.tickets
+          tickets_connection: current_identity.tickets.order(created_at: :desc)
         }
       end
     end

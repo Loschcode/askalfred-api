@@ -11,7 +11,8 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
-    field :messages_connection, Types::EventMessage.connection_type, null: true
+    field :messages_connection, Types::EventMessagesConnection, null: true
+
     def messages_connection
       object.event_messages
     end
