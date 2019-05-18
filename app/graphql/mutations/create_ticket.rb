@@ -1,7 +1,7 @@
 module Types
   class CreateTicketInput < Types::BaseInputObject
     description 'the create ticket input needs a message'
-    argument :message, String, 'message', required: true
+    argument :subject, String, 'subject', required: true
   end
 end
 
@@ -18,24 +18,25 @@ module Mutations
       ActiveRecord::Base.transaction do
         ticket = Ticket.create(
           identity: current_identity,
+          subject: input[:subject],
           status: 'opened'
         )
 
-        if ticket.errors.any?
-          raise GraphQL::ExecutionError.new ticket.errors.full_messages.join(', ')
-        end
+        # if ticket.errors.any?
+        #   raise GraphQL::ExecutionError.new ticket.errors.full_messages.join(', ')
+        # end
 
-        event_message = EventMessage.create(
-          body: input[:message],
-          event: Event.create(
-            ticket: ticket,
-            identity: current_identity
-          )
-        )
+        # event_message = EventMessage.create(
+        #   body: input[:message],
+        #   event: Event.create(
+        #     ticket: ticket,
+        #     identity: current_identity
+        #   )
+        # )
 
-        if event_message.errors.any?
-          raise GraphQL::ExecutionError.new event_message.errors.full_messages.join(', ')
-        end
+        # if event_message.errors.any?
+        #   raise GraphQL::ExecutionError.new event_message.errors.full_messages.join(', ')
+        # end
 
         AskalfredApiSchema.subscriptions.trigger('refreshTicketsConnection', {}, { success: true }, scope: current_identity.id)
 

@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_05_06_192131) do
   create_table "tickets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "identity_id"
     t.string "title"
+    t.string "subject"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

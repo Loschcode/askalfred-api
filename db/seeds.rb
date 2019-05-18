@@ -21,13 +21,15 @@ ActiveRecord::Base.transaction do
     ticket = if index.zero?
       Ticket.create!(
         identity: identity,
-        status: status
+        status: status,
+        subject: 'This is a random subject'
       )
     else
       Ticket.create!(
       identity: identity,
       title: 'This is a ticket !',
-      status: status
+      status: status,
+      subject: 'This is a random subject'
     )
     end
 
@@ -35,7 +37,7 @@ ActiveRecord::Base.transaction do
       Event.create!(
         ticket: ticket,
         identity: identity,
-        eventable: EventMessage.create!(
+        eventable: EventMessage.new(
           body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
         )
       )
@@ -44,7 +46,7 @@ ActiveRecord::Base.transaction do
     Event.create!(
       ticket: ticket,
       identity: identity,
-      eventable: EventFile.create!(
+      eventable: EventFile.new(
         url: 'https://url-of-image.svg'
       )
     )

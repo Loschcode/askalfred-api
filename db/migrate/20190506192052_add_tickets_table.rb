@@ -4,6 +4,7 @@ class AddTicketsTable < ActiveRecord::Migration[5.2]
       t.uuid :identity_id
 
       t.string :title
+      t.string :subject
       t.string :status
 
       t.timestamps
