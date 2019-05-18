@@ -11,6 +11,15 @@ ActiveRecord::Base.transaction do
     last_name: 'Schaffner',
   )
 
+  # admin
+  identity_admin = Identity.create!(
+    email: 'admin@askalfred.app',
+    role: 'admin',
+    encrypted_password: password_hash,
+    first_name: 'Admin',
+    last_name: 'Schaffner',
+  )
+
   # bonus credit
   credit = Credit.create!(
     identity: identity,
@@ -36,19 +45,19 @@ ActiveRecord::Base.transaction do
     5.times do |time|
       Event.create!(
         ticket: ticket,
-        identity: identity,
-        eventable: EventMessage.new(
+        identity: [identity, identity_admin].sample,
+        eventable: EventMessage.create!(
           body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
         )
       )
     end
 
-    Event.create!(
-      ticket: ticket,
-      identity: identity,
-      eventable: EventFile.new(
-        url: 'https://url-of-image.svg'
-      )
-    )
+    # Event.create!(
+    #   ticket: ticket,
+    #   identity: identity,
+    #   eventable: EventFile.new(
+    #     url: 'https://url-of-image.svg'
+    #   )
+    # )
   end
 end
