@@ -1,5 +1,5 @@
 class TicketsEdgeType < GraphQL::Types::Relay::BaseEdge
-  node_type(Types::Ticket)
+  node_type Types::Ticket
 end
 
 module Types
@@ -10,6 +10,6 @@ module Types
       object.nodes.size
     end
 
-    edge_type(TicketsEdgeType)
+    edge_type TicketsEdgeType
   end
 end

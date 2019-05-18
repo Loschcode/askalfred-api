@@ -16,5 +16,11 @@ module Types
     def messages_connection
       object.event_messages
     end
+
+    field :events_connection, Types::EventsConnection, null: true
+
+    def events_connection
+      object.events
+    end
   end
 end
