@@ -42,6 +42,10 @@ ActiveRecord::Base.transaction do
     )
     end
 
+    # if it's just opened
+    # we don't need more than that
+    next if ticket.status == 'opened'
+
     5.times do |time|
       Event.create!(
         ticket: ticket,
