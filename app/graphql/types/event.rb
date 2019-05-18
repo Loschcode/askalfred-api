@@ -8,6 +8,8 @@ module Types
       object.eventable_type
     end
 
+    field :identity, Types::Identity, null: false
+
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
