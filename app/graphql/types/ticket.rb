@@ -17,13 +17,13 @@ module Types
     field :messages_connection, Types::EventMessagesConnection, null: true
 
     def messages_connection
-      object.event_messages
+      object.event_messages.order(created_at: :asc)
     end
 
     field :events_connection, Types::EventsConnection, null: true
 
     def events_connection
-      object.events
+      object.events.order(created_at: :asc)
     end
   end
 end
