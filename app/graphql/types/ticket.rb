@@ -9,6 +9,8 @@ module Types
     field :subject, String, null: true
     field :status, String, null: true
 
+    field :origin, String, null: true
+
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 

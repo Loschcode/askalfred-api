@@ -23,7 +23,8 @@ ActiveRecord::Base.transaction do
   # bonus credit
   credit = Credit.create!(
     identity: identity,
-    time: 1200
+    time: 1200,
+    origin: 'registration_bonus'
   )
 
   %w(opened processing opened processing canceled completed canceled).each_with_index do |status, index|

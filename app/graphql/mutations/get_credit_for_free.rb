@@ -12,7 +12,8 @@ module Mutations
 
       credit = Credit.create(
         identity: current_identity,
-        time: TWENTY_MINUTES
+        time: TWENTY_MINUTES,
+        origin: 'registration_bonus'
       )
 
       if credit.errors.any?
