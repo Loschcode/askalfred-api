@@ -9,6 +9,7 @@ module Types
     field :storeIdentityName, mutation: Mutations::StoreIdentityName
     field :storeIdentityEmail, mutation: Mutations::StoreIdentityEmail
     field :sendConfirmEmail, mutation: Mutations::SendConfirmEmail
+    field :sendMessage, mutation: Mutations::SendMessage
     field :sendRecoveryEmail, mutation: Mutations::SendRecoveryEmail
     field :signIn, mutation: Mutations::SignIn
     field :getCreditForFree, mutation: Mutations::GetCreditForFree
