@@ -25,5 +25,11 @@ module Types
     def events_connection
       object.events.order(created_at: :asc)
     end
+
+    field :last_message_from_alfred, Types::EventMessage, null: true
+
+    def last_message_from_alfred
+      object.event_messages.where.not(events: { identity: context[:current_identity] }).order(created_at: :desc).first
+    end
   end
 end

@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2019_05_06_192131) do
     t.uuid "ticket_id"
     t.string "eventable_type"
     t.uuid "eventable_id"
+    t.datetime "seen_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id"], name: "index_events_on_identity_id"

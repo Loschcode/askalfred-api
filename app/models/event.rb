@@ -15,4 +15,6 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :event_file
   validates_associated :event_message
   validates_associated :event_file
+
+  validates :seen_at, required: false
 end

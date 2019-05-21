@@ -8,6 +8,7 @@ class AddEventsTable < ActiveRecord::Migration[5.2]
       t.string :eventable_type
       t.uuid :eventable_id
 
+      t.datetime :seen_at
       t.timestamps
 
       t.index :identity_id

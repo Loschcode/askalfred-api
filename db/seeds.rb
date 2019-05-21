@@ -27,7 +27,7 @@ ActiveRecord::Base.transaction do
     origin: 'registration_bonus'
   )
 
-  %w(opened processing opened processing canceled completed canceled).each_with_index do |status, index|
+  %w(opened processing opened processing canceled completed canceled processing canceled completed canceled).each_with_index do |status, index|
     ticket = if index.zero?
       Ticket.create!(
         identity: identity,
