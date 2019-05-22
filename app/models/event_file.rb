@@ -2,5 +2,5 @@ class EventFile < ActiveRecord::Base
   has_one :event, as: :eventable
   accepts_nested_attributes_for :event
 
-  validates :url, presence: true
+  has_one_attached :file
 end

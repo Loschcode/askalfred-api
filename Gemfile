@@ -16,6 +16,8 @@ gem 'puma', '~> 3.11'
 gem 'graphql'
 gem 'graphql-errors'
 gem 'graphiql-rails'
+gem 'apollo_upload_server', '2.0.0.beta.3'
+
 # dependencies of graphiql
 gem 'sass-rails'
 gem 'uglifier'
