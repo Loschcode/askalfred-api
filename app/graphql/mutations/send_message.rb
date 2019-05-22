@@ -19,12 +19,18 @@ module Mutations
       ActiveRecord::Base.transaction do
         ticket = Ticket.find(input[:id])
 
+        event_message = EventMessage.create(
+          body: input[:message]
+        )
+
+        if event_message.errors.any?
+          raise GraphQL::ExecutionError.new event_message.errors.full_messages.join(', ')
+        end
+
         event = Event.create(
           ticket: ticket,
           identity: current_identity,
-          eventable: EventMessage.create(
-            body: input[:message]
-          )
+          eventable: event_message
         )
 
         if event.errors.any?

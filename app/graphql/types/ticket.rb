@@ -14,16 +14,22 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
+    field :events_connection, Types::EventsConnection, null: true
+
+    def events_connection
+      object.events.order(created_at: :asc)
+    end
+
     field :messages_connection, Types::EventMessagesConnection, null: true
 
     def messages_connection
       object.event_messages.order(created_at: :asc)
     end
 
-    field :events_connection, Types::EventsConnection, null: true
+    field :files_connection, Types::EventFilesConnection, null: true
 
-    def events_connection
-      object.events.order(created_at: :asc)
+    def files_connection
+      object.event_messages.order(created_at: :asc)
     end
 
     field :last_message_from_alfred, Types::EventMessage, null: true

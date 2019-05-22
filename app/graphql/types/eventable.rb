@@ -1,18 +1,14 @@
 module Types
-  module Eventable
-    include Types::BaseInterface
+  class Eventable < Types::BaseUnion
+    possible_types Types::EventMessage, Types::EventFile
 
-    field :id, ID, null: false
-    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
-    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-
-    definition_methods do
-      def resolve_type(object, context)
-        if object.is_a?(::EventMessage)
-          Types::EventMessage
-        else
-          raise "Unexpected Eventable: #{object.inspect}"
-        end
+    def self.resolve_type(object, context)
+      if object.is_a?(::EventMessage)
+        Types::EventMessage
+      elsif object.is_a?(::EventFile)
+        Types::EventFile
+      else
+        raise "Unexpected Eventable: #{object.inspect}"
       end
     end
   end

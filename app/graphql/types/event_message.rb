@@ -1,7 +1,5 @@
 module Types
   class EventMessage < Types::BaseObject
-    implements Types::Eventable
-
     field :id, ID, null: false
     field :body, String, null: false
 
