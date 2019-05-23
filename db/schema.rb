@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
   end
 
   create_table "event_files", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -87,11 +86,13 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
     t.datetime "recovery_sent_at"
     t.string "confirmation_token"
     t.string "recovery_token"
+    t.integer "credits_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_identities_on_confirmation_token"
     t.index ["confirmed_at"], name: "index_identities_on_confirmed_at"
+    t.index ["credits_count"], name: "index_identities_on_credits_count"
     t.index ["email", "encrypted_password"], name: "index_identities_on_email_and_encrypted_password"
     t.index ["email"], name: "index_identities_on_email"
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"

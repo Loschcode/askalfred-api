@@ -12,6 +12,7 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.datetime :recovery_sent_at
       t.string :confirmation_token
       t.string :recovery_token
+      t.integer :credits_count, default: 0
 
       t.timestamps
 
@@ -23,6 +24,7 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.index :confirmation_token
       t.index :recovery_sent_at
       t.index :recovery_token
+      t.index :credits_count
     end
   end
 end
