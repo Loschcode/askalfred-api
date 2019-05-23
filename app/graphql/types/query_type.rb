@@ -5,8 +5,8 @@ module Types
     field :currentIdentity, resolver: Resolvers::CurrentIdentity
     # NOTE : maybe rename this, it's not a connection
     # if it's not linked to anything
-    field :tickets_connection, resolver: Resolvers::TicketsConnection
-    field :get_full_ticket, resolver: Resolvers::GetFullTicket
-    field :get_full_credits, resolver: Resolvers::GetFullCredits
+    field :ticketsConnection, resolver: Resolvers::TicketsConnection
+    field :getFullTicket, resolver: Resolvers::GetFullTicket
+    field :getFullCredits, resolver: Resolvers::GetFullCredits
   end
 end
