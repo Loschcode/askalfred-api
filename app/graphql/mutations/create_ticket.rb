@@ -18,7 +18,7 @@ module Mutations
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
 
       if current_identity.credits.sum(:time) < MINIMUM_TIME_REQUIRED
-        raise GraphQL::ExecutionError.new 'You don\'t have enough time left.'
+        raise GraphQL::ExecutionError.new 'You don\'t have enough time left.', options: { type: :credits_issue }
       end
 
       ActiveRecord::Base.transaction do
