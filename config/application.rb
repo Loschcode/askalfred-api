@@ -26,14 +26,8 @@ module AskalfredApi
     config.autoload_paths += Dir[Rails.root.join('app', 'services', '*'), Rails.root.join('lib')]
     config.eager_load_paths += Dir[Rails.root.join('lib')] # this is for Sidekiq
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    ENV.update YAML.load_file('config/application.yml')[Rails.env] rescue {}
 
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
   end
 end

@@ -14,6 +14,9 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.string :recovery_token
       t.integer :credits_count, default: 0
 
+      # not communicated at any time
+      t.string :stripe_customer_id
+
       t.timestamps
 
       t.index :email
@@ -25,6 +28,8 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.index :recovery_sent_at
       t.index :recovery_token
       t.index :credits_count
+      t.index :stripe_customer_id
+      t.string :stripe_card_id
     end
   end
 end

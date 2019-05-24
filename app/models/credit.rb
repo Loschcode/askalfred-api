@@ -5,6 +5,8 @@ class Credit < ActiveRecord::Base
 
   validates :origin, presence: true, inclusion: { in: %w(registration_bonus) }
 
+  validates :stripe_transaction_id, presence: false
+
   belongs_to :identity, counter_cache: true
   belongs_to :ticket, optional: true
 end

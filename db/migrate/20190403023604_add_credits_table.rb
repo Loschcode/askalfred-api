@@ -6,6 +6,8 @@ class AddCreditsTable < ActiveRecord::Migration[5.2]
       t.integer :time
       t.string :origin
 
+      t.string :stripe_transaction_id
+
       t.timestamps
 
       t.index :identity_id
@@ -13,6 +15,7 @@ class AddCreditsTable < ActiveRecord::Migration[5.2]
       t.index [:identity_id, :ticket_id]
       t.index :time
       t.index :origin
+      t.index :stripe_transaction_id
     end
   end
 end
