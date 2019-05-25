@@ -90,9 +90,9 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
     t.string "recovery_token"
     t.integer "credits_count", default: 0
     t.string "stripe_customer_id"
+    t.string "stripe_card_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "stripe_card_id"
     t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_identities_on_confirmation_token"
     t.index ["confirmed_at"], name: "index_identities_on_confirmed_at"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
     t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
+    t.index ["stripe_card_id"], name: "index_identities_on_stripe_card_id"
     t.index ["stripe_customer_id"], name: "index_identities_on_stripe_customer_id"
   end
 

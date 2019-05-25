@@ -14,6 +14,7 @@ class Identity < ActiveRecord::Base
   validates :recovery_token, presence: false
 
   validates :stripe_customer_id, presence: false
+  validates :stripe_card_id, presence: false
 
   has_many :credits
   has_many :tickets
