@@ -19,6 +19,9 @@ module Types
     field :recovery_sent_at, GraphQL::Types::ISO8601DateTime, null: true
     field :recovery_token, String, null: true
 
+    field :stripe_customer_id, String, null: true
+    field :stripe_card_id, String, null: true
+
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 

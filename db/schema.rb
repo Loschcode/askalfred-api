@@ -42,11 +42,13 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
     t.uuid "ticket_id"
     t.integer "time"
     t.string "origin"
+    t.string "stripe_transaction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id", "ticket_id"], name: "index_credits_on_identity_id_and_ticket_id"
     t.index ["identity_id"], name: "index_credits_on_identity_id"
     t.index ["origin"], name: "index_credits_on_origin"
+    t.index ["stripe_transaction_id"], name: "index_credits_on_stripe_transaction_id"
     t.index ["ticket_id"], name: "index_credits_on_ticket_id"
     t.index ["time"], name: "index_credits_on_time"
   end
@@ -87,8 +89,10 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
     t.string "confirmation_token"
     t.string "recovery_token"
     t.integer "credits_count", default: 0
+    t.string "stripe_customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_card_id"
     t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_identities_on_confirmation_token"
     t.index ["confirmed_at"], name: "index_identities_on_confirmed_at"
@@ -98,6 +102,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
     t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
+    t.index ["stripe_customer_id"], name: "index_identities_on_stripe_customer_id"
   end
 
   create_table "tickets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
