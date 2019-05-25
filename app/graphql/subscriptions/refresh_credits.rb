@@ -1,5 +1,5 @@
 module Subscriptions
   class RefreshCredits < Subscriptions::BaseSubscription
-    field :credits, [Types::Credit], null: true
+    field :success, String, null: false
   end
 end

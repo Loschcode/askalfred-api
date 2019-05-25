@@ -42,13 +42,13 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
     t.uuid "ticket_id"
     t.integer "time"
     t.string "origin"
-    t.string "stripe_transaction_id"
+    t.string "stripe_charge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id", "ticket_id"], name: "index_credits_on_identity_id_and_ticket_id"
     t.index ["identity_id"], name: "index_credits_on_identity_id"
     t.index ["origin"], name: "index_credits_on_origin"
-    t.index ["stripe_transaction_id"], name: "index_credits_on_stripe_transaction_id"
+    t.index ["stripe_charge_id"], name: "index_credits_on_stripe_charge_id"
     t.index ["ticket_id"], name: "index_credits_on_ticket_id"
     t.index ["time"], name: "index_credits_on_time"
   end
