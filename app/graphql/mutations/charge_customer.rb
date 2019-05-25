@@ -50,6 +50,9 @@ module Mutations
         end
 
         AskalfredApiSchema.subscriptions.trigger('refreshCredits', {}, { success: true }, scope: current_identity.id)
+        AskalfredApiSchema.subscriptions.trigger('refreshCurrentIdentity', {}, {
+          current_identity: current_identity
+        }, scope: current_identity.id)
 
         {
           stripe_charge_id: credit.stripe_charge_id

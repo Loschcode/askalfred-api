@@ -1,5 +1,5 @@
 module Subscriptions
-  class SubscribeToCurrentIdentity < Subscriptions::BaseSubscription
+  class RefreshCurrentIdentity < Subscriptions::BaseSubscription
     field :current_identity, Types::Identity, null: true
 
     def resolve
@@ -9,3 +9,4 @@ module Subscriptions
     end
   end
 end
+ 

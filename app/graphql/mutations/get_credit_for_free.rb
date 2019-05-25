@@ -20,7 +20,7 @@ module Mutations
         return GraphQL::ExecutionError.new credit.errors.full_messages.join(', ')
       end
 
-      AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
+      AskalfredApiSchema.subscriptions.trigger('refreshCurrentIdentity', {}, {
         current_identity: current_identity
       }, scope: current_identity.id)
 

@@ -20,7 +20,7 @@ module Mutations
 
       IdentityMailer.with(identity: current_identity).confirm_email.deliver_later
 
-      AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
+      AskalfredApiSchema.subscriptions.trigger('refreshCurrentIdentity', {}, {
         current_identity: current_identity
       }, scope: current_identity.id)
 

@@ -52,7 +52,7 @@ module Mutations
       current_identity.update stripe_card_id: stripe_card.id
 
       # STEP 3 : dispatch everything
-      AskalfredApiSchema.subscriptions.trigger('subscribeToCurrentIdentity', {}, {
+      AskalfredApiSchema.subscriptions.trigger('refreshCurrentIdentity', {}, {
         current_identity: current_identity
       }, scope: current_identity.id)
 
