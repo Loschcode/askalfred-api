@@ -1,9 +1,7 @@
 module Types
   class AddCardInput < Types::BaseInputObject
     description 'add a card'
-    argument :card_number, String, required: true
-    argument :expiration_date, String, required: true
-    argument :security_code, String, required: true
+    argument :card_token, String, required: true
   end
 end
 
@@ -36,14 +34,9 @@ module Mutations
 
       # STEP 2 : save card
       # if the customer already has a card we will replace it by this one
-      source  = {
-        object: 'card',
-        currency: 'eur',
-      }.merge to_stripe(input)
-
       stripe_card = begin
         Stripe::Customer.create_source(current_identity.stripe_customer_id,
-          source: source,
+          source: input[:card_token],
         )
       rescue Stripe::CardError => exception
         raise GraphQL::ExecutionError.new('Your card does not seem to be valid. Please try again.')
@@ -64,18 +57,18 @@ module Mutations
 
     private
 
-    def to_stripe(input_origin)
-      number = input_origin[:card_number].gsub(' ', '')
-      exp_month = input_origin[:expiration_date].split('/').first
-      exp_year = input_origin[:expiration_date].split('/').last
-      cvc = input_origin[:security_code]
+    # def to_stripe(input_origin)
+    #   number = input_origin[:card_number].gsub(' ', '')
+    #   exp_month = input_origin[:expiration_date].split('/').first
+    #   exp_year = input_origin[:expiration_date].split('/').last
+    #   cvc = input_origin[:security_code]
 
-      {
-        number: number,
-        exp_month: exp_month,
-        exp_year: exp_year,
-        cvc: cvc
-      }
-    end 
+    #   {
+    #     number: number,
+    #     exp_month: exp_month,
+    #     exp_year: exp_year,
+    #     cvc: cvc
+    #   }
+    # end 
   end
 end
