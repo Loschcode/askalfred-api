@@ -11,7 +11,7 @@
     </mj-column>
     <mj-column></mj-column>
 
-    <!-- Main  text -->
+    <!-- Main text -->
     </mj-section>
     <mj-section background-color="#4979D5">
       <mj-column>
@@ -30,14 +30,16 @@
       </mj-column>
     </mj-section>
 
+    <!-- Call to action -->
     <mj-section background-color="#4979D5">
       <mj-column>
-      <mj-button text-transform="uppercase" border-radius="30px" width="250px" font-family="Lato" font-weight="600" font-size="18px" inner-padding="20px" background-color="white" color="black" href="@call_to_action">
+      <mj-button text-transform="uppercase" border-radius="30px" width="250px" font-family="Lato" font-weight="600" font-size="18px" inner-padding="20px" background-color="white" color="black" href="<%= @call_to_action %>">
         Call to action
       </mj-button>
       </mj-column>
     </mj-section>
 
+    <!-- Bottom tips -->
     <mj-section background-color="white">
       <mj-column width="150px">
         <mj-image width="150px" src="http://localhost:8081/images/emails/symbols/idea.svg" />
@@ -48,15 +50,11 @@
       </mj-column>
     </mj-section>
 
-    <mj-section background-color="white">
-      <mj-column>
-      <mj-divider border-width="1px" border-style="solid" border-color="lightgrey" />
-      <mj-text align="center" font-family="Helvetica Neue" color="#79828B" font-weight="600">Thanks for choosing Alfred</mj-text>
-      </mj-column>
-    </mj-section>
+    <!-- Legal info -->
     <mj-section background-color="#F5F6F6">
       <mj-column>
-      <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">AskAlfred Inc. SIRET 281 381 371 |  <mj-button align="center" font-family="Helvetica Neue" color="#A0A0A0" href="#" width="130px" background-color="#F5F6F6">Unsubscribe</mj-button></mj-text>
+        <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">Thanks for choosing Alfred</mj-text>
+        <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">AskAlfred Inc. SIRET 281 381 371 |  <mj-button align="center" font-family="Helvetica Neue" color="#A0A0A0" href="#" width="130px" background-color="#F5F6F6">Unsubscribe</mj-button></mj-text>
       </mj-column>
     </mj-section>
   </mj-body>
