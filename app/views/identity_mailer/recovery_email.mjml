@@ -45,15 +45,30 @@
         <mj-image width="150px" src="http://localhost:8081/images/emails/symbols/idea.svg" />
       </mj-column>
       <mj-column width="400px">
-        <mj-text font-size="25px" color="#525252" font-weight="600" font-family="Helvetica Neue" padding-top="30px">Title</mj-text>
+        <mj-text font-size="25px" color="#525252" font-weight="600" font-family="Helvetica Neue" padding-top="20px">Title</mj-text>
         <mj-text font-size="15px" color="#7F7F7F" font-family="Helvetica Neue">Morbi sit amet sapien placerat lorem ultrices euismod sed at neque. Mauris tristique, lacus id maximus convallis, neque tellus ornare risus</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="white">
+      <mj-column width="150px">
+        <mj-image width="150px" src="http://localhost:8081/images/emails/symbols/keys.svg" />
+      </mj-column>
+      <mj-column width="400px">
+        <mj-text font-size="25px" color="#525252" font-weight="600" font-family="Helvetica Neue" padding-top="10px">Title</mj-text>
+        <mj-text font-size="15px" color="#7F7F7F" font-family="Helvetica Neue">Morbi sit amet sapien placerat lorem ultrices euismod sed at neque. Mauris tristique, lacus id maximus convallis, neque tellus ornare risus</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="white">
+      <mj-column>
+      <mj-text align="right" font-family="Helvetica Neue" color="#525252" font-weight="600"> — Thanks for choosing Alfred</mj-text>
       </mj-column>
     </mj-section>
 
     <!-- Legal info -->
     <mj-section background-color="#F5F6F6">
       <mj-column>
-        <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">Thanks for choosing Alfred</mj-text>
         <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">AskAlfred Inc. SIRET 281 381 371 |  <mj-button align="center" font-family="Helvetica Neue" color="#A0A0A0" href="#" width="130px" background-color="#F5F6F6">Unsubscribe</mj-button></mj-text>
       </mj-column>
     </mj-section>
