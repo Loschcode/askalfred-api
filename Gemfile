@@ -15,6 +15,9 @@ gem 'puma', '~> 3.11'
 # Payments
 gem 'stripe'
 
+# Emailings
+gem 'mjml-rails'
+
 # GraphQL
 gem 'graphql'
 gem 'graphql-errors'
