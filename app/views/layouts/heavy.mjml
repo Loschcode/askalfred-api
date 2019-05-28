@@ -72,7 +72,8 @@
     <!-- Legal info -->
     <mj-section background-color="#F5F6F6">
       <mj-column>
-        <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">AskAlfred Inc. SIRET 281 381 371 |  <mj-button align="center" font-family="Helvetica Neue" color="#A0A0A0" href="#" width="130px" background-color="#F5F6F6">Unsubscribe</mj-button></mj-text>
+        <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">AskAlfred Inc. SIRET 281 381 371</mj-text>
+        <mj-button align="center" font-family="Helvetica Neue" color="#A0A0A0" href="<%= "#{root_url}/emails/unsubscribe/?email=#{@identity.email}" %>" width="130px" background-color="#F5F6F6">Unsubscribe from our emails</mj-button>
       </mj-column>
     </mj-section>
   </mj-body>

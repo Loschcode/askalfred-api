@@ -16,6 +16,7 @@ module Types
     field :sendRecoveryEmail, mutation: Mutations::SendRecoveryEmail
     field :signIn, mutation: Mutations::SignIn
     field :getCreditForFree, mutation: Mutations::GetCreditForFree
+    field :removeEmail, mutation: Mutations::RemoveEmail
     field :storeIdentityPassword, mutation: Mutations::StoreIdentityPassword
     field :unsetPassword, mutation: Mutations::UnsetPassword
   end
