@@ -1,7 +1,5 @@
 # general mailer with default template
 class IdentityMailer < ApplicationMailer
-  default from: 'support@askalfred.app'
-
   def confirm_email
     set_params
 
@@ -17,9 +15,8 @@ class IdentityMailer < ApplicationMailer
       "I've got a surprise for you"
     )
 
-    set_explanations(
-      image: image_url('symbols/gift.svg'),
-      text: 'Your gift is ready for you and waiting with Alfred! Please click on the button below to proceed.'
+    set_illustration(
+      image_url('symbols/gift.svg'),
     )
 
     set_random_tips
@@ -29,7 +26,7 @@ class IdentityMailer < ApplicationMailer
   def recovery_email
     set_params
 
-    set_subject('Surprise from Alfred! 🎉')
+    set_subject('Recover your account! 🔑')
 
     set_call_to_action(
       url: app_url("getting-started/confirm-email?confirmation_token=#{@identity.confirmation_token}"),
@@ -41,9 +38,8 @@ class IdentityMailer < ApplicationMailer
       "I've got a surprise for you"
     )
 
-    set_explanations(
-      image: image_url('symbols/gift.svg'),
-      text: 'Your gift is ready for you and waiting with Alfred! Please click on the button below to proceed.'
+    set_illustration(
+      image_url('symbols/gift.svg'),
     )
 
     set_random_tips
@@ -64,12 +60,12 @@ class IdentityMailer < ApplicationMailer
       image: image_url('symbols/keys.svg'),
       title: 'Security tips',
       content: 'What happens with Alfred, stay with Alfred. He won\'t communicate any of your information to any third party, and anything you write will be encrypted and kept secret by the service.',
-      padding: '20px'
+      padding: '30px'
     )
   end
 
   def send_email
-    mail(to: @identity.email, subject: @subject, template_name: 'heavy')
+    mail(to: @identity.email, subject: @subject)
   end
 
   def set_params
@@ -84,8 +80,8 @@ class IdentityMailer < ApplicationMailer
     @headline = headline
   end
 
-  def set_explanations(text:, image:)
-    @explanations = { text: text, image: image }
+  def set_illustration(image)
+    @illustration = image
   end
 
   def set_call_to_action(label:, url:)
