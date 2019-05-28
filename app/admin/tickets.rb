@@ -31,7 +31,7 @@ ActiveAdmin.register Ticket do
       row :updated_at
     end
 
-    panel "Events" do
+    panel 'Events' do
       table_for ticket.events.order(created_at: :asc) do
         column :id
         column :eventable_type
@@ -42,6 +42,24 @@ ActiveAdmin.register Ticket do
         column :created_at
       end
     end
+
+    panel 'Send message' do
+      active_admin_form_for EventMessage.new, url: { action: :send_message } do |f|
+        f.inputs do
+          f.input :body, as: :text
+        end
+        f.actions do
+          f.action :submit, label: 'Create message'
+        end
+      end
+    end
+  end
+
+  member_action :send_message, method: :post do
+    # HERE WE SEND THE MESSAGE
+    # we also dispatch the refresh and everything
+    binding.pry
+    redirect_to action: :show
   end
 
   form title: :title do |f|
@@ -53,7 +71,7 @@ ActiveAdmin.register Ticket do
       input :updated_at
     end
     panel 'Markup' do
-      "The following can be used in the content below..."
+      "Something"
     end
     actions
   end
