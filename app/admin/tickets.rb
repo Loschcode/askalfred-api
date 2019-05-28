@@ -1,26 +1,54 @@
 ActiveAdmin.register Ticket do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-permit_params :identity_id,
-:title,
-:status,
-:created_at,
-:updated_at
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+
+  index do
+    id_column
+    column :identity
+    column :title
+    column :status
+    column :created_at
+    column :updated_at
+    actions
+  end
+
+  filter :id
+  filter :status, as: :select, collection: [:opened, :processing, :completed, :canceled]
+  filter :title
+  filter :created_at
+  filter :updated_at
+
+  permit_params :identity_id,
+                :title,
+                :status,
+                :created_at,
+                :updated_at
+
+  show title: :title do
+    attributes_table do
+      row :title
+      row :status
+      row :title
+      row :created_at
+      row :updated_at
+    end
+
+    panel "Events" do
+      table_for ticket.events.order(created_at: :asc) do
+        column :id
+        column :eventable_type
+        column :data do |event|
+          text_node event.eventable.body if event.eventable_type == 'EventMessage'
+          a event.eventable.file_path if event.eventable_type == 'EventFile'
+        end
+        column :created_at
+      end
+    end
+  end
 
   form title: :title do |f|
     inputs 'Details' do
       input :identity_id, as: :select, collection: Identity.all.map { |identity| ["#{identity.first_name} #{identity.last_name}", identity.id]}
       input :title
-      input :status
+      input :status, as: :select, collection: [:opened, :processing, :completed, :canceled]
       input :created_at
       input :updated_at
     end

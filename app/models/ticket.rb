@@ -16,8 +16,8 @@ class Ticket < ActiveRecord::Base
 
   has_many :events, dependent: :destroy
   accepts_nested_attributes_for :events, reject_if: :all_blank, allow_destroy: true
-  # validates_associated :events
+  validates_associated :events
 
-  has_many :event_messages, through: :events
-  has_many :events_files, through: :events
+  has_many :event_messages, through: :events, source: :eventable, source_type: 'EventMessage'
+  has_many :events_files, through: :events, source: :eventable, source_type: 'EventFile'
 end
