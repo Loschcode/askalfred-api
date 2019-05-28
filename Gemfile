@@ -15,6 +15,9 @@ gem 'puma', '~> 3.11'
 # Payments
 gem 'stripe'
 
+# Admin
+gem 'activeadmin'
+
 # Emailings
 gem 'mjml-rails'
 

@@ -4,6 +4,13 @@ class Ticket < ActiveRecord::Base
   validates :title, presence: false
   validates :status, presence: true, inclusion: { in: %w(opened processing completed canceled) }
 
+  enum status: {
+    opened: 'opened',
+    processing: 'processing',
+    completed: 'completed',
+    canceled: 'canceled'
+  }
+
   belongs_to :identity
   has_one :credit
 

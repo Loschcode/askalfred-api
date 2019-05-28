@@ -7,6 +7,11 @@ class Credit < ActiveRecord::Base
     in: %w(registration_bonus charge_customer)
   }
 
+  enum origin: {
+    registration_bonus: 'registration_bonus',
+    charge_customer: 'charge_customer'
+  }
+
   validates :stripe_charge_id, presence: false
 
   belongs_to :identity, counter_cache: true
