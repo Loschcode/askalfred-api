@@ -1,0 +1,68 @@
+<mjml>
+  <mj-head>
+    <mj-font name="Lato" href="https://fonts.googleapis.com/css?family=Lato:300,400,700" />
+    <mj-preview><%= @explanations[:text] %></mj-preview>
+  </mj-head>
+  <mj-body>
+    <!-- Ask Alfred logo -->
+    <mj-section background-color="#4979D5">
+    <mj-column>
+      <mj-image width="150px" src="http://localhost:8081/images/emails/ask-alfred.svg" />
+    </mj-column>
+    <mj-column></mj-column>
+
+    <!-- Main text -->
+    </mj-section>
+    <mj-section background-color="#4979D5">
+      <mj-column>
+        <mj-text align="center" font-size="35px" color="white" font-weight="600" font-family="Helvetica Neue"><%= @headline.first %></mj-text>
+        <mj-text align="center" font-size="35px" color="white" font-weight="600" font-family="Helvetica Neue"><%= @headline.last %></mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#4979D5">
+      <mj-column>
+        <mj-image width="150px" src="<%= @explanations[:image] %>" />
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#4979D5">
+      <mj-column>
+        <mj-text align="center" color="white" font-size="18px" font-family="Helvetica Neue"><%= @explanations[:text] %></mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Call to action -->
+    <mj-section background-color="#4979D5">
+      <mj-column>
+      <mj-button text-transform="uppercase" border-radius="30px" width="250px" font-family="Lato" font-weight="600" font-size="18px" inner-padding="20px" background-color="white" color="black" href="<%= @call_to_action[:url] %>">
+        <%= @call_to_action[:label] %>
+      </mj-button>
+      </mj-column>
+    </mj-section>
+
+    <!-- Bottom tips -->
+    <% @tips.each do |tip| %>
+      <mj-section background-color="white">
+        <mj-column width="150px">
+          <mj-image width="150px" src="<%= tip[:image] %>" />
+        </mj-column>
+        <mj-column width="400px">
+          <mj-text font-size="25px" color="#525252" font-weight="600" font-family="Helvetica Neue" padding-top="<%= tip[:padding] %>"><%= tip[:title] %></mj-text>
+          <mj-text font-size="15px" color="#7F7F7F" font-family="Helvetica Neue"><%= tip[:content] %></mj-text>
+        </mj-column>
+      </mj-section>
+    <% end %>
+
+    <mj-section background-color="white">
+      <mj-column>
+      <mj-text align="right" font-family="Helvetica Neue" color="#525252" font-weight="600"> — Thanks for choosing Alfred</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Legal info -->
+    <mj-section background-color="#F5F6F6">
+      <mj-column>
+        <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">AskAlfred Inc. SIRET 281 381 371 |  <mj-button align="center" font-family="Helvetica Neue" color="#A0A0A0" href="#" width="130px" background-color="#F5F6F6">Unsubscribe</mj-button></mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
