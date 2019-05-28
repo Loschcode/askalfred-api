@@ -8,42 +8,65 @@ class IdentityMailer < ApplicationMailer
     set_subject('Surprise from Alfred! 🎉')
 
     set_call_to_action(
-      url: "#{root_url}getting-started/confirm-email?confirmation_token=#{@identity.confirmation_token}",
-      label: 'Confirm my email',
+      url: app_url("getting-started/confirm-email?confirmation_token=#{@identity.confirmation_token}"),
+      label: 'Get my gift now',
+    )
+
+    set_headline(
+      "Hey #{@identity.first_name}!",
+      "I've got a surprise for you"
     )
 
     set_explanations(
       image: image_url('symbols/gift.svg'),
-      text: 'To receive your gift, I need to know you received my email. Please click on the button to confirm that.'
+      text: 'Your gift is ready for you and waiting with Alfred! Please click on the button below to proceed.'
+    )
+
+    set_random_tips
+    send_email
+  end
+
+  def recovery_email
+    set_params
+
+    set_subject('Surprise from Alfred! 🎉')
+
+    set_call_to_action(
+      url: app_url("getting-started/confirm-email?confirmation_token=#{@identity.confirmation_token}"),
+      label: 'Get my gift now',
     )
 
     set_headline(
-      'Something to say',
-      'on max two lines'
+      "Hey #{@identity.first_name}!",
+      "I've got a surprise for you"
     )
 
+    set_explanations(
+      image: image_url('symbols/gift.svg'),
+      text: 'Your gift is ready for you and waiting with Alfred! Please click on the button below to proceed.'
+    )
+
+    set_random_tips
+    send_email
+  end
+
+  private
+
+  def set_random_tips
     add_tip(
       image: image_url('symbols/idea.svg'),
-      title: 'Title',
-      content: 'Morbi sit amet sapien placerat lorem ultrices euismod sed at neque. Mauris tristique, lacus id maximus convallis, neque tellus ornare risus',
+      title: 'Need more time with Alfred?',
+      content: 'He\'s very flexible. If you don\'t have enough credit, he will continue your task anyway. You\'ll have to charge up your account but only for the next one!',
       padding: '20px'
     )
 
     add_tip(
       image: image_url('symbols/keys.svg'),
-      title: 'Title',
-      content: 'Morbi sit amet sapien placerat lorem ultrices euismod sed at neque. Mauris tristique, lacus id maximus convallis, neque tellus ornare risus',
-      padding: '10px'
+      title: 'Security tips',
+      content: 'What happens with Alfred, stay with Alfred. He won\'t communicate any of your information to any third party, and anything you write will be encrypted and kept secret by the service.',
+      padding: '20px'
     )
-
-    send_email
   end
-
-  def recovery_email
-    confirm_email
-  end
-
-  private
 
   def send_email
     mail(to: @identity.email, subject: @subject, template_name: 'heavy')
@@ -76,5 +99,9 @@ class IdentityMailer < ApplicationMailer
 
   def image_url(image)
     "#{root_url}images/emails/#{image}"
+  end
+
+  def app_url(url)
+    "#{root_url}#{url}"
   end
 end
