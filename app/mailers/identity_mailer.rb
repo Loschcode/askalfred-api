@@ -65,7 +65,7 @@ class IdentityMailer < ApplicationMailer
   end
 
   def send_email
-    return if @identity.email_opt_out
+    return if @identity.email_opt_out_at
     mail(to: @identity.email, subject: @subject)
   end
 

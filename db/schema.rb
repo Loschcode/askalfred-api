@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
     t.integer "credits_count", default: 0
     t.string "stripe_customer_id"
     t.string "stripe_card_id"
+    t.datetime "email_opt_out_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
@@ -99,6 +100,7 @@ ActiveRecord::Schema.define(version: 2019_05_22_185338) do
     t.index ["credits_count"], name: "index_identities_on_credits_count"
     t.index ["email", "encrypted_password"], name: "index_identities_on_email_and_encrypted_password"
     t.index ["email"], name: "index_identities_on_email"
+    t.index ["email_opt_out_at"], name: "index_identities_on_email_opt_out_at"
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
     t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
