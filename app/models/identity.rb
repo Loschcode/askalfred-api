@@ -16,8 +16,8 @@ class Identity < ActiveRecord::Base
   validates :stripe_customer_id, presence: false
   validates :stripe_card_id, presence: false
 
-  has_many :credits
-  has_many :tickets
+  has_many :credits, dependent: :destroy
+  has_many :tickets, dependent: :destroy
 
   before_create :ensure_token
 
