@@ -16,7 +16,7 @@ class IdentityMailer < ApplicationMailer
     )
 
     set_illustration(
-      image_url('symbols/gift.svg'),
+      image_url('symbols/illustrations/gift.svg'),
     )
 
     set_random_tips
@@ -29,17 +29,17 @@ class IdentityMailer < ApplicationMailer
     set_subject('Recover your account! 🔑')
 
     set_call_to_action(
-      url: app_url("getting-started/confirm-email?confirmation_token=#{@identity.confirmation_token}"),
-      label: 'Get my gift now',
+      url: app_url("connect/recovery-email?recovery_token=#{@identity.recovery_token}"),
+      label: 'Recover now',
     )
 
     set_headline(
-      "Hey #{@identity.first_name}!",
-      "I've got a surprise for you"
+      "Have you lost",
+      "Your access?"
     )
 
     set_illustration(
-      image_url('symbols/gift.svg'),
+      image_url('symbols/illustrations/keys.svg'),
     )
 
     set_random_tips
@@ -50,17 +50,17 @@ class IdentityMailer < ApplicationMailer
 
   def set_random_tips
     add_tip(
-      image: image_url('symbols/idea.svg'),
+      image: image_url('symbols/tips/idea.svg'),
       title: 'Need more time with Alfred?',
       content: 'He\'s very flexible. If you don\'t have enough credit, he will continue your task anyway. You\'ll have to charge up your account but only for the next one!',
       padding: '20px'
     )
 
     add_tip(
-      image: image_url('symbols/keys.svg'),
+      image: image_url('symbols/tips/keys.svg'),
       title: 'Security tips',
       content: 'What happens with Alfred, stay with Alfred. He won\'t communicate any of your information to any third party, and anything you write will be encrypted and kept secret by the service.',
-      padding: '30px'
+      padding: '10px'
     )
   end
 
