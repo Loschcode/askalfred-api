@@ -32,7 +32,7 @@ module Mutations
           raise GraphQL::ExecutionError.new ticket.errors.full_messages.join(', ')
         end
 
-        AskalfredApiSchema.subscriptions.trigger('refreshTicketsConnection', {}, { success: true }, scope: current_identity.id)
+        refresh_service.tickets_list
 
         {
           tickets_connection: current_identity.tickets.order(created_at: :desc)

@@ -31,9 +31,7 @@ module Mutations
       # for now we just wipe out the guest
       current_identity.destroy
 
-      AskalfredApiSchema.subscriptions.trigger('refreshCurrentIdentity', {}, {
-        current_identity: identity
-      }, scope: identity.id)
+      RefreshService.new(identity).myself
 
       {
         token: identity.token

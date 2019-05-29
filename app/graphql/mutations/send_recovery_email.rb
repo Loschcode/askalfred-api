@@ -27,9 +27,7 @@ module Mutations
 
       IdentityMailer.with(identity: identity).recovery_email.deliver_later
 
-      AskalfredApiSchema.subscriptions.trigger('refreshCurrentIdentity', {}, {
-        current_identity: current_identity
-      }, scope: current_identity.id)
+      refresh_service.myself
 
       {
         current_identity: identity

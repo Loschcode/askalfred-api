@@ -39,6 +39,7 @@ ActiveAdmin.register Ticket do
           text_node event.eventable.body if event.eventable_type == 'EventMessage'
           a event.eventable.file_path if event.eventable_type == 'EventFile'
         end
+        column :seen_at
         column :created_at
       end
     end

@@ -30,9 +30,7 @@ module Mutations
         body: "Email `#{input[:email]}` unsubscribed with the reason `#{input[:reason]}`"
       ).deliver
 
-      AskalfredApiSchema.subscriptions.trigger('refreshCurrentIdentity', {}, {
-        current_identity: identity
-      }, scope: identity.id)
+      RefreshService.new(identity).myself
 
       {
         success: true

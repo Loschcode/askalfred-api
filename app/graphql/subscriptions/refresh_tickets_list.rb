@@ -1,5 +1,5 @@
 module Subscriptions
-  class RefreshTicketsConnection < Subscriptions::BaseSubscription
+  class RefreshTicketsList < Subscriptions::BaseSubscription
     field :success, String, null: false
   end
 end

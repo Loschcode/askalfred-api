@@ -49,10 +49,8 @@ module Mutations
           raise GraphQL::ExecutionError.new credit.errors.full_messages.join(', ')
         end
 
-        AskalfredApiSchema.subscriptions.trigger('refreshCredits', {}, { success: true }, scope: current_identity.id)
-        AskalfredApiSchema.subscriptions.trigger('refreshCurrentIdentity', {}, {
-          current_identity: current_identity
-        }, scope: current_identity.id)
+        refresh_service.credits
+        refresh_service.myself
 
         {
           stripe_charge_id: credit.stripe_charge_id

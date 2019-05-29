@@ -31,11 +31,7 @@ module Mutations
           raise GraphQL::ExecutionError.new ticket.errors.full_messages.join(', ')
         end
 
-        AskalfredApiSchema.subscriptions.trigger('refreshTicket', {
-          id: ticket.id
-        }, {
-          ticket: ticket
-        }, scope: current_identity.id)
+        refresh_service.ticket(ticket)
 
         {
           ticket: ticket
