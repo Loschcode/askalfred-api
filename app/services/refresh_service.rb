@@ -43,7 +43,13 @@ class RefreshService
       channel,
       arguments,
       response,
-      scope: identity.id
+      scope
     )
+  end
+
+  def scope
+    {
+      scope: identity.id
+    }
   end
 end

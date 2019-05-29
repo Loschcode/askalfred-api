@@ -57,9 +57,9 @@ ActiveAdmin.register Ticket do
   end
 
   member_action :send_message, method: :post do
-    # HERE WE SEND THE MESSAGE
-    # we also dispatch the refresh and everything
-    binding.pry
+    body = params[:event_message][:body]
+
+    # EventMessage.create
     redirect_to action: :show
   end
 
@@ -75,5 +75,16 @@ ActiveAdmin.register Ticket do
       "Something"
     end
     actions
+  end
+
+  controller do
+    def update
+      super
+      # we dispatch it to the subscriptions as well
+      RefreshService.new(resource.identity).tap do |refresh|
+        refresh.ticket(resource)
+        refresh.tickets_list
+      end
+    end
   end
 end
