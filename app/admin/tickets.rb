@@ -23,9 +23,16 @@ ActiveAdmin.register Ticket do
                 :created_at,
                 :updated_at
 
+  # action_item :start_timer, only: :show, method: :put do
+  #   link_to 'Start timer', start_timer_admin_ticket_path(ticket)
+  # end
+  # member_action :start_timer, method: :get do
+  # end
+
   show title: :title do
     attributes_table do
-      row :title
+      row :identity
+      row :name do |event| event.identity.first_name end
       row :status
       row :title
       row :created_at
@@ -34,7 +41,12 @@ ActiveAdmin.register Ticket do
 
     panel 'Events' do
       table_for ticket.events.order(created_at: :asc) do
-        column :id
+        column :id do |event|
+          a link_to(event.id, admin_event_path(event))
+        end
+        column :identity do |event|
+          text_node event.identity.first_name
+        end
         column :eventable_type
         column :data do |event|
           text_node event.eventable.body if event.eventable_type == 'EventMessage'
@@ -66,6 +78,49 @@ ActiveAdmin.register Ticket do
         end
       end
     end
+
+    panel 'Credits' do
+      table_for ticket.credits.order(created_at: :asc) do
+        column :id do |credit|
+          a link_to(credit.id, admin_credit_path(credit))
+        end
+        column :identity do |credit|
+          text_node credit.identity.first_name
+        end
+        column :stripe_charge_id
+        column :time
+        column :origin
+        column :created_at
+      end
+    end
+
+    panel 'Consume time' do
+      active_admin_form_for Credit.new, url: { action: :consume_time } do |f|
+        f.inputs do
+          text_node 'This will be added to the list of credits as a negative one. Please refer to the total time you consumed in seconds.'
+          f.input :time
+        end
+        f.actions do
+          f.action :submit, label: 'Confirm time'
+        end
+      end
+    end
+  end
+
+  member_action :consume_time, method: :post do
+    ticket = Ticket.find(params[:id])
+    time = params[:credit][:time].to_i
+
+    Credit.create!(
+      identity: ticket.identity,
+      ticket: ticket,
+      time: time * -1,
+      origin: 'time_consumed_on_ticket'
+    )
+
+    RefreshService.new(ticket.identity).credits
+
+    redirect_to action: :show
   end
 
   member_action :send_message, method: :post do

@@ -9,5 +9,6 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
     field :identity, Types::Identity, null: false
+    field :ticket, Types::Ticket, null: true
   end
 end

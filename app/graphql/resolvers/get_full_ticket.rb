@@ -7,7 +7,7 @@ end
 module Resolvers
   class GetFullTicket < Resolvers::BaseResolver
     argument :input, Types::GetFullTicketInput, required: true
-    type Types::Ticket, null: true
+    type Types::Ticket, null: false
 
     def resolve(input:)
       ticket = Ticket.find(input[:id])
