@@ -11,7 +11,7 @@ class Ticket < ActiveRecord::Base
     canceled: 'canceled'
   }
 
-  belongs_to :identity
+  belongs_to :identity, touch: true
   has_one :credit, dependent: :destroy
 
   has_many :events, dependent: :destroy

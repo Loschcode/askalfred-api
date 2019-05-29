@@ -14,6 +14,6 @@ class Credit < ActiveRecord::Base
 
   validates :stripe_charge_id, presence: false
 
-  belongs_to :identity, counter_cache: true
-  belongs_to :ticket, optional: true
+  belongs_to :identity, counter_cache: true, touch: true
+  belongs_to :ticket, optional: true, touch: true
 end

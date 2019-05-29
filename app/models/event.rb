@@ -1,8 +1,8 @@
 class Event < ActiveRecord::Base
   belongs_to :eventable, polymorphic: true, required: true
 
-  belongs_to :identity, required: true
-  belongs_to :ticket, required: true
+  belongs_to :identity, required: true, touch: true
+  belongs_to :ticket, required: true, touch: true
 
   scope :messages, -> { where(eventable_type: 'EventMessage') }
   scope :files, -> { where(eventable_type: 'EventFile') }
