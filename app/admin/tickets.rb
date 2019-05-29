@@ -1,4 +1,5 @@
 ActiveAdmin.register Ticket do
+  config.sort_order = 'created_at_desc'
 
   index do
     id_column
@@ -57,9 +58,16 @@ ActiveAdmin.register Ticket do
   end
 
   member_action :send_message, method: :post do
+    identity = Identity.where(role: 'admin').take
+    ticket = Ticket.find(params[:id])
     body = params[:event_message][:body]
 
-    # EventMessage.create
+    SendMessageService.new(
+      identity: identity,
+      ticket: ticket,
+      body: body
+    ).perform
+
     redirect_to action: :show
   end
 
