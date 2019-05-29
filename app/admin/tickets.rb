@@ -55,6 +55,17 @@ ActiveAdmin.register Ticket do
         end
       end
     end
+
+    panel 'Send file' do
+      active_admin_form_for EventFile.new, url: { action: :send_file } do |f|
+        f.inputs do
+          f.input :file, as: :file
+        end
+        f.actions do
+          f.action :submit, label: 'Upload file'
+        end
+      end
+    end
   end
 
   member_action :send_message, method: :post do
@@ -71,6 +82,20 @@ ActiveAdmin.register Ticket do
     redirect_to action: :show
   end
 
+  member_action :send_file, method: :post do
+    identity = Identity.where(role: 'admin').take
+    ticket = Ticket.find(params[:id])
+    file = params[:event_file][:file]
+
+    SendFileService.new(
+      identity: identity,
+      ticket: ticket,
+      file: file
+    ).perform
+
+    redirect_to action: :show
+  end
+
   form title: :title do |f|
     inputs 'Details' do
       input :identity_id, as: :select, collection: Identity.all.map { |identity| ["#{identity.first_name} #{identity.last_name}", identity.id]}
@@ -78,9 +103,6 @@ ActiveAdmin.register Ticket do
       input :status, as: :select, collection: [:opened, :processing, :completed, :canceled]
       input :created_at
       input :updated_at
-    end
-    panel 'Markup' do
-      "Something"
     end
     actions
   end

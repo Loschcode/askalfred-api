@@ -16,32 +16,18 @@ module Mutations
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
 
-      ActiveRecord::Base.transaction do
-        ticket = Ticket.find(input[:id])
+      ticket = Ticket.find(input[:id])
+      file = input[:file]
 
-        event_file = EventFile.create
-        event_file.file.attach(input[:file])
+      SendFileService.new(
+        identity: current_identity,
+        ticket: ticket,
+        file: file
+      ).perform
 
-        unless event_file.file.attached?
-          raise GraphQL::ExecutionError.new 'We could not store this file.'
-        end
-
-        event = Event.create(
-          ticket: ticket,
-          identity: current_identity,
-          eventable: event_file
-        )
-
-        if event.errors.any?
-          raise GraphQL::ExecutionError.new event.errors.full_messages.join(', ')
-        end
-
-        refresh_service.ticket(ticket)
-
-        {
-          ticket: ticket
-        }
-      end
+      {
+        ticket: ticket
+      }
     end
   end
 end
