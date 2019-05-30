@@ -24,11 +24,44 @@ ActiveAdmin.register Ticket do
                 :created_at,
                 :updated_at
 
-  # action_item :start_timer, only: :show, method: :put do
-  #   link_to 'Start timer', start_timer_admin_ticket_path(ticket)
-  # end
-  # member_action :start_timer, method: :get do
-  # end
+  action_item :end_request_successfully, only: :show, method: :get do
+    link_to 'End request successfully (Email)', end_request_successfully_admin_ticket_path(ticket)
+  end
+  member_action :end_request_successfully, method: :get do
+    ticket = Ticket.find(params[:id])
+    ticket.update status: 'completed'
+    IdentityMailer.with(identity: ticket.identity).request_completed(ticket).deliver_later
+
+    redirect_to action: :show
+  end
+
+  action_item :cancel_request, only: :show, method: :get do
+    link_to 'Cancel request (Email)', cancel_request_admin_ticket_path(ticket)
+  end
+  member_action :cancel_request, method: :get do
+    ticket = Ticket.find(params[:id])
+    ticket.update status: 'canceled'
+    IdentityMailer.with(identity: ticket.identity).request_canceled(ticket).deliver_later
+    redirect_to action: :show
+  end
+
+  action_item :request_in_progress, only: :show, method: :get do
+    link_to 'Request in progress', request_in_progress_admin_ticket_path(ticket)
+  end
+  member_action :request_in_progress, method: :get do
+    ticket = Ticket.find(params[:id])
+    ticket.update status: 'processing'
+    redirect_to action: :show
+  end
+
+  action_item :need_more_details, only: :show, method: :get do
+    link_to 'I need more details (Email)', need_more_details_admin_ticket_path(ticket)
+  end
+  member_action :need_more_details, method: :get do
+    ticket = Ticket.find(params[:id])
+    IdentityMailer.with(identity: ticket.identity).alfred_needs_answers(ticket).deliver_later
+    redirect_to action: :show
+  end
 
   show title: :title do
     attributes_table do
@@ -138,9 +171,8 @@ ActiveAdmin.register Ticket do
 
     # if it's the first message
     # we should tell the guy via  email
-    if ticket.events.where(identity: identity).count == 1
-      IdentityMailer.with(identity: ticket.identity).first_answer_from_alfred(ticket).deliver_later
-    end
+    # this logic is obsolete now
+    # if ticket.events.where(identity: identity).count == 1
 
     redirect_to action: :show
   end

@@ -1,10 +1,58 @@
 # general mailer with default template
 class IdentityMailer < ApplicationMailer
-  def first_answer_from_alfred(ticket)
+  def request_completed(ticket)
     set_params
     forced_title = ticket.title || 'Your request'
 
-    set_subject('You received an answer! 👍')
+    set_subject('Your request was completed! 🎉')
+
+    set_call_to_action(
+      url: app_url("tickets/chat/#{ticket.id}"),
+      label: 'See your request',
+    )
+
+    set_headline(
+      'About',
+      forced_title
+    )
+
+    set_illustration(
+      image_url('symbols/illustrations/success.svg'),
+    )
+
+    set_random_tips
+    send_email
+  end
+
+  def request_canceled(ticket)
+    set_params
+    forced_title = ticket.title || 'Your request'
+
+    set_subject('Your request was canceled! 🙁')
+
+    set_call_to_action(
+      url: app_url("tickets/chat/#{ticket.id}"),
+      label: 'See your request',
+    )
+
+    set_headline(
+      'About',
+      forced_title
+    )
+
+    set_illustration(
+      image_url('symbols/illustrations/canceled.svg'),
+    )
+
+    set_random_tips
+    send_email
+  end
+
+  def alfred_needs_answers(ticket)
+    set_params
+    forced_title = ticket.title || 'Your request'
+
+    set_subject('I need your input! 👍')
 
     set_call_to_action(
       url: app_url("tickets/chat/#{ticket.id}"),
