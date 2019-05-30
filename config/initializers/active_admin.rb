@@ -1,3 +1,7 @@
+class ActiveAdmin::BaseController
+  http_basic_authenticate_with name: 'Alfred', password: 'Windsor'
+end
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
