@@ -5,7 +5,7 @@ module Mutations
     field :token, String, null: true
 
     def resolve
-      return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
+      return GraphQL::ExecutionError.new('We cannot create a guest as you already have an identity') if current_identity
 
       {
         token: user.token
