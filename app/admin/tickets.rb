@@ -6,6 +6,7 @@ ActiveAdmin.register Ticket do
     column :identity
     column :title
     column :status
+    column :subject
     column :created_at
     column :updated_at
     actions
@@ -35,6 +36,7 @@ ActiveAdmin.register Ticket do
       row :name do |event| event.identity.first_name end
       row :status
       row :title
+      row :subject
       row :created_at
       row :updated_at
     end
@@ -133,6 +135,12 @@ ActiveAdmin.register Ticket do
       ticket: ticket,
       body: body
     ).perform
+
+    # if it's the first message
+    # we should tell the guy via  email
+    if ticket.events.where(identity: identity).count == 1
+      IdentityMailer.with(identity: ticket.identity).first_answer_from_alfred(ticket).deliver_later
+    end
 
     redirect_to action: :show
   end

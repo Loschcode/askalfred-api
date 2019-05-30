@@ -1,5 +1,29 @@
 # general mailer with default template
 class IdentityMailer < ApplicationMailer
+  def first_answer_from_alfred(ticket)
+    set_params
+    forced_title = ticket.title || 'Your request'
+
+    set_subject('You received an answer! 👍')
+
+    set_call_to_action(
+      url: app_url("tickets/chat/#{ticket.id}"),
+      label: 'See my answer',
+    )
+
+    set_headline(
+      'About',
+      forced_title
+    )
+
+    set_illustration(
+      image_url('symbols/illustrations/written.svg'),
+    )
+
+    set_random_tips
+    send_email
+  end
+
   def confirm_email
     set_params
 

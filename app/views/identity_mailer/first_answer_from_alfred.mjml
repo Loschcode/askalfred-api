@@ -1,0 +1,5 @@
+<mj-column>
+  <mj-text align="center" line-height="25px" letter-spacing="0.5px" color="white" font-size="18px" font-family="Helvetica Neue">
+    I just answered your request. It may need some input from your side, please check it out when you can!
+  </mj-text>
+</mj-column>
