@@ -24,12 +24,32 @@ ActiveAdmin.register Ticket do
                 :created_at,
                 :updated_at
 
+  action_item :request_in_progress, only: :show, method: :get do
+    link_to 'Request in progress', request_in_progress_admin_ticket_path(ticket)
+  end
+  member_action :request_in_progress, method: :get do
+    ticket = Ticket.find(params[:id])
+    ticket.update status: 'processing'
+    refresh_ticket_and_list(ticket)
+    redirect_to action: :show
+  end
+
+  action_item :need_more_details, only: :show, method: :get do
+    link_to 'I need more details (Email)', need_more_details_admin_ticket_path(ticket)
+  end
+  member_action :need_more_details, method: :get do
+    ticket = Ticket.find(params[:id])
+    IdentityMailer.with(identity: ticket.identity).alfred_needs_answers(ticket).deliver_later
+    redirect_to action: :show
+  end
+
   action_item :end_request_successfully, only: :show, method: :get do
     link_to 'End request successfully (Email)', end_request_successfully_admin_ticket_path(ticket)
   end
   member_action :end_request_successfully, method: :get do
     ticket = Ticket.find(params[:id])
     ticket.update status: 'completed'
+    refresh_ticket_and_list(ticket)
     IdentityMailer.with(identity: ticket.identity).request_completed(ticket).deliver_later
 
     redirect_to action: :show
@@ -41,25 +61,8 @@ ActiveAdmin.register Ticket do
   member_action :cancel_request, method: :get do
     ticket = Ticket.find(params[:id])
     ticket.update status: 'canceled'
+    refresh_ticket_and_list(ticket)
     IdentityMailer.with(identity: ticket.identity).request_canceled(ticket).deliver_later
-    redirect_to action: :show
-  end
-
-  action_item :request_in_progress, only: :show, method: :get do
-    link_to 'Request in progress', request_in_progress_admin_ticket_path(ticket)
-  end
-  member_action :request_in_progress, method: :get do
-    ticket = Ticket.find(params[:id])
-    ticket.update status: 'processing'
-    redirect_to action: :show
-  end
-
-  action_item :need_more_details, only: :show, method: :get do
-    link_to 'I need more details (Email)', need_more_details_admin_ticket_path(ticket)
-  end
-  member_action :need_more_details, method: :get do
-    ticket = Ticket.find(params[:id])
-    IdentityMailer.with(identity: ticket.identity).alfred_needs_answers(ticket).deliver_later
     redirect_to action: :show
   end
 
@@ -205,11 +208,14 @@ ActiveAdmin.register Ticket do
   controller do
     def update
       super
-      # we dispatch it to the subscriptions as well
-      RefreshService.new(resource.identity).tap do |refresh|
-        refresh.ticket(resource)
-        refresh.tickets_list
-      end
+      refresh_ticket_and_list(resource)
     end
+  end
+end
+
+def refresh_ticket_and_list(ticket)
+  RefreshService.new(ticket.identity).tap do |refresh|
+    refresh.ticket(ticket)
+    refresh.tickets_list
   end
 end
