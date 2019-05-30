@@ -5,7 +5,7 @@ module Mutations
     field :token, String, null: true
 
     def resolve
-      return if current_identity
+      return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
 
       {
         token: user.token
