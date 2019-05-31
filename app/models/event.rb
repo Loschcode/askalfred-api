@@ -8,11 +8,21 @@ class Event < ActiveRecord::Base
   scope :files, -> { where(eventable_type: 'EventFile') }
 
   has_one :self_ref, class_name: 'Event', foreign_key: :id
-  has_one :event_message, through: :self_ref, source: :eventable, source_type: 'EventMessage', dependent: :destroy
-  has_one :event_file, through: :self_ref, source: :eventable, source_type: 'EventFile', dependent: :destroy
+  has_one :event_message, through: :self_ref, source: :eventable, source_type: 'EventMessage'
+  has_one :event_file, through: :self_ref, source: :eventable, source_type: 'EventFile'
 
   accepts_nested_attributes_for :event_message
   accepts_nested_attributes_for :event_file
 
   validates :seen_at, required: false
+
+  before_destroy :destroy_related_events
+
+  # simple destroy dependency doesn't work with
+  # has_one on this kind relationship
+  # so we do it manually here
+  def destroy_related_events
+    event_message.destroy if event_message
+    event_file.destroy if event_file
+  end
 end
