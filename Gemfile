@@ -15,6 +15,9 @@ gem 'puma', '~> 3.11'
 # Email checks
 gem 'rest-client'
 
+# Errors
+gem 'sentry-raven'
+
 # Payments
 gem 'stripe'
 
