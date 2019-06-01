@@ -96,7 +96,7 @@ ActiveAdmin.register Ticket do
     end
 
     panel 'Send message' do
-      active_admin_form_for EventMessage.new, url: { action: :send_message } do |f|
+      active_admin_form_for EventMessage.new, url: { action: :send_event_message } do |f|
         f.inputs do
           f.input :body, as: :text
         end
@@ -107,7 +107,7 @@ ActiveAdmin.register Ticket do
     end
 
     panel 'Send file' do
-      active_admin_form_for EventFile.new, url: { action: :send_file } do |f|
+      active_admin_form_for EventFile.new, url: { action: :send_event_file } do |f|
         f.inputs do
           f.input :file, as: :file
         end
@@ -161,7 +161,7 @@ ActiveAdmin.register Ticket do
     redirect_to action: :show
   end
 
-  member_action :send_message, method: :post do
+  member_action :send_event_message, method: :post do
     identity = Identity.where(role: 'admin').take
     ticket = Ticket.find(params[:id])
     body = params[:event_message][:body]
@@ -180,7 +180,7 @@ ActiveAdmin.register Ticket do
     redirect_to action: :show
   end
 
-  member_action :send_file, method: :post do
+  member_action :send_event_file, method: :post do
     identity = Identity.where(role: 'admin').take
     ticket = Ticket.find(params[:id])
     file = params[:event_file][:file]

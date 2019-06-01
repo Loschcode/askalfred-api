@@ -12,8 +12,11 @@ gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 
-# Email checks
+# API communications
 gem 'rest-client'
+
+# Workers
+gem 'sidekiq'
 
 # Slack
 gem 'slack-ruby-client'
