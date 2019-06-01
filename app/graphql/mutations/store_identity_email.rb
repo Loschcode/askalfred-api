@@ -19,6 +19,10 @@ module Mutations
         return GraphQL::ExecutionError.new('You already confirmed your email. You can\'t change it here.')
       end
 
+      unless CheckEmailService.new(input[:email]).perform
+        return GraphQL::ExecutionError.new('Your email doesn\'t seem delivrable.')
+      end
+
       current_identity.update(
         email: input[:email],
       )

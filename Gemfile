@@ -12,6 +12,9 @@ gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 
+# Email checks
+gem 'rest-client'
+
 # Payments
 gem 'stripe'
 
