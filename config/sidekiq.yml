@@ -4,9 +4,9 @@
 :queues:
   - mailers
   - critical
-  - default
+  - high
+  - medium
   - low
-
 
 development:
   :concurrency: 5
