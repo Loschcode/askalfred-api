@@ -15,6 +15,9 @@ gem 'puma', '~> 3.11'
 # Email checks
 gem 'rest-client'
 
+# Slack
+gem 'slack-ruby-client'
+
 # Errors
 gem 'sentry-raven'
 
