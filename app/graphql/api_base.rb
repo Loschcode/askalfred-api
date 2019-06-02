@@ -7,7 +7,7 @@ module ApiBase
     @refresh_service ||= RefreshService.new(current_identity)
   end
 
-  def slack_service
-    @slack_service ||= SlackService.new(current_identity)
+  def tracking_service
+    @tracking_service ||= TrackingService.new(current_identity)
   end
 end
