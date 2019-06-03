@@ -1,0 +1,26 @@
+{
+  "name": "askalfred-api",
+  "version": "1.0.0",
+  "description": "Now with MJML email templates!",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {
+    "mjml": "^4.0.0",
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Loschcode/askalfred-api"
+  },
+  "keywords": [
+    "mailer"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Loschcode/askalfred-api/issues"
+  },
+  "homepage": "https://github.com/Loschcode/askalfred-api"
+}
