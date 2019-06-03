@@ -16,4 +16,5 @@ test:
 
 production:
   <<: *default
-  database: askalfred_production
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: 5

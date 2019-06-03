@@ -20,6 +20,10 @@ module Mutations
         return GraphQL::ExecutionError.new credit.errors.full_messages.join(', ')
       end
 
+      current_identity.update(
+        terms_accepted_at: Time.now
+      )
+
       refresh_service.myself
 
       {

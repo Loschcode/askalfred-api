@@ -15,6 +15,9 @@ gem 'puma', '~> 3.11'
 # API communications
 gem 'rest-client'
 
+# Upload
+gem 'aws-sdk-s3'
+
 # Workers
 gem 'sidekiq'
 

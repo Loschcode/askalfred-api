@@ -74,7 +74,8 @@
       <mj-column>
         <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">AskAlfred Inc. SIRET 281 381 371</mj-text>
         <mj-text align="center" font-family="Helvetica Neue" color="#A0A0A0">
-          <a style="display:inline-block;color:#A0A0A0;" href="<%= "#{root_url}pages/legal-mentions" %>">Legal mentions</a> | 
+          <a style="display:inline-block;color:#A0A0A0;" href="<%= "#{root_url}pages/terms-of-use" %>">Terms of use</a> | 
+          <a style="display:inline-block;color:#A0A0A0;" href="<%= "#{root_url}pages/legal-notice" %>">Legal notice</a> | 
           <a style="display:inline-block;color:#A0A0A0;" href="<%= "#{root_url}pages/privacy-policy" %>">Privacy policy</a> | 
           <a style="display:inline-block;color:#A0A0A0;" href="<%= "#{root_url}emails/unsubscribe/?email=#{@identity.email}" %>">Unsubscribe</a>
         </mj-text>

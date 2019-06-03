@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 2019_05_28_204050) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.datetime "recovery_sent_at"
+    t.datetime "terms_accepted_at"
     t.string "confirmation_token"
     t.string "recovery_token"
     t.integer "credits_count", default: 0
@@ -120,6 +121,7 @@ ActiveRecord::Schema.define(version: 2019_05_28_204050) do
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
     t.index ["stripe_card_id"], name: "index_identities_on_stripe_card_id"
     t.index ["stripe_customer_id"], name: "index_identities_on_stripe_customer_id"
+    t.index ["terms_accepted_at"], name: "index_identities_on_terms_accepted_at"
   end
 
   create_table "tickets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
