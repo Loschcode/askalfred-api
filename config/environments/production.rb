@@ -53,7 +53,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   config.active_job.queue_adapter = :sidekiq
-  config.action_mailer.deliver_later_queue_name = 'default'
+  config.action_mailer.deliver_later_queue_name = 'high'
 
   config.action_mailer.perform_caching = false
 
