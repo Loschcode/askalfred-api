@@ -1,5 +1,6 @@
 class GraphqlController < ApiController
   def execute
+    SlackService.new.dispatch('received graphql stuff')
     variables = ensure_hash(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
