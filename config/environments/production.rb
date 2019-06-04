@@ -62,7 +62,7 @@ Rails.application.configure do
     password: ENV['SENDGRID_API_KEY'],
     domain: 'askalfred.app',
     address: 'smtp.sendgrid.net',
-    port: 587, # 465 for https
+    port: 465,
     authentication: :plain,
     enable_starttls_auto: true
   }
