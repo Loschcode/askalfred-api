@@ -6,12 +6,12 @@ class ApiController < ActionController::API
   def exception_handler
     yield
   rescue Exception => exception
+    Raven.capture_exception(exception, message: exception.message) unless Rails.env.development?
     throw_error error: "#{exception}"
   end
 
   # call was solved as a failure
   def throw_error(error)
-    Raven.capture_exception(error, message: error.message)
     render json: error, status: :bad_request
   end
 
