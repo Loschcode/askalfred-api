@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  # default_url_options host: ENV['APP_URL']
+  default_url_options host: ENV['APP_URL']
 
   mount Sidekiq::Web => '/sidekiq'
 
