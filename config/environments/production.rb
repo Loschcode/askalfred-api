@@ -34,7 +34,7 @@ Rails.application.configure do
   config.active_storage.service = :amazon
 
   # Mount Action Cable outside main process or domain
-  # config.action_cable.mount_path = nil
+  config.action_cable.mount_path = '/cable'
   config.action_cable.url = 'wss://api.askalfred.app/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
