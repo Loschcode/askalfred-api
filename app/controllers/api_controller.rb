@@ -11,6 +11,7 @@ class ApiController < ActionController::API
 
   # call was solved as a failure
   def throw_error(error)
+    Raven.capture_exception(error, message: error.message)
     render json: error, status: :bad_request
   end
 
