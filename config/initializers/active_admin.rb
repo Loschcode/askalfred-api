@@ -1,6 +1,6 @@
-# class ActiveAdmin::BaseController
-#   http_basic_authenticate_with name: ENV['ADMIN_USER'], password: ENV['ADMIN_PASSWORD']
-# end
+class ActiveAdmin::BaseController
+  http_basic_authenticate_with name: ENV['ADMIN_USER'], password: ENV['ADMIN_PASSWORD']
+end
 
 ActiveAdmin.setup do |config|
   # == Site Title
