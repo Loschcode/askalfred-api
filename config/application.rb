@@ -35,5 +35,7 @@ module AskalfredApi
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
+
+    config.action_cable.disable_request_forgery_protection = true
   end
 end
