@@ -8,6 +8,8 @@ class SendFileService < Base
   end
 
   def perform
+    Aws.use_bundled_cert!
+
     transaction do
       event_file.file.attach(file)
 
