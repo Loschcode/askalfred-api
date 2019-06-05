@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'support@askalfred.app'
+  default from: 'AskAlfred <support@askalfred.app>'
   layout 'heavy'
 end
