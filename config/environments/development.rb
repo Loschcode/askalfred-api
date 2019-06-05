@@ -50,23 +50,13 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
 
-  # config.action_mailer.smtp_settings = {
-  #   user_name: 'e03ff7997d3497',
-  #   password: 'aedb27a6d4c127',
-  #   address: 'smtp.mailtrap.io',
-  #   domain: 'smtp.mailtrap.io',
-  #   port: '2525',
-  #   authentication: :cram_md5
-  # }
-
-    config.action_mailer.smtp_settings = {
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'],
-    domain: 'askalfred.app',
-    address: 'smtp.sendgrid.net',
-    port: 587,
-    authentication: :plain,
-    enable_starttls_auto: true
+  config.action_mailer.smtp_settings = {
+    user_name: 'e03ff7997d3497',
+    password: 'aedb27a6d4c127',
+    address: 'smtp.mailtrap.io',
+    domain: 'smtp.mailtrap.io',
+    port: '2525',
+    authentication: :cram_md5
   }
 
   # Raises error for missing translations
