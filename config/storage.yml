@@ -8,8 +8,8 @@ local:
 
 amazon:
   service: S3
-  access_key_id: ENV['DIGITAL_OCEAN_SPACES_ACCESS_KEY_ID']
-  secret_access_key: ENV['DIGITAL_OCEAN_SPACES_SECRET_ACCESS_KEY']
+  access_key_id: <%= ENV['DIGITAL_OCEAN_SPACES_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['DIGITAL_OCEAN_SPACES_SECRET_ACCESS_KEY'] %>
   region: fra1
   bucket: askalfred
-  endpoint: 'https://askalfred.fra1.digitaloceanspaces.com'
+  endpoint: https://fra1.digitaloceanspaces.com

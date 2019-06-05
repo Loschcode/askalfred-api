@@ -6,11 +6,15 @@ class EventFile < ActiveRecord::Base
 
   after_destroy :purge_attached
 
+  # short helper to get the path of the file
+  # it is not the file object in itself, it takes it from it
+  # via ActiveStorage
   def file_path
-    # short helper to get the path of the file
-    # it is not the file object in itself, it takes it from it
-    # via ActiveStorage
-    ActiveStorage::Blob.service.path_for(file.key)
+    if Rails.env.development?
+      ActiveStorage::Blob.service.path_for(file.key)
+    else
+      file.service_url
+    end
   end
 
   private
