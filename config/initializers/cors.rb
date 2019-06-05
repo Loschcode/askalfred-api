@@ -15,9 +15,18 @@
 #   end
 # end
 
-Rails.application.config.middleware.insert_before 0, Rack::Cors do
-  allow do
-    origins 'askalfred.app'
-    resource '*', headers: :any, methods: [:get, :post, :options]
+if Rails.env.development?
+  Rails.application.config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins '*'
+      resource '*', headers: :any, methods: [:get, :post, :options]
+    end
+  end
+else
+  Rails.application.config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins 'askalfred.app'
+      resource '*', headers: :any, methods: [:get, :post, :options]
+    end
   end
 end
