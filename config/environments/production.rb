@@ -36,7 +36,7 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   config.action_cable.url = 'wss://askalfred.app/cable'
-  # config.action_cable.allowed_request_origins = ['https://askakfred.app']
+  config.action_cable.allowed_request_origins = ['https://askakfred.app']
   # config.action_cable.disable_request_forgery_protection = false
   # config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 
