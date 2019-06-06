@@ -58,14 +58,23 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # config.action_mailer.smtp_settings = {
+  #   user_name: 'apikey',
+  #   password: ENV['SENDGRID_API_KEY'],
+  #   domain: 'app.askalfred.to',
+  #   address: 'smtp.sendgrid.net',
+  #   port: 587,
+  #   authentication: :plain,
+  #   enable_starttls_auto: true
+  # }
+
   config.action_mailer.smtp_settings = {
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'],
-    domain: 'app.askalfred.to',
-    address: 'smtp.sendgrid.net',
-    port: 587,
-    authentication: :plain,
-    enable_starttls_auto: true
+    user_name: 'postmaster@mailgun.askalfred.to',
+    password: ENV['MAILGUN_PASSWORD'],
+    address: 'smtp.eu.mailgun.org',
+    domain: 'smtp.eu.mailgun.org',
+    port: '587',
+    authentication: :plain
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
