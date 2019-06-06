@@ -18,7 +18,7 @@ module Mutations
         return GraphQL::ExecutionError.new current_identity.errors.full_messages.join(', ')
       end
 
-      IdentityMailer.with(identity: current_identity).confirm_email_what.deliver_later
+      IdentityMailer.with(identity: current_identity).confirm_email.deliver_later
 
       refresh_service.myself
 

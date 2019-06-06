@@ -72,7 +72,7 @@ class IdentityMailer < ApplicationMailer
     send_email
   end
 
-  def confirm_email_what
+  def confirm_email
     set_params
 
     set_subject('Surprise from Alfred! 🎉')
