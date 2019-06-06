@@ -46,5 +46,5 @@ plugin :tmp_restart
 #     transaction: 'Puma'
 #   )
 #   # note the below is just a Rack response
-#   [500, {}, ['An error has occurred, and engineers have been informed. Please reload the page. If you continue to have problems, contact support@askalfred.app\n']]
+#   [500, {}, ['An error has occurred, and engineers have been informed. Please reload the page. If you continue to have problems, contact support@askalfred.to\n']]
 # end

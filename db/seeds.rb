@@ -4,7 +4,7 @@ password_hash = BCrypt::Password.create('password')
 ActiveRecord::Base.transaction do
   # first customer
   identity = Identity.create!(
-    email: 'laurent@askalfred.app',
+    email: 'laurent@askalfred.to',
     role: 'customer',
     encrypted_password: password_hash,
     first_name: 'Laurent',
@@ -13,7 +13,7 @@ ActiveRecord::Base.transaction do
 
   # admin
   identity_admin = Identity.create!(
-    email: 'admin@askalfred.app',
+    email: 'admin@askalfred.to',
     role: 'admin',
     encrypted_password: password_hash,
     first_name: 'Admin',
