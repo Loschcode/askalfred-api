@@ -12,4 +12,4 @@ amazon:
   secret_access_key: <%= ENV['DIGITAL_OCEAN_SPACES_SECRET_ACCESS_KEY'] %>
   region: fra1
   bucket: askalfred
-  endpoint: <%= ENV['DIGITAL_OCEAN_SPACES_ENDPOINT']
+  endpoint: <%= ENV['DIGITAL_OCEAN_SPACES_ENDPOINT'] %>
