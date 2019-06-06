@@ -69,7 +69,7 @@ Rails.application.configure do
   # }
 
   config.action_mailer.smtp_settings = {
-    user_name: 'postmaster@mg.askalfred.to',
+    user_name: ENV['MAILGUN_USERNAME'],
     password: ENV['MAILGUN_PASSWORD'],
     address: 'smtp.eu.mailgun.org',
     domain: 'smtp.eu.mailgun.org',
