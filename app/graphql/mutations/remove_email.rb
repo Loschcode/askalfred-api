@@ -24,8 +24,8 @@ module Mutations
       end
 
       ActionMailer::Base.mail(
-        from: "AskAlfred <support@askalfred.to>",
-        to: "support@askalfred.to",
+        from: "AskAlfred <no-reply@askalfred.to>",
+        to: "askalfredapp@gmail.com",
         subject: "Unsubscribe email",
         body: "Email `#{input[:email]}` unsubscribed with the reason `#{input[:reason]}`"
       ).deliver
