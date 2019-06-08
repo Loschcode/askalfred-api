@@ -10,7 +10,7 @@ module Resolvers
     type Types::Ticket, null: false
 
     def resolve(input:)
-      ticket = current_identity.tickets.find(input[:id])
+      ticket = current_identity.tickets.eager_load(:events).find(input[:id])
       was_seen_tickets = ticket.events.where.not(identity: current_identity).where(seen_at: nil)
 
       if was_seen_tickets.any?

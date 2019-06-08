@@ -29,7 +29,7 @@ module Types
     field :files_connection, Types::EventFilesConnection, null: true
 
     def files_connection
-      object.event_messages.order(created_at: :asc)
+      object.event_files.order(created_at: :asc)
     end
 
     field :last_message_from_alfred, Types::EventMessage, null: true

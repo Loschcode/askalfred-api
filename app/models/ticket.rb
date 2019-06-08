@@ -19,5 +19,5 @@ class Ticket < ActiveRecord::Base
   validates_associated :events
 
   has_many :event_messages, through: :events, source: :eventable, source_type: 'EventMessage'
-  has_many :events_files, through: :events, source: :eventable, source_type: 'EventFile'
+  has_many :event_files, through: :events, source: :eventable, source_type: 'EventFile'
 end
