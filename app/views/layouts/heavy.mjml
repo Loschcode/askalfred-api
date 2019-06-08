@@ -8,7 +8,7 @@
     <!-- Ask Alfred logo -->
     <mj-section background-color="#4979D5">
     <mj-column>
-      <mj-image fluid-on-mobile="true" width="100%" src="<%= root_url %>/images/emails/ask-alfred.svg" />
+      <mj-image width="150px" src="<%= root_url %>/images/emails/ask-alfred.png" />
     </mj-column>
     <mj-column></mj-column>
     </mj-section>
