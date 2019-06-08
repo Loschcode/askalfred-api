@@ -17,7 +17,7 @@ class IdentityMailer < ApplicationMailer
     )
 
     set_illustration(
-      image_url('symbols/illustrations/success.svg'),
+      image_url('symbols/illustrations/success.png'),
     )
 
     set_random_tips
@@ -41,7 +41,7 @@ class IdentityMailer < ApplicationMailer
     )
 
     set_illustration(
-      image_url('symbols/illustrations/canceled.svg'),
+      image_url('symbols/illustrations/canceled.png'),
     )
 
     set_random_tips
@@ -65,7 +65,7 @@ class IdentityMailer < ApplicationMailer
     )
 
     set_illustration(
-      image_url('symbols/illustrations/written.svg'),
+      image_url('symbols/illustrations/written.png'),
     )
 
     set_random_tips
@@ -88,7 +88,7 @@ class IdentityMailer < ApplicationMailer
     )
 
     set_illustration(
-      image_url('symbols/illustrations/gift.svg'),
+      image_url('symbols/illustrations/gift.png'),
     )
 
     set_random_tips
@@ -111,7 +111,7 @@ class IdentityMailer < ApplicationMailer
     )
 
     set_illustration(
-      image_url('symbols/illustrations/keys.svg'),
+      image_url('symbols/illustrations/keys.png'),
     )
 
     set_random_tips
@@ -122,14 +122,14 @@ class IdentityMailer < ApplicationMailer
 
   def set_random_tips
     add_tip(
-      image: image_url('symbols/tips/idea.svg'),
+      image: image_url('symbols/tips/idea.png'),
       title: 'Need more time with Alfred?',
       content: 'He\'s very flexible. If you don\'t have enough credit, he will continue your task anyway. You\'ll have to charge up your account but only for the next one!',
       padding: '20px'
     )
 
     add_tip(
-      image: image_url('symbols/tips/keys.svg'),
+      image: image_url('symbols/tips/keys.png'),
       title: 'Security tips',
       content: 'What happens with Alfred, stay with Alfred. He won\'t communicate any of your information to any third party, and anything you write will be encrypted and kept secret by the service.',
       padding: '10px'
