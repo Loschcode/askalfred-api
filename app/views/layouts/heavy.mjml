@@ -4,11 +4,11 @@
     <mj-preview><%= yield %></mj-preview>
   </mj-head>
   <mj-body>
-    <mj-all fluid-on-mobile="true" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif" />
+    <mj-all font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif" />
     <!-- Ask Alfred logo -->
     <mj-section background-color="#4979D5">
     <mj-column>
-      <mj-image width="150px" src="<%= root_url %>/images/emails/ask-alfred.svg" />
+      <mj-image fluid-on-mobile="true" width="100%" src="<%= root_url %>/images/emails/ask-alfred.svg" />
     </mj-column>
     <mj-column></mj-column>
     </mj-section>
@@ -17,7 +17,7 @@
     <% if @headline %>
       <mj-section background-color="#4979D5">
         <mj-column>
-          <mj-text align="center" font-size="35px" color="white" font-weight="600" font-family="Helvetica Neue"><%= @headline.first %> O</mj-text>
+          <mj-text align="center" font-size="35px" color="white" font-weight="600" font-family="Helvetica Neue"><%= @headline.first %></mj-text>
           <mj-text align="center" font-size="35px" color="white" font-weight="600" font-family="Helvetica Neue"><%= @headline.last %></mj-text>
         </mj-column>
       </mj-section>
