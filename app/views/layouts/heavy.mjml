@@ -17,7 +17,7 @@
     <% if @headline %>
       <mj-section background-color="#4979D5">
         <mj-column>
-          <mj-text align="center" font-size="35px" color="white" font-weight="600" font-family="Helvetica Neue"><%= @headline.first %></mj-text>
+          <mj-text align="center" font-size="35px" color="white" font-weight="600" font-family="Helvetica Neue"><%= @headline.first %> O</mj-text>
           <mj-text align="center" font-size="35px" color="white" font-weight="600" font-family="Helvetica Neue"><%= @headline.last %></mj-text>
         </mj-column>
       </mj-section>
