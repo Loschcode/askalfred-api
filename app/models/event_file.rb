@@ -6,14 +6,16 @@ class EventFile < ActiveRecord::Base
 
   after_destroy :purge_attached
 
-  # short helper to get the path of the file
-  # it is not the file object in itself, it takes it from it
-  # via ActiveStorage
   def file_path
-    if Rails.env.development?
-      ActiveStorage::Blob.service.path_for(file.key)
+    if from_amazon?
+      file.service.url(file.key,
+        disposition: :attachment,
+        content_type: file.content_type,
+        expires_in: 1.day,
+        filename: file.filename
+      ).gsub('askalfred.fra1.digitaloceanspaces.com', 'cdn.askalfred.to')
     else
-      file.service_url
+      ActiveStorage::Blob.service.path_for(file.key)
     end
   end
 
@@ -21,5 +23,9 @@ class EventFile < ActiveRecord::Base
 
   def purge_attached
     file.purge_later
+  end
+
+  def from_amazon?
+    file.service.class == ActiveStorage::Service::S3Service
   end
 end
