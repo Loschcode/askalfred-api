@@ -4,7 +4,7 @@
     <mj-preview><%= yield %></mj-preview>
   </mj-head>
   <mj-body>
-    <mj-all font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif" />
+    <mj-all fluid-on-mobile="true" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif" />
     <!-- Ask Alfred logo -->
     <mj-section background-color="#4979D5">
     <mj-column>
