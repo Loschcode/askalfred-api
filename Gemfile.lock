@@ -114,6 +114,8 @@ GEM
       railties
       sprockets-rails
     graphql (1.9.3)
+    graphql-cache (0.6.0)
+      graphql (~> 1, > 1.8)
     graphql-errors (0.3.0)
       graphql (>= 1.6.0, < 2)
     has_scope (0.7.2)
@@ -299,6 +301,7 @@ DEPENDENCIES
   coffee-rails
   graphiql-rails
   graphql
+  graphql-cache
   graphql-errors
   listen (>= 3.0.5, < 3.2)
   mjml-rails

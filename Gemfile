@@ -40,6 +40,7 @@ gem 'mjml-rails'
 gem 'graphql'
 gem 'graphql-errors'
 gem 'graphiql-rails'
+gem 'graphql-cache'
 gem 'apollo_upload_server', '2.0.0.beta.3'
 
 # dependencies of graphiql

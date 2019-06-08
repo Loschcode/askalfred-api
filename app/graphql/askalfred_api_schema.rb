@@ -1,5 +1,6 @@
 class AskalfredApiSchema < GraphQL::Schema
   use GraphQL::Subscriptions::ActionCableSubscriptions
+  use GraphQL::Cache
 
   mutation Types::MutationType
   query Types::QueryType

@@ -26,6 +26,6 @@ class EventFile < ActiveRecord::Base
   end
 
   def from_amazon?
-    file.service.class == ActiveStorage::Service::S3Service
+    file.service.class.to_s.include? 'S3Service'
   end
 end
