@@ -12,6 +12,10 @@ class TrackingService
     slack_service.dispatch "[WARNING] New ticket available #{ticket.id} from #{identity.email}, check it out"
   end
 
+  def identity_removed
+    slack_service.dispatch "[WARNING] Identity of role `#{identity.role }` and email #{identity.email}, was removed from the database."
+  end
+
   private
 
   def slack_service

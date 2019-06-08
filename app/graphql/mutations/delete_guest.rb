@@ -18,6 +18,7 @@ module Mutations
       return GraphQL::ExecutionError.new('Identity to delete not recognized') unless identity.present?
       return GraphQL::ExecutionError.new('You cannot delete an identity which is not a guest') unless identity.guest?
 
+      TrackingService.new(identity).identity_removed
       identity.destroy
 
       {

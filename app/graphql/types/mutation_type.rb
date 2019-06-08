@@ -18,6 +18,7 @@ module Types
     field :getCreditForFree, mutation: Mutations::GetCreditForFree
     field :removeEmail, mutation: Mutations::RemoveEmail
     field :storeIdentityPassword, mutation: Mutations::StoreIdentityPassword
+    field :resetPassword, mutation: Mutations::ResetPassword
     field :unsetPassword, mutation: Mutations::UnsetPassword
   end
 end
