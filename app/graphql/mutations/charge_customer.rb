@@ -25,7 +25,7 @@ module Mutations
 
       ActiveRecord::Base.transaction do
         amount = input[:amount] * 100 # in cents
-        time = 4 * amount # in seconds
+        time = 3 * amount # in seconds
 
         stripe_charge = begin
           Stripe::Charge.create(
