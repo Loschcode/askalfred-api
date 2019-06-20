@@ -1,5 +1,8 @@
+
 ActiveAdmin.register Ticket do
   config.sort_order = 'created_at_desc'
+  renderer = Redcarpet::Render::HTML.new(hard_wrap: true)
+  markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
 
   index do
     id_column
@@ -87,9 +90,13 @@ ActiveAdmin.register Ticket do
         end
         column :eventable_type
         column :data do |event|
-          text_node event.eventable.body if event.eventable_type == 'EventMessage'
+          text_node markdown.render(event.eventable.body).html_safe if event.eventable_type == 'EventMessage'
           a event.eventable.file_path if event.eventable_type == 'EventFile'
-          text_node "#{event.eventable.body} (#{event.eventable.label})" if event.eventable_type == 'EventCallToAction'
+          text_node """
+          #{markdown.render(event.eventable.body)}
+          BUTTON BELOW
+          #{markdown.render(event.eventable.label)} = #{event.eventable.link}
+          """.html_safe if event.eventable_type == 'EventCallToAction'
         end
         column :seen_at
         column :created_at
