@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_28_204050) do
+ActiveRecord::Schema.define(version: 2019_06_20_182421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 2019_05_28_204050) do
     t.index ["stripe_charge_id"], name: "index_credits_on_stripe_charge_id"
     t.index ["ticket_id"], name: "index_credits_on_ticket_id"
     t.index ["time"], name: "index_credits_on_time"
+  end
+
+  create_table "event_call_to_actions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "body"
+    t.string "label"
+    t.string "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "event_files", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

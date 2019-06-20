@@ -89,6 +89,7 @@ ActiveAdmin.register Ticket do
         column :data do |event|
           text_node event.eventable.body if event.eventable_type == 'EventMessage'
           a event.eventable.file_path if event.eventable_type == 'EventFile'
+          text_node "#{event.eventable.body} (#{event.eventable.label})" if event.eventable_type == 'EventCallToAction'
         end
         column :seen_at
         column :created_at
@@ -102,6 +103,19 @@ ActiveAdmin.register Ticket do
         end
         f.actions do
           f.action :submit, label: 'Create message'
+        end
+      end
+    end
+
+    panel 'Send call to action' do
+      active_admin_form_for EventCallToAction.new, url: { action: :send_event_call_to_action } do |f|
+        f.inputs do
+          f.input :body, as: :text
+          f.input :label
+          f.input :link
+        end
+        f.actions do
+          f.action :submit, label: 'Create call to action'
         end
       end
     end
@@ -176,6 +190,24 @@ ActiveAdmin.register Ticket do
     # we should tell the guy via  email
     # this logic is obsolete now
     # if ticket.events.where(identity: identity).count == 1
+
+    redirect_to action: :show
+  end
+
+  member_action :send_event_call_to_action, method: :post do
+    identity = Identity.where(role: 'admin').take
+    ticket = Ticket.find(params[:id])
+    body = params[:event_call_to_action][:body]
+    label = params[:event_call_to_action][:label]
+    link = params[:event_call_to_action][:link]
+
+    SendCallToActionService.new(
+      identity: identity,
+      ticket: ticket,
+      body: body,
+      link: link,
+      label: label
+    ).perform
 
     redirect_to action: :show
   end
