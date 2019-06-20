@@ -9,9 +9,11 @@ class Event < ActiveRecord::Base
 
   has_one :self_ref, class_name: 'Event', foreign_key: :id
   has_one :event_message, through: :self_ref, source: :eventable, source_type: 'EventMessage'
+  has_one :event_call_to_action, through: :self_ref, source: :eventable, source_type: 'EventCallToAction'
   has_one :event_file, through: :self_ref, source: :eventable, source_type: 'EventFile'
 
   accepts_nested_attributes_for :event_message
+  accepts_nested_attributes_for :event_call_to_action
   accepts_nested_attributes_for :event_file
 
   validates :seen_at, required: false

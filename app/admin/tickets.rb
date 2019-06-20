@@ -91,7 +91,7 @@ ActiveAdmin.register Ticket do
         column :eventable_type
         column :data do |event|
           text_node markdown.render(event.eventable.body).html_safe if event.eventable_type == 'EventMessage'
-          a event.eventable.file_path if event.eventable_type == 'EventFile'
+          link_to 'File path', event.eventable.file_path if event.eventable_type == 'EventFile'
           text_node """
           #{markdown.render(event.eventable.body)}
           BUTTON BELOW
@@ -100,6 +100,13 @@ ActiveAdmin.register Ticket do
         end
         column :seen_at
         column :created_at
+        column :edit do |event|
+          if event.eventable_type == "EventCallToAction"
+            link_to 'Edit Call To Action', edit_admin_event_call_to_action_path(event.eventable.id)
+          elsif event.eventable_type == "EventMessage"
+            link_to 'Edit Message', edit_admin_event_message_path(event.eventable.id)
+          end
+        end
       end
     end
 
