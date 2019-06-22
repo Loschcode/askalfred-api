@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_20_182421) do
+ActiveRecord::Schema.define(version: 2019_06_22_162013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 2019_06_20_182421) do
     t.datetime "email_opt_out_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "mailbox"
     t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_identities_on_confirmation_token"
     t.index ["confirmed_at"], name: "index_identities_on_confirmed_at"
@@ -125,6 +126,7 @@ ActiveRecord::Schema.define(version: 2019_06_20_182421) do
     t.index ["email"], name: "index_identities_on_email"
     t.index ["email_opt_out_at"], name: "index_identities_on_email_opt_out_at"
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
+    t.index ["mailbox"], name: "index_identities_on_mailbox"
     t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
     t.index ["stripe_card_id"], name: "index_identities_on_stripe_card_id"

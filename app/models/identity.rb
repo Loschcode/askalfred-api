@@ -6,7 +6,9 @@ class Identity < ActiveRecord::Base
   validates :encrypted_password, presence: true, unless: -> { guest? || recovery_token.present? }
   validates :role, presence: true
 
+  validates :mailbox, presence: false
   validates :token, presence: false
+
   validates :confirmed_at, presence: false
   validates :confirmation_sent_at, presence: false
   validates :confirmation_token, presence: false

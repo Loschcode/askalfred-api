@@ -12,7 +12,8 @@ module Mutations
       return GraphQL::ExecutionError.new('Your profile was not completed correctly. Please contact support.') unless required_fields_present?
 
       current_identity.update(
-        role: 'customer'
+        role: 'customer',
+        mailbox: MailboxService.new(current_identity).perform
       )
 
       if current_identity.errors.any?
