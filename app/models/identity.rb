@@ -23,6 +23,7 @@ class Identity < ActiveRecord::Base
 
   has_many :credits, dependent: :destroy
   has_many :tickets, dependent: :destroy
+  has_many :mailbox_mails, dependent: :destroy
 
   before_create :ensure_token
 

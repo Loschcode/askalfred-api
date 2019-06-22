@@ -13,7 +13,7 @@ module Mutations
 
       current_identity.update(
         role: 'customer',
-        mailbox: MailboxService.new(current_identity).perform
+        mailbox: MailboxService::Setup.new(current_identity).perform
       )
 
       if current_identity.errors.any?

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_22_162013) do
+ActiveRecord::Schema.define(version: 2019_06_22_175115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,23 @@ ActiveRecord::Schema.define(version: 2019_06_22_162013) do
     t.index ["stripe_card_id"], name: "index_identities_on_stripe_card_id"
     t.index ["stripe_customer_id"], name: "index_identities_on_stripe_customer_id"
     t.index ["terms_accepted_at"], name: "index_identities_on_terms_accepted_at"
+  end
+
+  create_table "mailbox_mails", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "identity_id"
+    t.uuid "ticket_id"
+    t.string "direction"
+    t.string "subject"
+    t.string "from"
+    t.string "to"
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identity_id", "direction"], name: "index_mailbox_mails_on_identity_id_and_direction"
+    t.index ["identity_id", "ticket_id"], name: "index_mailbox_mails_on_identity_id_and_ticket_id"
+    t.index ["identity_id"], name: "index_mailbox_mails_on_identity_id"
+    t.index ["ticket_id", "direction"], name: "index_mailbox_mails_on_ticket_id_and_direction"
+    t.index ["ticket_id"], name: "index_mailbox_mails_on_ticket_id"
   end
 
   create_table "tickets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
