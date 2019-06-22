@@ -14,6 +14,7 @@ module MailboxService
     def perform
       MailboxMail.transaction do
         MailboxMail.create!(
+          ticket: ticket,
           identity: identity,
           direction: 'sent',
           from: from,
@@ -32,7 +33,15 @@ module MailboxService
     end
 
     def from
-      "#{identity.first_name} #{identity.last_name} <#{identity.mailbox}>"
+      "Alfred Windsor <#{email}>"
+    end
+
+    def email
+      if ticket
+        identity.mailbox.gsub('@', "+#{ticket.id}@")
+      else
+        identity.mailbox
+      end
     end
   end
 end

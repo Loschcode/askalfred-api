@@ -145,6 +145,41 @@ ActiveAdmin.register Ticket do
       end
     end
 
+    panel 'Emailing' do
+      table_for ticket.mailbox_mails.order(created_at: :desc) do
+        column :id do |mailbox_mail|
+          a link_to(mailbox_mail.id, admin_mailbox_mail_path(mailbox_mail))
+        end
+        column :identity do |mailbox_mail|
+          a link_to(mailbox_mail.identity.id, admin_identity_path(mailbox_mail.identity))
+        end
+        column :ticket do |mailbox_mail|
+          if mailbox_mail.ticket
+            a link_to(mailbox_mail.ticket.id, admin_ticket_path(mailbox_mail.ticket))
+          end
+        end
+        column :from
+        column :to
+        column :subject
+        column :created_at
+        column :updated_at
+      end
+
+      panel 'Send email' do
+        active_admin_form_for MailboxMail.new, url: { action: :send_email } do |f|
+          f.inputs do
+            f.input :subject
+            f.input :to
+            f.input :body, as: :text
+            text_node  'BE AWARE : THIS EMAIL WILL BE SENT AS TICKET RELATED EMAIL THROUGH THE SYSTEM, PLEASE USE THE MAILER  FROM THE IDENTITY DIRECTLY IF YOU DON\'T WANT THIS.'
+          end
+          f.actions do
+            f.action :submit, label: 'Send email'
+          end
+        end
+      end
+    end
+
     panel 'Credits' do
       table_for ticket.credits.order(created_at: :asc) do
         column :id do |credit|
@@ -171,6 +206,24 @@ ActiveAdmin.register Ticket do
         end
       end
     end
+  end
+
+  member_action :send_email, method: :post do
+    ticket = Ticket.find(params[:id])
+    identity = ticket.identity
+    to = params[:mailbox_mail][:to]
+    subject = params[:mailbox_mail][:subject]
+    body = params[:mailbox_mail][:body]
+
+    MailboxService::Sender.new(
+      identity: identity,
+      ticket: ticket,
+      to: to,
+      subject: subject,
+      body: body
+    ).perform
+
+    redirect_to action: :show
   end
 
   member_action :consume_time, method: :post do
