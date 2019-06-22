@@ -91,6 +91,7 @@ ActiveAdmin.register Identity do
         end
         column :from
         column :to
+        column :direction
         column :subject
         column :created_at
         column :updated_at

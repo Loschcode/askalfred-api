@@ -1,5 +1,5 @@
 class Webhooks::Mailgun::IncomingsController < ApiController
-  def update
+  def create
     MailboxMail.create!(
       ticket: ticket,
       identity: identity,
@@ -22,7 +22,7 @@ private
 
   def ticket_id
     /\+(.*)@/ =~ to
-    Regexp.last_match[1]
+    Regexp.last_match(1)
   end
 
   def identity

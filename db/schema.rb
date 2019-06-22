@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 2019_06_22_175115) do
     t.string "from"
     t.string "to"
     t.string "body"
+    t.jsonb "raw"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id", "direction"], name: "index_mailbox_mails_on_identity_id_and_direction"
