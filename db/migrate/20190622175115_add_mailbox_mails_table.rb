@@ -10,6 +10,7 @@ class AddMailboxMailsTable < ActiveRecord::Migration[5.2]
       t.string :from
       t.string :to
       t.string :body
+      t.jsonb :raw
 
       t.timestamps
 

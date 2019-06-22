@@ -10,4 +10,10 @@ Rails.application.routes.draw do
 
   post '/graphql', to: 'graphql#execute'
   root to: 'index#show'
+
+  namespace :webhooks do
+    namespace :mailgun do
+      resource :incoming
+    end
+  end
 end

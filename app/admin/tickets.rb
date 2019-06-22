@@ -168,6 +168,7 @@ ActiveAdmin.register Ticket do
       panel 'Send email' do
         active_admin_form_for MailboxMail.new, url: { action: :send_email } do |f|
           f.inputs do
+            text_node "<strong>From #{ticket.mailbox}</strong>".html_safe
             f.input :subject
             f.input :to
             f.input :body, as: :text

@@ -38,7 +38,7 @@ module MailboxService
 
     def email
       if ticket
-        identity.mailbox.gsub('@', "+#{ticket.id}@")
+        ticket.mailbox
       else
         identity.mailbox
       end

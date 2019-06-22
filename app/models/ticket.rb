@@ -21,4 +21,8 @@ class Ticket < ActiveRecord::Base
 
   has_many :event_messages, through: :events, source: :eventable, source_type: 'EventMessage'
   has_many :event_files, through: :events, source: :eventable, source_type: 'EventFile'
+
+  def mailbox
+    identity.mailbox.gsub('@', "+#{id}@")
+  end
 end
