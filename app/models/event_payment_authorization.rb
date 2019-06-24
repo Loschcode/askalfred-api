@@ -3,6 +3,7 @@ class EventPaymentAuthorization < ActiveRecord::Base
   accepts_nested_attributes_for :event
 
   validates :body, presence: true, allow_blank: false
+  validates :line_item, presence: true, allow_blank: false
 
   validates :amount_in_cents, presence: true
   validates :fees_in_cents, presence: true

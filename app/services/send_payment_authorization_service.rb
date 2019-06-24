@@ -2,12 +2,13 @@ class SendPaymentAuthorizationService < Base
   class Error < StandardError; end
   BASE_FEES = 1.4 # %
 
-  attr_reader :identity, :ticket, :body, :amount, :fees_formula
+  attr_reader :identity, :ticket, :body, :line_item, :amount, :fees_formula
 
-  def initialize(identity:, ticket:, body:, amount:, fees_formula:)
+  def initialize(identity:, ticket:, body:, line_item:, amount:, fees_formula:)
     @identity = identity
     @ticket = ticket
     @body = body
+    @line_item = line_item
     @amount = amount
     @fees_formula = fees_formula
   end
@@ -42,6 +43,7 @@ class SendPaymentAuthorizationService < Base
   def event_payment_authorization
     @event_payment_authorization ||= EventPaymentAuthorization.create(
       body: body,
+      line_item: line_item,
       fees_in_cents: fees_in_cents,
       amount_in_cents: amount_in_cents
     )
