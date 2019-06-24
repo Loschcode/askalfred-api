@@ -92,6 +92,7 @@ ActiveAdmin.register Ticket do
         column :data do |event|
           text_node markdown.render(event.eventable.body).html_safe if event.eventable_type == 'EventMessage'
           link_to 'File path', event.eventable.file_path if event.eventable_type == 'EventFile'
+          text_node markdown.render(event.eventable.body).html_safe if event.eventable_type == 'EventPaymentAuthorization'
           text_node """
           #{markdown.render(event.eventable.body)}
           BUTTON BELOW
@@ -105,6 +106,8 @@ ActiveAdmin.register Ticket do
             link_to 'Edit Call To Action', edit_admin_event_call_to_action_path(event.eventable.id)
           elsif event.eventable_type == "EventMessage"
             link_to 'Edit Message', edit_admin_event_message_path(event.eventable.id)
+          elsif event.eventable_type == "EventPaymentAuthorization"
+            link_to 'Edit Payment Authorization', edit_admin_event_payment_authorization_path(event.eventable.id)
           end
         end
       end
@@ -141,6 +144,19 @@ ActiveAdmin.register Ticket do
         end
         f.actions do
           f.action :submit, label: 'Upload file'
+        end
+      end
+    end
+
+    panel 'Send payment authorization' do
+      active_admin_form_for EventPaymentAuthorization.new, url: { action: :send_event_payment_authorization } do |f|
+        f.inputs do
+          f.input :body, as: :text
+          f.input :amount_in_cents
+          f.input :fees_in_cents, as: :select, collection: [:free, :automatic], prompt: true, selected: :automatic
+        end
+        f.actions do
+          f.action :submit, label: 'Create payment authorization'
         end
       end
     end
@@ -275,6 +291,24 @@ ActiveAdmin.register Ticket do
       body: body,
       link: link,
       label: label
+    ).perform
+
+    redirect_to action: :show
+  end
+
+  member_action :send_event_payment_authorization, method: :post do
+    identity = Identity.where(role: 'admin').take
+    ticket = Ticket.find(params[:id])
+    body = params[:event_payment_authorization][:body]
+    amount = params[:event_payment_authorization][:amount_in_cents].to_i
+    fees_formula = params[:event_payment_authorization][:fees_in_cents].to_sym
+
+    SendPaymentAuthorizationService.new(
+      identity: identity,
+      ticket: ticket,
+      body: body,
+      amount: amount,
+      fees_formula: fees_formula
     ).perform
 
     redirect_to action: :show
