@@ -92,11 +92,14 @@ ActiveAdmin.register Ticket do
         column :data do |event|
           text_node markdown.render(event.eventable.body).html_safe if event.eventable_type == 'EventMessage'
           link_to 'File path', event.eventable.file_path if event.eventable_type == 'EventFile'
-          text_node markdown.render(event.eventable.body).html_safe if event.eventable_type == 'EventPaymentAuthorization'
           text_node """
           #{markdown.render(event.eventable.body)}
-          BUTTON BELOW
-          #{markdown.render(event.eventable.label)} = #{event.eventable.link}
+          AMOUNT #{event.eventable.amount_in_cents}
+          FEES #{event.eventable.fees_in_cents}
+          """.html_safe if event.eventable_type == 'EventPaymentAuthorization'
+          text_node """
+          #{markdown.render(event.eventable.body)}
+          BUTTON BELOW #{markdown.render(event.eventable.label)} = #{event.eventable.link}
           """.html_safe if event.eventable_type == 'EventCallToAction'
         end
         column :seen_at

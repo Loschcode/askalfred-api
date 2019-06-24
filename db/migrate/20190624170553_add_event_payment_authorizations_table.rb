@@ -7,7 +7,6 @@ class AddEventPaymentAuthorizationsTable < ActiveRecord::Migration[5.2]
       t.integer :fees_in_cents
 
       t.datetime :authorized_at
-      t.datetime :charged_at
 
       t.string :stripe_charge_id
 

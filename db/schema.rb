@@ -91,7 +91,6 @@ ActiveRecord::Schema.define(version: 2019_06_24_170553) do
     t.integer "amount_in_cents"
     t.integer "fees_in_cents"
     t.datetime "authorized_at"
-    t.datetime "charged_at"
     t.string "stripe_charge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

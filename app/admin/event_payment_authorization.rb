@@ -48,7 +48,7 @@ ActiveAdmin.register EventPaymentAuthorization do
 
   form do |f|
     inputs 'Details' do
-      input :body
+      input :body, as: :text
       input :amount_in_cents
       input :fees_in_cents
       input :authorized_at
