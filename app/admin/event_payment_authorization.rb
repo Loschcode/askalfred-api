@@ -5,6 +5,7 @@ ActiveAdmin.register EventPaymentAuthorization do
   index do
     id_column
     column :body
+    column :line_item
     column :amount_in_cents
     column :fees_in_cents
     column :authorized_at
@@ -17,6 +18,7 @@ ActiveAdmin.register EventPaymentAuthorization do
   filter :id
   filter :email
   filter :body
+  filter :line_item
   filter :amount_in_cents
   filter :fees_in_cents
   filter :authorized_at
@@ -26,6 +28,7 @@ ActiveAdmin.register EventPaymentAuthorization do
 
   permit_params :email,
                 :body,
+                :line_item,
                 :amount_in_cents,
                 :fees_in_cents,
                 :authorized_at,
@@ -37,6 +40,7 @@ ActiveAdmin.register EventPaymentAuthorization do
     attributes_table do
       row :email
       row :body
+      row :line_item
       row :amount_in_cents
       row :fees_in_cents
       row :authorized_at
@@ -49,6 +53,7 @@ ActiveAdmin.register EventPaymentAuthorization do
   form do |f|
     inputs 'Details' do
       input :body, as: :text
+      input :line_item
       input :amount_in_cents
       input :fees_in_cents
       input :authorized_at
