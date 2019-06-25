@@ -10,4 +10,8 @@ class EventPaymentAuthorization < ActiveRecord::Base
 
   validates :authorized_at, presence: false
   validates :stripe_charge_id, presence: false
+
+  def total_in_cents
+    amount_in_cents + fees_in_cents
+  end
 end

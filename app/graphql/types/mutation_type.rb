@@ -1,5 +1,6 @@
 module Types
   class MutationType < Types::BaseObject
+    field :allowExpense, mutation: Mutations::AllowExpense
     field :confirmEmail, mutation: Mutations::ConfirmEmail
     field :convertGuestToCustomer, mutation: Mutations::ConvertGuestToCustomer
     field :createGuest, mutation: Mutations::CreateGuest

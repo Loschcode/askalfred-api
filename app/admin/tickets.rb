@@ -97,6 +97,7 @@ ActiveAdmin.register Ticket do
           LINE ITEM #{event.eventable.line_item}
           AMOUNT #{event.eventable.amount_in_cents}
           FEES #{event.eventable.fees_in_cents}
+          AUTHORIZED AT #{event.eventable.authorized_at}
           """.html_safe if event.eventable_type == 'EventPaymentAuthorization'
           text_node """
           #{markdown.render(event.eventable.body)}
