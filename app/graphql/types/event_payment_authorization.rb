@@ -1,9 +1,16 @@
 module Types
+  class LineItem < Types::BaseObject
+    field :label, String, null: false
+    field :amount_in_cents, Integer, null: false
+  end
+end
+
+module Types
   class EventPaymentAuthorization < Types::BaseObject
     field :id, ID, null: false
 
     field :body, String, null: false
-    field :line_item, String, null: false
+    field :line_items, [Types::LineItem], null: false
 
     field :amount_in_cents, Integer, null: false
     field :fees_in_cents, Integer, null: false
@@ -17,3 +24,4 @@ module Types
     field :event, Types::Event, null: false
   end
 end
+
