@@ -2,14 +2,13 @@ class SendPaymentAuthorizationService < Base
   class Error < StandardError; end
   BASE_FEES = 1.4 # %
 
-  attr_reader :identity, :ticket, :body, :line_item, :amount, :fees_formula
+  attr_reader :identity, :ticket, :body, :line_items, :fees_formula
 
-  def initialize(identity:, ticket:, body:, line_item:, amount:, fees_formula:)
+  def initialize(identity:, ticket:, body:, line_items:, fees_formula:)
     @identity = identity
     @ticket = ticket
     @body = body
-    @line_item = line_item
-    @amount = amount
+    @line_items = sanitize_items_from line_items
     @fees_formula = fees_formula
   end
 
@@ -25,8 +24,19 @@ class SendPaymentAuthorizationService < Base
 
   private
 
+  def sanitize_items_from(items)
+    items.map do |item|
+      next if item['amount_in_cents'].empty? || item['label'].empty?
+
+      {
+        amount_in_cents: item['amount_in_cents'].to_i,
+        label: item['label']
+      }
+    end.compact
+  end
+
   def amount_in_cents
-    amount
+    line_items.map { |item| item[:amount_in_cents] }.sum
   end
 
   def fees_in_cents
@@ -43,9 +53,8 @@ class SendPaymentAuthorizationService < Base
   def event_payment_authorization
     @event_payment_authorization ||= EventPaymentAuthorization.create(
       body: body,
-      line_item: line_item,
-      fees_in_cents: fees_in_cents,
-      amount_in_cents: amount_in_cents
+      line_items: line_items,
+      fees_in_cents: fees_in_cents
     )
   end
 

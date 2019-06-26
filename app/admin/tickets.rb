@@ -94,7 +94,7 @@ ActiveAdmin.register Ticket do
           link_to 'File path', event.eventable.file_path if event.eventable_type == 'EventFile'
           text_node """
           #{markdown.render(event.eventable.body)}
-          LINE ITEM #{event.eventable.line_item}
+          LINE ITEM #{event.eventable.line_items.map(&:label)}
           AMOUNT #{event.eventable.amount_in_cents}
           FEES #{event.eventable.fees_in_cents}
           AUTHORIZED AT #{event.eventable.authorized_at}
@@ -154,11 +154,19 @@ ActiveAdmin.register Ticket do
     end
 
     panel 'Send payment authorization' do
-      active_admin_form_for EventPaymentAuthorization.new, url: { action: :send_event_payment_authorization } do |f|
+      active_admin_form_for 'event_payment_authorization', url: { action: :send_event_payment_authorization } do |f|
         f.inputs do
           f.input :body, as: :text
-          f.input :line_item
-          f.input :amount_in_cents
+
+          5.times do
+            f.inputs do
+              columns do
+                column { f.input :'line_items[][label]', label: 'Label' }
+                column { f.input :'line_items[][amount_in_cents]', label: 'Amount in cents' }
+              end
+            end
+          end
+
           f.input :fees_in_cents, as: :select, collection: [:free, :automatic], prompt: true, selected: :automatic
         end
         f.actions do
@@ -306,16 +314,14 @@ ActiveAdmin.register Ticket do
     identity = Identity.where(role: 'admin').take
     ticket = Ticket.find(params[:id])
     body = params[:event_payment_authorization][:body]
-    amount = params[:event_payment_authorization][:amount_in_cents].to_i
     fees_formula = params[:event_payment_authorization][:fees_in_cents].to_sym
-    line_item = params[:event_payment_authorization][:line_item]
+    line_items = params[:event_payment_authorization][:line_items]
 
     SendPaymentAuthorizationService.new(
       identity: identity,
       ticket: ticket,
       body: body,
-      line_item: line_item,
-      amount: amount,
+      line_items: line_items,
       fees_formula: fees_formula
     ).perform
 

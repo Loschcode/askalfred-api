@@ -33,6 +33,7 @@ module Mutations
             source: current_identity.stripe_card_id,
             amount: amount,
             currency: 'eur',
+            description: "Top-up of #{input[:amount]}"
           )
         rescue Stripe::CardError => exception
           raise GraphQL::ExecutionError.new('We could not top up your account. Is your card still valid? Please try again.')

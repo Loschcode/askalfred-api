@@ -88,8 +88,7 @@ ActiveRecord::Schema.define(version: 2019_06_24_170553) do
 
   create_table "event_payment_authorizations", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "body"
-    t.string "line_item"
-    t.integer "amount_in_cents"
+    t.jsonb "line_items", default: "[]"
     t.integer "fees_in_cents"
     t.datetime "authorized_at"
     t.string "stripe_charge_id"
