@@ -1,0 +1,2 @@
+ActiveAdmin.register DataCollectionFormItem do
+end

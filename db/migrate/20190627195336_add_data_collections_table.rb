@@ -4,8 +4,10 @@ class AddDataCollectionsTable < ActiveRecord::Migration[5.2]
       t.uuid :identity_id
       t.uuid :ticket_id
 
+      t.string :label
       t.string :slug
       t.string :value
+      t.string :scope
 
       t.timestamps
 
@@ -14,6 +16,8 @@ class AddDataCollectionsTable < ActiveRecord::Migration[5.2]
       t.index :slug
       t.index [:slug, :identity_id]
       t.index [:slug, :ticket_id]
+      t.index :scope
+      t.index [:slug, :scope]
     end
   end
 end

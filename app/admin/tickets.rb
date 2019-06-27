@@ -90,19 +90,37 @@ ActiveAdmin.register Ticket do
         end
         column :eventable_type
         column :data do |event|
-          text_node markdown.render(event.eventable.body).html_safe if event.eventable_type == 'EventMessage'
-          link_to 'File path', event.eventable.file_path if event.eventable_type == 'EventFile'
-          text_node """
-          #{markdown.render(event.eventable.body)}
-          LINE ITEM #{event.eventable.line_items.map(&:label)}
-          AMOUNT #{event.eventable.amount_in_cents}
-          FEES #{event.eventable.fees_in_cents}
-          AUTHORIZED AT #{event.eventable.authorized_at}
-          """.html_safe if event.eventable_type == 'EventPaymentAuthorization'
-          text_node """
-          #{markdown.render(event.eventable.body)}
-          BUTTON BELOW #{markdown.render(event.eventable.label)} = #{event.eventable.link}
-          """.html_safe if event.eventable_type == 'EventCallToAction'
+          if event.eventable_type == 'EventMessage'
+            text_node markdown.render(event.eventable.body).html_safe
+          end
+
+          if event.eventable_type == 'EventFile'
+            link_to 'File path', event.eventable.file_path
+          end
+
+          if event.eventable_type == 'EventPaymentAuthorization'
+            text_node """
+            #{markdown.render(event.eventable.body)}
+            LINE ITEM #{event.eventable.line_items.map(&:label)}
+            AMOUNT #{event.eventable.amount_in_cents}
+            FEES #{event.eventable.fees_in_cents}
+            AUTHORIZED AT #{event.eventable.authorized_at}
+            """.html_safe
+          end
+
+          if event.eventable_type == 'EventDataCollectionForm'
+            text_node """
+            #{markdown.render(event.eventable.body)}
+            LINE ITEM #{event.eventable.data_collections.map(&:slug)}
+            SENT AT #{event.eventable.sent_at}
+            """.html_safe
+          end
+          if event.eventable_type == 'EventCallToAction'
+            text_node """
+            #{markdown.render(event.eventable.body)}
+            BUTTON BELOW #{markdown.render(event.eventable.label)} = #{event.eventable.link}
+            """.html_safe
+          end
         end
         column :seen_at
         column :created_at
@@ -113,6 +131,8 @@ ActiveAdmin.register Ticket do
             link_to 'Edit Message', edit_admin_event_message_path(event.eventable.id)
           elsif event.eventable_type == "EventPaymentAuthorization"
             link_to 'Edit Payment Authorization', edit_admin_event_payment_authorization_path(event.eventable.id)
+          elsif event.eventable_type == "EventDataCollectionForm"
+            link_to 'Edit Data Collection Form', edit_admin_event_data_collection_form_path(event.eventable.id)
           end
         end
       end
@@ -171,6 +191,27 @@ ActiveAdmin.register Ticket do
         end
         f.actions do
           f.action :submit, label: 'Create payment authorization'
+        end
+      end
+    end
+
+    panel 'Send data collection form' do
+      active_admin_form_for 'event_data_collection_form', url: { action: :send_event_data_collection_form } do |f|
+        f.inputs do
+          f.input :body, as: :text
+
+          5.times do
+            f.inputs do
+              columns do
+                column { f.input :'data_collections[][label]', label: 'Label' }
+                column { f.input :'data_collections[][slug]', label: 'Slug' }
+                column { f.input :'data_collections[][scope]', label: 'Scope', as: :select, prompt: true, selected: :identity, collection: [:identity, :ticket] }
+              end
+            end
+          end
+        end
+        f.actions do
+          f.action :submit, label: 'Create data collection form'
         end
       end
     end
@@ -323,6 +364,23 @@ ActiveAdmin.register Ticket do
       body: body,
       line_items: line_items,
       fees_formula: fees_formula
+    ).perform
+
+    redirect_to action: :show
+  end
+
+  member_action :send_event_data_collection_form, method: :post do
+    identity = Identity.where(role: 'admin').take
+    ticket = Ticket.find(params[:id])
+
+    body = params[:event_data_collection_form][:body]
+    data_collections = params[:event_data_collection_form][:data_collections]
+
+    SendDataCollectionFormService.new(
+      identity: identity,
+      ticket: ticket,
+      body: body,
+      data_collections: data_collections,
     ).perform
 
     redirect_to action: :show

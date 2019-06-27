@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_27_195336) do
+ActiveRecord::Schema.define(version: 2019_06_27_204235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,15 +67,27 @@ ActiveRecord::Schema.define(version: 2019_06_27_195336) do
     t.index ["time"], name: "index_credits_on_time"
   end
 
+  create_table "data_collection_form_items", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "event_data_collection_form_id"
+    t.uuid "data_collection_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_data_collection_form_id", "data_collection_id"], name: "data_collections_event_data_collection_forms"
+  end
+
   create_table "data_collections", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "identity_id"
     t.uuid "ticket_id"
+    t.string "label"
     t.string "slug"
     t.string "value"
+    t.string "scope"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id"], name: "index_data_collections_on_identity_id"
+    t.index ["scope"], name: "index_data_collections_on_scope"
     t.index ["slug", "identity_id"], name: "index_data_collections_on_slug_and_identity_id"
+    t.index ["slug", "scope"], name: "index_data_collections_on_slug_and_scope"
     t.index ["slug", "ticket_id"], name: "index_data_collections_on_slug_and_ticket_id"
     t.index ["slug"], name: "index_data_collections_on_slug"
     t.index ["ticket_id"], name: "index_data_collections_on_ticket_id"
@@ -91,7 +103,6 @@ ActiveRecord::Schema.define(version: 2019_06_27_195336) do
 
   create_table "event_data_collection_forms", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "body"
-    t.jsonb "line_items", default: "[]"
     t.datetime "sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -117,6 +128,8 @@ ActiveRecord::Schema.define(version: 2019_06_27_195336) do
     t.string "stripe_charge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["authorized_at"], name: "index_event_payment_authorizations_on_authorized_at"
+    t.index ["stripe_charge_id"], name: "index_event_payment_authorizations_on_stripe_charge_id"
   end
 
   create_table "events", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
