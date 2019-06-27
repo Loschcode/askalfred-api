@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_24_170553) do
+ActiveRecord::Schema.define(version: 2019_06_27_195336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,12 +67,35 @@ ActiveRecord::Schema.define(version: 2019_06_24_170553) do
     t.index ["time"], name: "index_credits_on_time"
   end
 
+  create_table "data_collections", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "identity_id"
+    t.uuid "ticket_id"
+    t.string "slug"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identity_id"], name: "index_data_collections_on_identity_id"
+    t.index ["slug", "identity_id"], name: "index_data_collections_on_slug_and_identity_id"
+    t.index ["slug", "ticket_id"], name: "index_data_collections_on_slug_and_ticket_id"
+    t.index ["slug"], name: "index_data_collections_on_slug"
+    t.index ["ticket_id"], name: "index_data_collections_on_ticket_id"
+  end
+
   create_table "event_call_to_actions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "body"
     t.string "label"
     t.string "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "event_data_collection_forms", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "body"
+    t.jsonb "line_items", default: "[]"
+    t.datetime "sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sent_at"], name: "index_event_data_collection_forms_on_sent_at"
   end
 
   create_table "event_files", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

@@ -11,6 +11,9 @@ class AddEventPaymentAuthorizationsTable < ActiveRecord::Migration[5.2]
       t.string :stripe_charge_id
 
       t.timestamps
+
+      t.index :stripe_charge_id
+      t.index :authorized_at
     end
   end
 end

@@ -3,7 +3,8 @@ module Types
     possible_types Types::EventMessage,
                    Types::EventFile,
                    Types::EventCallToAction,
-                   Types::EventPaymentAuthorization
+                   Types::EventPaymentAuthorization,
+                   Types::EventDataCollectionForm
 
     def self.resolve_type(object, context)
       if object.is_a?(::EventMessage)
@@ -12,6 +13,8 @@ module Types
         Types::EventCallToAction
       elsif object.is_a?(::EventPaymentAuthorization)
         Types::EventPaymentAuthorization
+      elsif object.is_a?(::EventDataCollectionForm)
+        Types::EventDataCollectionForm
       elsif object.is_a?(::EventFile)
         Types::EventFile
       else
