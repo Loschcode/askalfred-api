@@ -28,20 +28,30 @@ ActiveRecord::Base.transaction do
   )
 
   %w(opened processing opened processing canceled completed canceled processing canceled completed canceled).each_with_index do |status, index|
-    ticket = if index.zero?
-      Ticket.create!(
-        identity: identity,
-        status: status,
-        subject: 'This is a random subject'
-      )
-    else
-      Ticket.create!(
+    attributes = {
       identity: identity,
-      title: 'This is a ticket !',
-      status: status,
       subject: 'This is a random subject'
-    )
+    }
+
+    if status == 'canceled'
+      attributes.merge!(
+        canceled_at: Time.now
+      )
     end
+
+    if status == 'completed'
+      attributes.merge!(
+        completed_at: Time.now
+      )
+    end
+
+    unless index.zero?
+      attributes.merge!(
+       title: 'This is a ticket !'
+      )
+    end
+
+    ticket = Ticket.create!(attributes)
 
     # if it's just opened
     # we don't need more than that

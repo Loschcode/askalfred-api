@@ -24,8 +24,7 @@ module Mutations
       ActiveRecord::Base.transaction do
         ticket = Ticket.create(
           identity: current_identity,
-          subject: input[:subject],
-          status: 'opened'
+          subject: input[:subject]
         )
 
         if ticket.errors.any?

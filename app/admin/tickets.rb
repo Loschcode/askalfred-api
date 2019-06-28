@@ -51,7 +51,7 @@ ActiveAdmin.register Ticket do
   end
   member_action :end_request_successfully, method: :get do
     ticket = Ticket.find(params[:id])
-    ticket.update status: 'completed'
+    ticket.update completed_at: Time.now
     refresh_ticket_and_list(ticket)
     IdentityMailer.with(identity: ticket.identity).request_completed(ticket).deliver_later
 
@@ -63,7 +63,7 @@ ActiveAdmin.register Ticket do
   end
   member_action :cancel_request, method: :get do
     ticket = Ticket.find(params[:id])
-    ticket.update status: 'canceled'
+    ticket.update canceled_at: Time.now
     refresh_ticket_and_list(ticket)
     IdentityMailer.with(identity: ticket.identity).request_canceled(ticket).deliver_later
     redirect_to action: :show

@@ -25,7 +25,7 @@ module Mutations
           raise GraphQL::ExecutionError.new 'You can\'t cancel this ticket'
         end
 
-        ticket.update status: 'canceled'
+        ticket.update canceled_at: Time.now
 
         if ticket.errors.any?
           raise GraphQL::ExecutionError.new ticket.errors.full_messages.join(', ')
