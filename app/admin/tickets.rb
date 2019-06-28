@@ -30,16 +30,6 @@ ActiveAdmin.register Ticket do
                 :created_at,
                 :updated_at
 
-  action_item :request_in_progress, only: :show, method: :get do
-    link_to 'Request in progress', request_in_progress_admin_ticket_path(ticket)
-  end
-  member_action :request_in_progress, method: :get do
-    ticket = Ticket.find(params[:id])
-    ticket.update status: 'processing'
-    refresh_ticket_and_list(ticket)
-    redirect_to action: :show
-  end
-
   action_item :need_more_details, only: :show, method: :get do
     link_to 'I need more details (Email)', need_more_details_admin_ticket_path(ticket)
   end
