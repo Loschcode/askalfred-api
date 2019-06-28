@@ -26,16 +26,10 @@ module Types
       object.event_messages.order(created_at: :asc)
     end
 
-    # field :files_connection, Types::EventFilesConnection, null: true
+    field :last_event_from_alfred, Types::EventMessage, null: true
 
-    # def files_connection
-    #   object.event_files.order(created_at: :asc)
-    # end
-
-    field :last_message_from_alfred, Types::EventMessage, null: true
-
-    def last_message_from_alfred
-      object.event_messages.where.not(events: { identity: context[:current_identity] }).order(created_at: :desc).first
+    def last_event_from_alfred
+      object.events.from_alfred.order(created_at: :desc).first&.eventable
     end
   end
 end

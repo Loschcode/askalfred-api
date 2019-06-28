@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_27_204235) do
+ActiveRecord::Schema.define(version: 2019_06_28_225547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,11 +202,13 @@ ActiveRecord::Schema.define(version: 2019_06_27_204235) do
     t.uuid "identity_id"
     t.string "title"
     t.string "subject"
-    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "canceled_at"
+    t.datetime "completed_at"
+    t.index ["canceled_at"], name: "index_tickets_on_canceled_at"
+    t.index ["completed_at"], name: "index_tickets_on_completed_at"
     t.index ["identity_id"], name: "index_tickets_on_identity_id"
-    t.index ["status"], name: "index_tickets_on_status"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

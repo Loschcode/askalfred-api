@@ -5,7 +5,7 @@ ActiveAdmin.register EventDataCollectionForm do
   index do
     id_column
     column :body
-    column :line_items
+    column :data_collections
     column :sent_at
     column :created_at
     column :updated_at
@@ -15,14 +15,14 @@ ActiveAdmin.register EventDataCollectionForm do
   filter :id
   filter :email
   filter :body
-  filter :line_items
+  filter :data_collections
   filter :sent_at
   filter :created_at
   filter :updated_at
 
   permit_params :email,
                 :body,
-                :line_items,
+                :data_collections,
                 :sent_at,
                 :created_at,
                 :updated_at
@@ -31,7 +31,7 @@ ActiveAdmin.register EventDataCollectionForm do
     attributes_table do
       row :email
       row :body
-      row :line_items
+      row :data_collections
       row :sent_at
       row :created_at
       row :updated_at
@@ -41,7 +41,7 @@ ActiveAdmin.register EventDataCollectionForm do
   form do |f|
     inputs 'Details' do
       input :body, as: :text
-      input :line_items
+      input :data_collections
       input :sent_at
       input :created_at
       input :updated_at
