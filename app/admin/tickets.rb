@@ -8,7 +8,8 @@ ActiveAdmin.register Ticket do
     id_column
     column :identity
     column :title
-    column :status
+    column :canceled_at
+    column :completed_at
     column :subject
     column :created_at
     column :updated_at
@@ -16,14 +17,16 @@ ActiveAdmin.register Ticket do
   end
 
   filter :id
-  filter :status, as: :select, collection: [:opened, :processing, :completed, :canceled]
+  filter :canceled_at
+  filter :completed_at
   filter :title
   filter :created_at
   filter :updated_at
 
   permit_params :identity_id,
                 :title,
-                :status,
+                :completed_at,
+                :canceled_at,
                 :created_at,
                 :updated_at
 
@@ -73,9 +76,10 @@ ActiveAdmin.register Ticket do
     attributes_table do
       row :identity
       row :name do |event| event.identity.first_name end
-      row :status
       row :title
       row :subject
+      row :canceled_at
+      row :completed_at
       row :created_at
       row :updated_at
     end
@@ -404,7 +408,8 @@ ActiveAdmin.register Ticket do
     inputs 'Details' do
       input :identity_id, as: :select, collection: Identity.all.map { |identity| ["#{identity.first_name} #{identity.last_name}", identity.id]}
       input :title
-      input :status, as: :select, collection: [:opened, :processing, :completed, :canceled]
+      input :canceled_at
+      input :completed_at
       input :created_at
       input :updated_at
     end

@@ -26,10 +26,10 @@ module Types
       object.event_messages.order(created_at: :asc)
     end
 
-    field :last_event_from_alfred, Types::EventMessage, null: true
+    field :last_event_from_alfred, Types::Event, null: true
 
     def last_event_from_alfred
-      object.events.from_alfred.order(created_at: :desc).first&.eventable
+      object.events.from_alfred.order(created_at: :desc).first
     end
   end
 end

@@ -19,6 +19,9 @@ class EventFile < ActiveRecord::Base
     end
   end
 
+  def body
+  end
+
   private
 
   def purge_attached
