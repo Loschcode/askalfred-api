@@ -323,6 +323,7 @@ ActiveAdmin.register Ticket do
     # we should tell the guy via  email
     # this logic is obsolete now
     # if ticket.events.where(identity: identity).count == 1
+    refresh_ticket_and_list(ticket)
 
     redirect_to action: :show
   end
@@ -342,6 +343,8 @@ ActiveAdmin.register Ticket do
       label: label
     ).perform
 
+    refresh_ticket_and_list(ticket)
+
     redirect_to action: :show
   end
 
@@ -360,6 +363,8 @@ ActiveAdmin.register Ticket do
       fees_formula: fees_formula
     ).perform
 
+    refresh_ticket_and_list(ticket)
+
     redirect_to action: :show
   end
 
@@ -377,6 +382,8 @@ ActiveAdmin.register Ticket do
       data_collections: data_collections,
     ).perform
 
+    refresh_ticket_and_list(ticket)
+
     redirect_to action: :show
   end
 
@@ -390,6 +397,8 @@ ActiveAdmin.register Ticket do
       ticket: ticket,
       file: file
     ).perform
+
+    refresh_ticket_and_list(ticket)
 
     redirect_to action: :show
   end
