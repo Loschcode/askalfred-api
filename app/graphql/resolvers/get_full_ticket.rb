@@ -1,6 +1,6 @@
 module Types
   class GetFullTicketInput < Types::BaseInputObject
-    argument :id, ID, 'ticket id', required: true
+    argument :id, ID, required: true
   end
 end
 
@@ -15,7 +15,6 @@ module Resolvers
 
       if was_seen_tickets.any?
         was_seen_tickets.update(seen_at: Time.now)
-        # RefreshService.new(current_identity).ticket(ticket)
       end
 
       ticket

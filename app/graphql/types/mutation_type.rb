@@ -11,6 +11,7 @@ module Types
     field :storeIdentityName, mutation: Mutations::StoreIdentityName
     field :storeIdentityEmail, mutation: Mutations::StoreIdentityEmail
     field :sendConfirmEmail, mutation: Mutations::SendConfirmEmail
+    field :sendDataCollectionForm, mutation: Mutations::SendDataCollectionForm
     field :sendMessage, mutation: Mutations::SendMessage
     field :addCard, mutation: Mutations::AddCard
     field :sendFile, mutation: Mutations::SendFile

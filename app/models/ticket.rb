@@ -9,6 +9,7 @@ class Ticket < ActiveRecord::Base
   belongs_to :identity, touch: true
   has_many :credits, dependent: :destroy
   has_many :mailbox_mails, dependent: :destroy
+  has_many :data_collections, dependent: :destroy
 
   has_many :events, dependent: :destroy
   accepts_nested_attributes_for :events, reject_if: :all_blank, allow_destroy: true

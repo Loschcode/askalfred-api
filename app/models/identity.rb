@@ -21,6 +21,7 @@ class Identity < ActiveRecord::Base
   validates :terms_accepted_at, presence: false
   validates :email_opt_out_at, presence: false
 
+  has_many :data_collections, dependent: :destroy
   has_many :credits, dependent: :destroy
   has_many :tickets, dependent: :destroy
   has_many :mailbox_mails, dependent: :destroy
