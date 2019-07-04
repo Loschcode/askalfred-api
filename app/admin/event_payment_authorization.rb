@@ -94,7 +94,7 @@ ActiveAdmin.register EventPaymentAuthorization do
         description: "Allowed expense for Event #{event.id}",
       )
     rescue Stripe::CardError => exception
-      flash[:alert] = 'Problem when charging  this customer #{exception}.'
+      flash[:alert] = 'Problem when charging this customer #{exception}.'
       return
     end
 

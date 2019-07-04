@@ -7,6 +7,8 @@ class DataCollection < ActiveRecord::Base
   validates :scope, presence: true, allow_blank: false # [ticket, identity]
   validates :value, presence: false
 
+  validates :slug, uniqueness: { scope: :identity_id }
+
   belongs_to :identity, touch: true
   belongs_to :ticket, optional: true, touch: true
 

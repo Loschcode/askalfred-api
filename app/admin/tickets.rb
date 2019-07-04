@@ -319,13 +319,7 @@ ActiveAdmin.register Ticket do
       body: body
     ).perform
 
-    # if it's the first message
-    # we should tell the guy via  email
-    # this logic is obsolete now
-    # if ticket.events.where(identity: identity).count == 1
-    refresh_ticket_and_list(ticket)
-
-    redirect_to action: :show
+    redirect_to action: :show, alert: 'Message was sent'
   end
 
   member_action :send_event_call_to_action, method: :post do
@@ -343,9 +337,7 @@ ActiveAdmin.register Ticket do
       label: label
     ).perform
 
-    refresh_ticket_and_list(ticket)
-
-    redirect_to action: :show
+    redirect_to action: :show, alert: 'Call to action was sent.'
   end
 
   member_action :send_event_payment_authorization, method: :post do
@@ -363,9 +355,7 @@ ActiveAdmin.register Ticket do
       fees_formula: fees_formula
     ).perform
 
-    refresh_ticket_and_list(ticket)
-
-    redirect_to action: :show
+    redirect_to action: :show, alert: 'Payment authorization was sent.'
   end
 
   member_action :send_event_data_collection_form, method: :post do
@@ -382,9 +372,7 @@ ActiveAdmin.register Ticket do
       data_collections: data_collections,
     ).perform
 
-    refresh_ticket_and_list(ticket)
-
-    redirect_to action: :show
+    redirect_to action: :show, alert: 'Data collection form was sent.'
   end
 
   member_action :send_event_file, method: :post do
@@ -397,8 +385,6 @@ ActiveAdmin.register Ticket do
       ticket: ticket,
       file: file
     ).perform
-
-    refresh_ticket_and_list(ticket)
 
     redirect_to action: :show
   end

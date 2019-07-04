@@ -16,6 +16,8 @@ class SendDataCollectionFormService < Base
       throw_errors(event.errors) if event.errors.any?
 
       data_collections.each do |data_collection|
+        data_collection.save!
+
         DataCollectionFormItem.create!(
           data_collection: data_collection,
           event_data_collection_form: event_data_collection_form
