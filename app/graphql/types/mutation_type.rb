@@ -16,6 +16,7 @@ module Types
     field :addCard, mutation: Mutations::AddCard
     field :sendFile, mutation: Mutations::SendFile
     field :sendRecoveryEmail, mutation: Mutations::SendRecoveryEmail
+    field :setPaymentIntent, mutation: Mutations::SetPaymentIntent
     field :signIn, mutation: Mutations::SignIn
     field :getCreditForFree, mutation: Mutations::GetCreditForFree
     field :removeEmail, mutation: Mutations::RemoveEmail

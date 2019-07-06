@@ -1,0 +1,49 @@
+module Types
+  class SetPaymentIntentInput < Types::BaseInputObject
+    argument :amount, Integer, required: true
+    argument :stripe_payment_intent_id, String, required: false
+  end
+end
+
+module Mutations
+  class SetPaymentIntent < Mutations::BaseMutation
+    argument :input, Types::SetPaymentIntentInput, required: true
+    field :id, String, null: false
+    field :client_secret, String, null: false
+
+    def resolve(input:)
+      return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
+
+      # NOTE : we don't need more information than that for the payment intent
+      ActiveRecord::Base.transaction do
+        amount = input[:amount] * 100 # in cents
+        stripe_payment_intent_id = input[:stripe_payment_intent_id]
+
+        stripe_payment_intent = begin
+          if stripe_payment_intent_id.present?
+            Stripe::PaymentIntent.update(
+              stripe_payment_intent_id,
+              amount: amount
+            )
+          else
+            Stripe::PaymentIntent.create(
+              amount: amount,
+              currency: 'eur',
+              setup_future_usage: 'on_session', # switch to `off_session` for asynchronous charges
+              metadata: {
+                identity_id: current_identity.id
+              }
+            )
+          end
+        rescue Stripe::Error => exception
+          raise GraphQL::ExecutionError.new('We could not set this amount. Please try again.')
+        end
+
+        {
+          id: stripe_payment_intent.id,
+          client_secret: stripe_payment_intent.client_secret
+        }
+      end
+    end
+  end
+end

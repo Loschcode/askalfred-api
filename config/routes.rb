@@ -15,5 +15,8 @@ Rails.application.routes.draw do
     namespace :mailgun do
       resource :incoming
     end
+    namespace :stripe do
+      resource :payments
+    end
   end
 end

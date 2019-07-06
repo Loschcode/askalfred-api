@@ -16,6 +16,10 @@ class TrackingService
     slack_service.dispatch "[WARNING] Identity of role `#{identity.role }` and email #{identity.email}, was removed from the database."
   end
 
+  def payment_failed(error)
+    slack_service.dispatch "[WARNING] Identity with email #{identity.email} got an error from the webhook when trying to credit him (`#{error}`)."
+  end
+
   private
 
   def slack_service
