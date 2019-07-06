@@ -9,7 +9,7 @@ class EventPaymentAuthorization < ActiveRecord::Base
   validates :fees_in_cents, presence: true
 
   validates :authorized_at, presence: false
-  validates :stripe_charge_id, presence: false
+  validates :stripe_intent_id, presence: false
 
   def line_items
     attributes['line_items'].map do |item|

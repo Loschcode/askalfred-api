@@ -16,7 +16,7 @@ ActiveAdmin.register Identity do
     column :confirmation_token
     column :recovery_token
     column :stripe_customer_id
-    column :stripe_card_id
+    column :stripe_payment_method_id
     column :terms_accepted_at
     column :email_opt_out_at
     column :created_at
@@ -32,7 +32,7 @@ ActiveAdmin.register Identity do
   filter :confirmation_token
   filter :recovery_token
   filter :stripe_customer_id
-  filter :stripe_card_id
+  filter :stripe_payment_method_id
   filter :created_at
   filter :updated_at
 
@@ -48,7 +48,7 @@ ActiveAdmin.register Identity do
                 :confirmation_token,
                 :recovery_token,
                 :stripe_customer_id,
-                :stripe_card_id,
+                :stripe_payment_method_id,
                 :terms_accepted_at,
                 :email_opt_out_at,
                 :created_at,
@@ -68,7 +68,7 @@ ActiveAdmin.register Identity do
       row :confirmation_token
       row :recovery_token
       row :stripe_customer_id
-      row :stripe_card_id
+      row :stripe_payment_method_id
       row :terms_accepted_at
       row :email_opt_out_at
       row :created_at

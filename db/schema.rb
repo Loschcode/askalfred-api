@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_28_225547) do
+ActiveRecord::Schema.define(version: 2019_07_06_205041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,13 +56,13 @@ ActiveRecord::Schema.define(version: 2019_06_28_225547) do
     t.uuid "ticket_id"
     t.integer "time"
     t.string "origin"
-    t.string "stripe_charge_id"
+    t.string "stripe_intent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id", "ticket_id"], name: "index_credits_on_identity_id_and_ticket_id"
     t.index ["identity_id"], name: "index_credits_on_identity_id"
     t.index ["origin"], name: "index_credits_on_origin"
-    t.index ["stripe_charge_id"], name: "index_credits_on_stripe_charge_id"
+    t.index ["stripe_intent_id"], name: "index_credits_on_stripe_intent_id"
     t.index ["ticket_id"], name: "index_credits_on_ticket_id"
     t.index ["time"], name: "index_credits_on_time"
   end
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 2019_06_28_225547) do
     t.string "recovery_token"
     t.integer "credits_count", default: 0
     t.string "stripe_customer_id"
-    t.string "stripe_card_id"
+    t.string "stripe_payment_method_id"
     t.datetime "email_opt_out_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -175,8 +175,8 @@ ActiveRecord::Schema.define(version: 2019_06_28_225547) do
     t.index ["mailbox"], name: "index_identities_on_mailbox"
     t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
-    t.index ["stripe_card_id"], name: "index_identities_on_stripe_card_id"
     t.index ["stripe_customer_id"], name: "index_identities_on_stripe_customer_id"
+    t.index ["stripe_payment_method_id"], name: "index_identities_on_stripe_payment_method_id"
     t.index ["terms_accepted_at"], name: "index_identities_on_terms_accepted_at"
   end
 

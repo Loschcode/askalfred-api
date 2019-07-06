@@ -16,7 +16,7 @@ module Types
     field :fees_in_cents, Integer, null: false
 
     field :authorized_at, GraphQL::Types::ISO8601DateTime, null: true
-    field :stripe_charge_id, String, null: true
+    field :stripe_intent_id, String, null: true
 
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false

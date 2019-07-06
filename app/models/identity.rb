@@ -16,7 +16,7 @@ class Identity < ActiveRecord::Base
   validates :recovery_token, presence: false
 
   validates :stripe_customer_id, presence: false
-  validates :stripe_card_id, presence: false
+  validates :stripe_payment_method_id, presence: false
 
   validates :terms_accepted_at, presence: false
   validates :email_opt_out_at, presence: false

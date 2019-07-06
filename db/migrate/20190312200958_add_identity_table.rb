@@ -16,7 +16,7 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.integer :credits_count, default: 0
 
       t.string :stripe_customer_id
-      t.string :stripe_card_id
+      t.string :stripe_payment_method_id
 
       t.datetime :email_opt_out_at
 
@@ -33,7 +33,7 @@ class AddIdentityTable < ActiveRecord::Migration[5.2]
       t.index :recovery_token
       t.index :credits_count
       t.index :stripe_customer_id
-      t.index :stripe_card_id
+      t.index :stripe_payment_method_id
       t.index :email_opt_out_at
     end
   end

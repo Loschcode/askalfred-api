@@ -10,7 +10,7 @@ module Mutations
     description 'send a message to a specific ticket'
 
     argument :input, Types::ChargeCustomerInput, required: true
-    field :stripe_charge_id, String, null: false
+    field :stripe_intent_id, String, null: false
 
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
@@ -19,7 +19,7 @@ module Mutations
         raise GraphQL::ExecutionError.new('Our payment service did not recognize you.')
       end
 
-      unless current_identity.stripe_card_id
+      unless current_identity.stripe_payment_method_id
         raise GraphQL::ExecutionError.new('We cannot charge you without credit card information.')
       end
 
@@ -30,7 +30,7 @@ module Mutations
         stripe_charge = begin
           Stripe::Charge.create(
             customer: current_identity.stripe_customer_id,
-            source: current_identity.stripe_card_id,
+            source: current_identity.stripe_payment_method_id,
             amount: amount,
             currency: 'eur',
             description: "Top-up of #{input[:amount]}"
@@ -41,7 +41,7 @@ module Mutations
 
         credit = Credit.create(
           identity: current_identity,
-          stripe_charge_id: stripe_charge.id,
+          stripe_intent_id: stripe_charge.id,
           time: time,
           origin: 'charge_customer'
         )
@@ -54,7 +54,7 @@ module Mutations
         refresh_service.myself
 
         {
-          stripe_charge_id: credit.stripe_charge_id
+          stripe_intent_id: credit.stripe_intent_id
         }
       end
     end

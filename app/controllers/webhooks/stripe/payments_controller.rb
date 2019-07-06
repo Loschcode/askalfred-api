@@ -7,6 +7,10 @@ class Webhooks::Stripe::PaymentsController < ApiController
       amount = intent['amount']
       time = 3 * amount
 
+      # we don't forget to store the last payment method
+      # as the payment method reusable after
+      current_identity.update! stripe_payment_method_id: intent['payment_method']
+
       Credit.create!(
         identity: current_identity,
         stripe_intent_id: intent.id,
@@ -57,7 +61,7 @@ class Webhooks::Stripe::PaymentsController < ApiController
   end
 
   def current_identity
-    @current_identity ||= Identity.find(intent['metadata']['identity_id'])
+    @current_identity ||= Identity.find_by!(stripe_customer_id: intent['customer'])
   end
 
   def refresh_service

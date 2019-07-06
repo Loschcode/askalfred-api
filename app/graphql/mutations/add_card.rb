@@ -11,26 +11,26 @@ module Mutations
 
     argument :input, Types::AddCardInput, required: true
     field :stripe_customer_id, String, null: false
-    field :stripe_card_id, String, null: false
+    field :stripe_payment_method_id, String, null: false
 
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
 
       # STEP 1 : register customer
-      unless current_identity.stripe_customer_id
-        stripe_customer = Stripe::Customer.create(
-          email:  current_identity.email,
-          metadata: {
-            identity_id: current_identity.id
-          }
-        )
+      # unless current_identity.stripe_customer_id
+      #   stripe_customer = Stripe::Customer.create(
+      #     email:  current_identity.email,
+      #     metadata: {
+      #       identity_id: current_identity.id
+      #     }
+      #   )
 
-        unless stripe_customer.id
-          raise GraphQL::ExecutionError.new('It was not possible to register your account to our payment service.')
-        end
+      #   unless stripe_customer.id
+      #     raise GraphQL::ExecutionError.new('It was not possible to register your account to our payment service.')
+      #   end
 
-        current_identity.update stripe_customer_id: stripe_customer.id
-      end
+      #   current_identity.update stripe_customer_id: stripe_customer.id
+      # end
 
       # STEP 2 : save card
       # if the customer already has a card we will replace it by this one
@@ -42,14 +42,14 @@ module Mutations
         raise GraphQL::ExecutionError.new('Your card does not seem to be valid. Please try again.')
       end
 
-      current_identity.update stripe_card_id: stripe_card.id
+      current_identity.update stripe_payment_method_id: stripe_card.id
 
       # STEP 3 : dispatch everything
       refresh_service.myself
 
       {
         stripe_customer_id: current_identity.stripe_customer_id,
-        stripe_card_id: current_identity.stripe_card_id
+        stripe_payment_method_id: current_identity.stripe_payment_method_id
       }
     end
 

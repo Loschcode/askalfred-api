@@ -13,7 +13,7 @@ class Credit < ActiveRecord::Base
     time_consumed_on_ticket: 'time_consumed_on_ticket'
   }
 
-  validates :stripe_charge_id, presence: false
+  validates :stripe_intent_id, presence: false
 
   belongs_to :identity, counter_cache: true, touch: true
   belongs_to :ticket, optional: true, touch: true

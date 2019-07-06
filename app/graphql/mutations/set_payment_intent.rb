@@ -19,6 +19,23 @@ module Mutations
         amount = input[:amount] * 100 # in cents
         stripe_payment_intent_id = input[:stripe_payment_intent_id]
 
+        # STEP 1 : register customer
+        unless current_identity.stripe_customer_id
+          stripe_customer = Stripe::Customer.create(
+            email: current_identity.email,
+            metadata: {
+              identity_id: current_identity.id
+            }
+          )
+
+          unless stripe_customer.id
+            raise GraphQL::ExecutionError.new('It was not possible to register your account to our payment service.')
+          end
+
+          current_identity.update! stripe_customer_id: stripe_customer.id
+        end
+
+        # STEP 2 : create the payment intent
         stripe_payment_intent = begin
           if stripe_payment_intent_id.present?
             Stripe::PaymentIntent.update(
@@ -30,9 +47,7 @@ module Mutations
               amount: amount,
               currency: 'eur',
               setup_future_usage: 'on_session', # switch to `off_session` for asynchronous charges
-              metadata: {
-                identity_id: current_identity.id
-              }
+              customer: current_identity.stripe_customer_id
             )
           end
         rescue Stripe::Error => exception
