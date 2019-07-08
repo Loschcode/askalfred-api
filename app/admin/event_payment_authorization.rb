@@ -5,7 +5,6 @@ ActiveAdmin.register EventPaymentAuthorization do
   index do
     id_column
     column :body
-    column :line_items
     column :amount_in_cents
     column :fees_in_cents
     column :authorized_at
@@ -18,7 +17,6 @@ ActiveAdmin.register EventPaymentAuthorization do
   filter :id
   filter :email
   filter :body
-  filter :line_items
   filter :amount_in_cents
   filter :fees_in_cents
   filter :authorized_at
@@ -28,7 +26,6 @@ ActiveAdmin.register EventPaymentAuthorization do
 
   permit_params :email,
                 :body,
-                :line_items,
                 :amount_in_cents,
                 :fees_in_cents,
                 :authorized_at,
@@ -40,7 +37,6 @@ ActiveAdmin.register EventPaymentAuthorization do
     attributes_table do
       row :email
       row :body
-      row :line_items
       row :amount_in_cents
       row :fees_in_cents
       row :authorized_at
@@ -53,7 +49,6 @@ ActiveAdmin.register EventPaymentAuthorization do
   form do |f|
     inputs 'Details' do
       input :body, as: :text
-      input :line_items
       input :amount_in_cents
       input :fees_in_cents
       input :authorized_at
@@ -85,20 +80,23 @@ ActiveAdmin.register EventPaymentAuthorization do
       return
     end
 
-    stripe_charge = begin
-      Stripe::Charge.create(
-        amount: event_payment_authorization.total_in_cents,
-        currency: 'EUR',
-        customer: identity.stripe_customer_id,
-        source: identity.stripe_payment_method_id,
-        description: "Allowed expense for Event #{event.id}",
-      )
-    rescue Stripe::CardError => exception
+    stripe_payment_intent = begin
+      Stripe::PaymentIntent.create({
+          amount: event_payment_authorization.total_in_cents,
+          currency: 'eur',
+          payment_method_types: ['card'],
+          customer: identity.stripe_customer_id,
+          payment_method: identity.stripe_payment_method_id,
+          off_session: true,
+          confirm: true,
+          description: "Allowed expense for Event #{event.id}",
+      })
+    rescue Stripe::InvalidRequestError => exception
       flash[:alert] = 'Problem when charging this customer #{exception}.'
       return
     end
 
-    event_payment_authorization.update stripe_payment_intent_id: stripe_charge.id
+    event_payment_authorization.update stripe_payment_intent_id: stripe_payment_intent.id
     if event_payment_authorization.errors.any?
       flash[:alert] = "There were a problem updating the event BUT the customer was charged. Please check Stripe (#{event_payment_authorization.errors.full_messages.join(', ')}"
       return

@@ -27,7 +27,7 @@ module Mutations
         # STEP 2 : create the setup intent
         stripe_setup_intent = begin
           Stripe::SetupIntent.create(
-            usage: 'on_session',
+            usage: 'off_session',
             metadata: {
               identity_id: current_identity.id
             }
