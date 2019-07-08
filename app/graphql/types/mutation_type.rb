@@ -5,7 +5,6 @@ module Types
     field :convertGuestToCustomer, mutation: Mutations::ConvertGuestToCustomer
     field :createGuest, mutation: Mutations::CreateGuest
     field :createTicket, mutation: Mutations::CreateTicket
-    field :chargeCustomer, mutation: Mutations::ChargeCustomer
     field :cancelTicket, mutation: Mutations::CancelTicket
     field :deleteGuest, mutation: Mutations::DeleteGuest
     field :storeIdentityName, mutation: Mutations::StoreIdentityName
@@ -13,7 +12,6 @@ module Types
     field :sendConfirmEmail, mutation: Mutations::SendConfirmEmail
     field :sendDataCollectionForm, mutation: Mutations::SendDataCollectionForm
     field :sendMessage, mutation: Mutations::SendMessage
-    field :addCard, mutation: Mutations::AddCard
     field :sendFile, mutation: Mutations::SendFile
     field :sendRecoveryEmail, mutation: Mutations::SendRecoveryEmail
     field :setPaymentIntent, mutation: Mutations::SetPaymentIntent
