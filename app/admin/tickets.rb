@@ -254,7 +254,7 @@ ActiveAdmin.register Ticket do
         column :identity do |credit|
           text_node credit.identity.first_name
         end
-        column :stripe_intent_id
+        column :stripe_payment_intent_id
         column :time
         column :origin
         column :created_at

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_06_205041) do
+ActiveRecord::Schema.define(version: 2019_07_08_221052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,13 +56,13 @@ ActiveRecord::Schema.define(version: 2019_07_06_205041) do
     t.uuid "ticket_id"
     t.integer "time"
     t.string "origin"
-    t.string "stripe_intent_id"
+    t.string "stripe_payment_intent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id", "ticket_id"], name: "index_credits_on_identity_id_and_ticket_id"
     t.index ["identity_id"], name: "index_credits_on_identity_id"
     t.index ["origin"], name: "index_credits_on_origin"
-    t.index ["stripe_intent_id"], name: "index_credits_on_stripe_intent_id"
+    t.index ["stripe_payment_intent_id"], name: "index_credits_on_stripe_payment_intent_id"
     t.index ["ticket_id"], name: "index_credits_on_ticket_id"
     t.index ["time"], name: "index_credits_on_time"
   end
@@ -125,11 +125,11 @@ ActiveRecord::Schema.define(version: 2019_07_06_205041) do
     t.jsonb "line_items", default: "[]"
     t.integer "fees_in_cents"
     t.datetime "authorized_at"
-    t.string "stripe_charge_id"
+    t.string "stripe_payment_intent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["authorized_at"], name: "index_event_payment_authorizations_on_authorized_at"
-    t.index ["stripe_charge_id"], name: "index_event_payment_authorizations_on_stripe_charge_id"
+    t.index ["stripe_payment_intent_id"], name: "index_event_payment_authorizations_on_stripe_payment_intent_id"
   end
 
   create_table "events", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

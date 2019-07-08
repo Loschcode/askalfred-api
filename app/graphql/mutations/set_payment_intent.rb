@@ -50,7 +50,10 @@ module Mutations
               # for asynchronous charges
               setup_future_usage: 'on_session',
               customer: current_identity.stripe_customer_id,
-              payment_method: current_identity.stripe_payment_method_id
+              payment_method: current_identity.stripe_payment_method_id,
+              metadata: {
+                identity_id: current_identity.id
+              }
             )
           end
         rescue Stripe::InvalidRequestError => exception

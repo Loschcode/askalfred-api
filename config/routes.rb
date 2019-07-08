@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       resource :incoming
     end
     namespace :stripe do
-      resource :payments
+      resource :events
     end
   end
 end

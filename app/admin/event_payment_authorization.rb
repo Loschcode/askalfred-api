@@ -9,7 +9,7 @@ ActiveAdmin.register EventPaymentAuthorization do
     column :amount_in_cents
     column :fees_in_cents
     column :authorized_at
-    column :stripe_intent_id
+    column :stripe_payment_intent_id
     column :created_at
     column :updated_at
     actions
@@ -22,7 +22,7 @@ ActiveAdmin.register EventPaymentAuthorization do
   filter :amount_in_cents
   filter :fees_in_cents
   filter :authorized_at
-  filter :stripe_intent_id
+  filter :stripe_payment_intent_id
   filter :created_at
   filter :updated_at
 
@@ -32,7 +32,7 @@ ActiveAdmin.register EventPaymentAuthorization do
                 :amount_in_cents,
                 :fees_in_cents,
                 :authorized_at,
-                :stripe_intent_id,
+                :stripe_payment_intent_id,
                 :created_at,
                 :updated_at
 
@@ -44,7 +44,7 @@ ActiveAdmin.register EventPaymentAuthorization do
       row :amount_in_cents
       row :fees_in_cents
       row :authorized_at
-      row :stripe_intent_id
+      row :stripe_payment_intent_id
       row :created_at
       row :updated_at
     end
@@ -57,7 +57,7 @@ ActiveAdmin.register EventPaymentAuthorization do
       input :amount_in_cents
       input :fees_in_cents
       input :authorized_at
-      input :stripe_intent_id
+      input :stripe_payment_intent_id
       input :created_at
       input :updated_at
     end
@@ -79,7 +79,7 @@ ActiveAdmin.register EventPaymentAuthorization do
       return
     end
 
-    if event_payment_authorization.stripe_intent_id
+    if event_payment_authorization.stripe_payment_intent_id
       flash[:alert] = 'You have already charge this customer.'
       redirect_to action: :show
       return
@@ -98,7 +98,7 @@ ActiveAdmin.register EventPaymentAuthorization do
       return
     end
 
-    event_payment_authorization.update stripe_intent_id: stripe_charge.id
+    event_payment_authorization.update stripe_payment_intent_id: stripe_charge.id
     if event_payment_authorization.errors.any?
       flash[:alert] = "There were a problem updating the event BUT the customer was charged. Please check Stripe (#{event_payment_authorization.errors.full_messages.join(', ')}"
       return

@@ -31,8 +31,7 @@ gem 'slack-ruby-client'
 gem 'sentry-raven'
 
 # Payments
-gem 'stripe'
-
+gem 'stripe', '4.21.2'
 # Admin
 gem 'activeadmin'
 
