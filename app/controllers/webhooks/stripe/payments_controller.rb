@@ -4,12 +4,20 @@ class Webhooks::Stripe::PaymentsController < ApiController
 
     case type
     when 'payment_intent.succeeded'
+      stripe_payment_method_id = intent['payment_method']
       amount = intent['amount']
       time = 3 * amount
 
+      unless current_identity.stripe_payment_method_id
+        Stripe::PaymentMethod.attach(
+          stripe_payment_method_id,
+          customer: current_identity.stripe_customer_id
+        )
+      end
+
       # we don't forget to store the last payment method
       # as the payment method reusable after
-      current_identity.update! stripe_payment_method_id: intent['payment_method']
+      current_identity.update! stripe_payment_method_id: stripe_payment_method_id
 
       Credit.create!(
         identity: current_identity,

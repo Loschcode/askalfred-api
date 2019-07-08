@@ -46,11 +46,14 @@ module Mutations
             Stripe::PaymentIntent.create(
               amount: amount,
               currency: 'eur',
-              setup_future_usage: 'on_session', # switch to `off_session` for asynchronous charges
-              customer: current_identity.stripe_customer_id
+              # switch to `off_session`
+              # for asynchronous charges
+              setup_future_usage: 'on_session',
+              customer: current_identity.stripe_customer_id,
+              payment_method: current_identity.stripe_payment_method_id
             )
           end
-        rescue Stripe::Error => exception
+        rescue Stripe::InvalidRequestError => exception
           raise GraphQL::ExecutionError.new('We could not set this amount. Please try again.')
         end
 
