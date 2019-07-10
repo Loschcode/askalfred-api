@@ -11,6 +11,8 @@ ActiveRecord::Base.transaction do
     last_name: 'Schaffner',
   )
 
+  identity.update! mailbox: MailboxService::Setup.new(identity).perform
+
   # admin
   identity_admin = Identity.create!(
     email: 'admin@askalfred.to',
@@ -19,6 +21,8 @@ ActiveRecord::Base.transaction do
     first_name: 'Admin',
     last_name: 'Schaffner',
   )
+
+  identity_admin.update! mailbox: MailboxService::Setup.new(identity_admin).perform
 
   # bonus credit
   credit = Credit.create!(

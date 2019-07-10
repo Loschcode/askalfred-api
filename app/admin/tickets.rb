@@ -36,7 +36,7 @@ ActiveAdmin.register Ticket do
   member_action :need_more_details, method: :get do
     ticket = Ticket.find(params[:id])
     IdentityMailer.with(identity: ticket.identity).alfred_needs_answers(ticket).deliver_later
-    redirect_to action: :show
+    redirect_to action: :show, notice: 'Need more details sent'
   end
 
   action_item :end_request_successfully, only: :show, method: :get do
@@ -44,11 +44,11 @@ ActiveAdmin.register Ticket do
   end
   member_action :end_request_successfully, method: :get do
     ticket = Ticket.find(params[:id])
-    ticket.update completed_at: Time.now
+    ticket.update completed_at: Time.now, canceled_at: nil
     refresh_ticket_and_list(ticket)
     IdentityMailer.with(identity: ticket.identity).request_completed(ticket).deliver_later
 
-    redirect_to action: :show
+    redirect_to({ action: :show } , notice: 'Request was ended')
   end
 
   action_item :cancel_request, only: :show, method: :get do
@@ -56,10 +56,10 @@ ActiveAdmin.register Ticket do
   end
   member_action :cancel_request, method: :get do
     ticket = Ticket.find(params[:id])
-    ticket.update canceled_at: Time.now
+    ticket.update canceled_at: Time.now, completed_at: nil
     refresh_ticket_and_list(ticket)
     IdentityMailer.with(identity: ticket.identity).request_canceled(ticket).deliver_later
-    redirect_to action: :show
+    redirect_to({ action: :show } , notice: 'Request was canceled')
   end
 
   show title: :title do
@@ -319,7 +319,7 @@ ActiveAdmin.register Ticket do
       body: body
     ).perform
 
-    redirect_to action: :show, alert: 'Message was sent'
+    redirect_to({ action: :show } , notice: 'Message was sent')
   end
 
   member_action :send_event_call_to_action, method: :post do
@@ -337,7 +337,7 @@ ActiveAdmin.register Ticket do
       label: label
     ).perform
 
-    redirect_to action: :show, alert: 'Call to action was sent.'
+    redirect_to({ action: :show } , notice: 'Call to action was sent')
   end
 
   member_action :send_event_payment_authorization, method: :post do
@@ -355,7 +355,7 @@ ActiveAdmin.register Ticket do
       fees_formula: fees_formula
     ).perform
 
-    redirect_to action: :show, alert: 'Payment authorization was sent.'
+    redirect_to({ action: :show } , notice: 'Payment authorization was sent')
   end
 
   member_action :send_event_data_collection_form, method: :post do
@@ -372,7 +372,7 @@ ActiveAdmin.register Ticket do
       data_collections: data_collections,
     ).perform
 
-    redirect_to action: :show, alert: 'Data collection form was sent.'
+    redirect_to({ action: :show } , notice: 'Data collection form was sent')
   end
 
   member_action :send_event_file, method: :post do
