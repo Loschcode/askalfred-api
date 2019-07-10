@@ -146,7 +146,7 @@ ActiveAdmin.register Ticket do
     panel 'Send call to action' do
       active_admin_form_for EventCallToAction.new, url: { action: :send_event_call_to_action } do |f|
         f.inputs do
-          f.input :body
+          f.input :body, as: :text
           f.input :label
           f.input :link
         end
