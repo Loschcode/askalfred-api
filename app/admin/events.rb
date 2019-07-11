@@ -43,7 +43,7 @@ ActiveAdmin.register Event do
     f.semantic_errors
     f.inputs 'Details' do
       input :identity_id, as: :select, collection: Identity.all.map { |identity| ["#{identity.first_name} #{identity.last_name}", identity.id]}
-      input :ticket, as: :select, collection: Ticket.all.map { |ticket| ["#{ticket.title} #{ticket.id}", ticket.id]}
+      input :ticket_id, as: :select, collection: Ticket.all.map { |ticket| ["#{ticket.title} #{ticket.id}", ticket.id]}
       input :eventable_type
       input :created_at
       input :updated_at
