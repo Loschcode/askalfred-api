@@ -20,6 +20,10 @@ class TrackingService
     slack_service.dispatch "[WARNING] Identity with email #{identity.email} got an error from the webhook when trying to credit him (`#{error}`)."
   end
 
+  def amount_selected_for_payment(amount)
+    slack_service.dispatch "[WARNING] Identity with email #{identity.email} selected a payment of (`#{amount}`)."
+  end
+
   private
 
   def slack_service
