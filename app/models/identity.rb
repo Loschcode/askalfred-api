@@ -8,6 +8,7 @@ class Identity < ActiveRecord::Base
 
   validates :mailbox, presence: false
   validates :token, presence: false
+  validates :origin, presence: false
 
   validates :confirmed_at, presence: false
   validates :confirmation_sent_at, presence: false
