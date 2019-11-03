@@ -15,7 +15,7 @@ module Mutations
     def resolve(input:)
       return GraphQL::ExecutionError.new('We cannot create a guest as you already have an identity') if current_identity
 
-      origin = input[:origin].permit! || {}
+      origin = input[:origin].permit!.to_h
 
       attributes = {
         role: 'guest'
