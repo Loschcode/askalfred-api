@@ -13,13 +13,14 @@ module Mutations
     field :token, String, null: true
 
     def resolve(input:)
-      binding.pry
       return GraphQL::ExecutionError.new('We cannot create a guest as you already have an identity') if current_identity
+
+      origin = input[:origin].permit! || {}
 
       attributes = {
         role: 'guest'
       }.merge(
-        origin: input[:origin] || {}
+        origin: origin
       )
 
       identity = Identity.create! attributes
