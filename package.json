@@ -8,7 +8,8 @@
     "test": "test"
   },
   "dependencies": {
-    "mjml": "^4.0.0"
+    "mjml": "^4.0.0",
+    "vue-cookies": "^1.5.13"
   },
   "repository": {
     "type": "git",

@@ -1,21 +1,32 @@
+module Types
+  class CreateGuestInput < Types::BaseInputObject
+    argument :origin, GraphQL::Types::JSON, 'origin', required: false
+  end
+end
+
 module Mutations
   class CreateGuest < Mutations::BaseMutation
     description 'creates a guest identity'
 
+    argument :input, Types::CreateGuestInput, required: true
+
     field :token, String, null: true
 
-    def resolve
+    def resolve(input:)
+      binding.pry
       return GraphQL::ExecutionError.new('We cannot create a guest as you already have an identity') if current_identity
 
+      attributes = {
+        role: 'guest'
+      }.merge(
+        origin: input[:origin] || {}
+      )
+
+      identity = Identity.create! attributes
+
       {
-        token: user.token
+        token: identity.token
       }
-    end
-
-    private
-
-    def user
-      @user ||= Identity.create!(role: 'guest')
     end
   end
 end

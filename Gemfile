@@ -39,7 +39,7 @@ gem 'activeadmin'
 gem 'mjml-rails'
 
 # GraphQL
-gem 'graphql'
+gem 'graphql', '1.9.11'
 gem 'graphql-errors'
 gem 'graphiql-rails'
 gem 'graphql-cache'
