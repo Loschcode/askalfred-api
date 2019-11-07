@@ -22,5 +22,6 @@ module Types
     field :storeIdentityPassword, mutation: Mutations::StoreIdentityPassword
     field :resetPassword, mutation: Mutations::ResetPassword
     field :unsetPassword, mutation: Mutations::UnsetPassword
+    field :trackAction, mutation: Mutations::TrackAction
   end
 end

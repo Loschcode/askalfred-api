@@ -26,10 +26,6 @@ class TrackingService
 
   private
 
-  # def mixpanel_service
-  #   @mixpanel_service ||= MixpanelService.new(identity)
-  # end
-
   def slack_service
     @slack_service ||= SlackService.new
   end

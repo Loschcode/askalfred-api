@@ -26,5 +26,7 @@ module Mutations
         current_identity: current_identity
       }
     end
+
+    private
   end
 end

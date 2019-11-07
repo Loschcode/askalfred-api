@@ -33,11 +33,23 @@ module Mutations
 
       refresh_service.myself
 
+      mixpanel_service.alias(current_identity.email)
+      mixpanel_service.identify(
+        '$email': current_identity.email,
+        '$first_name': current_identity.first_name,
+        '$last_name': current_identity.last_name,
+        '$created_at': current_identity.created_at
+      )
+
       {
         current_identity: current_identity
       }
     end
 
     private
+
+    def mixpanel_service
+      @mixpanel_service ||= MixpanelService.new(current_identity)
+    end
   end
 end

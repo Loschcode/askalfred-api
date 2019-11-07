@@ -2,25 +2,33 @@ require 'bcrypt'
 
 module Types
   class TrackActionInput < Types::BaseInputObject
-    description 'attributes to sign-in'
-    argument :action, String, 'action', required: true
+    argument :method, String, 'method', required: true
+    argument :event, GraphQL::Types::JSON, 'event', required: true
   end
 end
 
 module Mutations
   class TrackAction < Mutations::BaseMutation
-    description 'track the identity action'
+    description 'track the identity event'
 
     argument :input, Types::TrackActionInput, required: true
+    field :success, Boolean, null: false
 
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
 
-      # TODO : here you use the TrackingService to trigger the action and shit
+      mixpanel_service.track(input[:method], input[:event])
 
-      {}
+      {
+        success: true
+      }
     end
 
     private
+
+    def mixpanel_service
+      @mixpanel_service ||= MixpanelService.new(current_identity)
+    end
+
   end
 end

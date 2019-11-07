@@ -1,3 +1,5 @@
+require 'mixpanel-ruby'
+
 class MixpanelService
   attr_reader :identity
 
@@ -10,19 +12,14 @@ class MixpanelService
   end
 
   def alias(string)
-    # TODO : check if this works
     tracker.alias(string, identity.id)
   end
 
-  def identify
-    tracker.identify(identity.id)
-  end
-
-  def identify_update(attributes)
+  def identify(attributes)
     tracker.people.set(identity.id, attributes)
   end
 
   def tracker
-    @tracker ||= Mixpanel::Tracker.new(ENV['MIXPANEL_TOKEN'])
+    @tracker ||= ::Mixpanel::Tracker.new(ENV['MIXPANEL_TOKEN'])
   end
 end

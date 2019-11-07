@@ -23,11 +23,17 @@ module Mutations
         origin: origin
       )
 
-      identity = Identity.create! attributes
+      identity = Identity.create!(attributes)
 
       {
         token: identity.token
       }
+    end
+
+    private
+
+    def mixpanel_service
+      @mixpanel_service ||= MixpanelService.new(current_identity)
     end
   end
 end
