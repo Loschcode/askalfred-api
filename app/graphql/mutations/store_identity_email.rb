@@ -38,7 +38,8 @@ module Mutations
         '$email': current_identity.email,
         '$first_name': current_identity.first_name,
         '$last_name': current_identity.last_name,
-        '$created_at': current_identity.created_at
+        '$created_at': current_identity.created_at,
+        '$env': Rails.env
       )
 
       {
