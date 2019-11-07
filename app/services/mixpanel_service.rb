@@ -7,8 +7,8 @@ class MixpanelService
     @identity = identity
   end
 
-  def track(attributes)
-    tracker.track(identity.id, attributes)
+  def track(event, attributes)
+    tracker.track(identity.id, event, attributes)
   end
 
   def alias(string)
