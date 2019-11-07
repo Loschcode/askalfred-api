@@ -13,7 +13,7 @@ class TrackingService
   end
 
   def identity_removed
-    slack_service.dispatch "[WARNING] Identity of role `#{identity.role }` and email #{identity.email}, was removed from the database."
+    slack_service.dispatch "[WARNING] Identity of role `#{identity.role}` and email #{identity.email}, was removed from the database."
   end
 
   def payment_failed(error)
@@ -25,6 +25,10 @@ class TrackingService
   end
 
   private
+
+  # def mixpanel_service
+  #   @mixpanel_service ||= MixpanelService.new(identity)
+  # end
 
   def slack_service
     @slack_service ||= SlackService.new
