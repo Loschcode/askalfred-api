@@ -17,7 +17,7 @@ module Mutations
     def resolve(input:)
       return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
 
-      mixpanel_service.track(input[:method], input[:event])
+      mixpanel_service.track(input[:method], input[:event].permit!)
 
       {
         success: true
