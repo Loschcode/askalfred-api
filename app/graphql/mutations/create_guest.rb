@@ -18,10 +18,14 @@ module Mutations
       origin = input[:origin].permit!.to_h
 
       attributes = {
-        role: 'guest'
-      }.merge(
-        origin: origin
-      )
+        role: 'guest',
+        origin: origin,
+        city: '',
+        country: '',
+        region: '',
+        ip: current_request.remote_ip,
+        timezone: current_request.user_agent
+      }
 
       identity = Identity.create!(attributes)
 

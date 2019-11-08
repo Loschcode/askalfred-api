@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_03_171732) do
+ActiveRecord::Schema.define(version: 2019_11_08_192420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,9 +165,15 @@ ActiveRecord::Schema.define(version: 2019_11_03_171732) do
     t.datetime "updated_at", null: false
     t.string "mailbox"
     t.jsonb "origin", default: {}
+    t.string "city"
+    t.string "country"
+    t.string "region"
+    t.string "timezone"
+    t.index ["city"], name: "index_identities_on_city"
     t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_identities_on_confirmation_token"
     t.index ["confirmed_at"], name: "index_identities_on_confirmed_at"
+    t.index ["country"], name: "index_identities_on_country"
     t.index ["credits_count"], name: "index_identities_on_credits_count"
     t.index ["email", "encrypted_password"], name: "index_identities_on_email_and_encrypted_password"
     t.index ["email"], name: "index_identities_on_email"
@@ -176,9 +182,11 @@ ActiveRecord::Schema.define(version: 2019_11_03_171732) do
     t.index ["mailbox"], name: "index_identities_on_mailbox"
     t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
+    t.index ["region"], name: "index_identities_on_region"
     t.index ["stripe_customer_id"], name: "index_identities_on_stripe_customer_id"
     t.index ["stripe_payment_method_id"], name: "index_identities_on_stripe_payment_method_id"
     t.index ["terms_accepted_at"], name: "index_identities_on_terms_accepted_at"
+    t.index ["timezone"], name: "index_identities_on_timezone"
   end
 
   create_table "mailbox_mails", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

@@ -39,7 +39,12 @@ module Mutations
         '$first_name': current_identity.first_name,
         '$last_name': current_identity.last_name,
         '$created_at': current_identity.created_at,
-        '$env': Rails.env
+        '$city': current_identity.city,
+        '$country': current_identity.country,
+        '$region': current_identity.region,
+        '$timezone': current_identity.timezone,
+        '$user_agent': current_identity.user_agent,
+        '$ip': current_identity.ip
       )
 
       {

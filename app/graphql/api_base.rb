@@ -3,6 +3,10 @@ module ApiBase
     context[:current_identity]
   end
 
+  def current_request
+    context[:current_request]
+  end
+
   def refresh_service
     @refresh_service ||= RefreshService.new(current_identity)
   end
