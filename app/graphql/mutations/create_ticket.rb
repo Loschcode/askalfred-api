@@ -31,7 +31,6 @@ module Mutations
           raise GraphQL::ExecutionError.new ticket.errors.full_messages.join(', ')
         end
 
-        tracking_service.new_ticket(ticket)
         refresh_service.tickets_list
 
         {

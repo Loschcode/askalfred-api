@@ -25,7 +25,7 @@ gem 'aws-sdk-s3'
 gem 'sidekiq'
 
 # Slack
-gem 'slack-ruby-client'
+gem 'slack-notifier'
 
 # Errors
 gem 'sentry-raven'

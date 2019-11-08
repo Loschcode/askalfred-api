@@ -29,7 +29,6 @@ module Mutations
         return GraphQL::ExecutionError.new current_identity.errors.full_messages.join(', ')
       end
 
-      tracking_service.signed_up
       refresh_service.myself
 
       {

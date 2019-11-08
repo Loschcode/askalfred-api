@@ -33,8 +33,8 @@ module Mutations
 
       refresh_service.myself
 
-      mixpanel_service.alias(current_identity.email)
-      mixpanel_service.identify(
+      tracking_service.alias(current_identity.email)
+      tracking_service.identify(
         '$email': current_identity.email,
         '$first_name': current_identity.first_name,
         '$last_name': current_identity.last_name,
@@ -45,12 +45,6 @@ module Mutations
       {
         current_identity: current_identity
       }
-    end
-
-    private
-
-    def mixpanel_service
-      @mixpanel_service ||= MixpanelService.new(current_identity)
     end
   end
 end

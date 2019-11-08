@@ -1,4 +1,4 @@
-class SendFileService < Base
+class SendFileService < ::Base
   attr_reader :identity, :ticket, :file
 
   def initialize(identity:, ticket:, file:)

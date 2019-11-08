@@ -1,4 +1,4 @@
-class SendDataCollectionFormService < Base
+class SendDataCollectionFormService < ::Base
   class Error < StandardError; end
 
   attr_reader :identity, :ticket, :body, :data_collections

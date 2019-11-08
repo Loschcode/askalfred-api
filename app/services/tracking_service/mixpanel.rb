@@ -1,6 +1,8 @@
 require 'mixpanel-ruby'
 
-class MixpanelService
+class TrackingService::Mixpanel
+  include TrackingService::Utils::RequiredImplementation
+
   attr_reader :identity
 
   def initialize(identity)
@@ -18,6 +20,8 @@ class MixpanelService
   def identify(attributes)
     tracker.people.set(identity.id, attributes)
   end
+
+  private
 
   def tracker
     @tracker ||= ::Mixpanel::Tracker.new(ENV['MIXPANEL_TOKEN'])

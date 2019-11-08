@@ -1,4 +1,4 @@
-class SendMessageService < Base
+class SendMessageService < ::Base
   attr_reader :identity, :ticket, :body
 
   def initialize(identity:, ticket:, body:)

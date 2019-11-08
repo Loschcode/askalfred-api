@@ -1,4 +1,4 @@
-class SendCallToActionService < Base
+class SendCallToActionService < ::Base
   attr_reader :identity, :ticket, :body, :link, :label
 
   def initialize(identity:, ticket:, body:, link:, label:)

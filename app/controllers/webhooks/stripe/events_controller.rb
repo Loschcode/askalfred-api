@@ -19,7 +19,6 @@ class Webhooks::Stripe::EventsController < ApiController
       )
     when 'payment_intent.payment_failed'
       error = intent['last_payment_error']
-      tracking_service.payment_failed(error)
     end
 
     refresh_service.credits

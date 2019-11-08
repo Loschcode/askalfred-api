@@ -1,4 +1,4 @@
-class SendPaymentAuthorizationService < Base
+class SendPaymentAuthorizationService < ::Base
   class Error < StandardError; end
   BASE_FEES = 1.4 # %
 
