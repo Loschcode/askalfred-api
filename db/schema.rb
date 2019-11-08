@@ -169,6 +169,8 @@ ActiveRecord::Schema.define(version: 2019_11_08_192420) do
     t.string "country"
     t.string "region"
     t.string "timezone"
+    t.string "user_agent"
+    t.string "ip"
     t.index ["city"], name: "index_identities_on_city"
     t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_identities_on_confirmation_token"
@@ -179,6 +181,7 @@ ActiveRecord::Schema.define(version: 2019_11_08_192420) do
     t.index ["email"], name: "index_identities_on_email"
     t.index ["email_opt_out_at"], name: "index_identities_on_email_opt_out_at"
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
+    t.index ["ip"], name: "index_identities_on_ip"
     t.index ["mailbox"], name: "index_identities_on_mailbox"
     t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
@@ -187,6 +190,7 @@ ActiveRecord::Schema.define(version: 2019_11_08_192420) do
     t.index ["stripe_payment_method_id"], name: "index_identities_on_stripe_payment_method_id"
     t.index ["terms_accepted_at"], name: "index_identities_on_terms_accepted_at"
     t.index ["timezone"], name: "index_identities_on_timezone"
+    t.index ["user_agent"], name: "index_identities_on_user_agent"
   end
 
   create_table "mailbox_mails", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
