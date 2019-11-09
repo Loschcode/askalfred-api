@@ -29,6 +29,7 @@ module AskalfredApi
     ENV.update YAML.load_file('config/application.yml')[Rails.env] rescue {}
 
     config.api_only = true
+    config.skylight.probes << 'graphql'
 
     # below is for ActiveAdmin
     config.middleware.use ActionDispatch::Cookies

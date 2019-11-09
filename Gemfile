@@ -41,6 +41,9 @@ gem 'mjml-rails'
 # Mixpanel
 gem 'mixpanel-ruby'
 
+# Skylight
+gem 'skylight'
+
 # GraphQL
 gem 'graphql', '1.9.11'
 gem 'graphql-errors'

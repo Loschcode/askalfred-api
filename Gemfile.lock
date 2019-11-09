@@ -251,6 +251,10 @@ GEM
       rack (>= 2.0.0)
       rack-protection (>= 2.0.0)
       redis (>= 4.1.0)
+    skylight (4.2.0)
+      skylight-core (= 4.2.0)
+    skylight-core (4.2.0)
+      activesupport (>= 4.2.0)
     slack-notifier (2.3.2)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
@@ -311,6 +315,7 @@ DEPENDENCIES
   sass-rails
   sentry-raven
   sidekiq
+  skylight
   slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
