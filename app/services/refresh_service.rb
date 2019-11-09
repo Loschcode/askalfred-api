@@ -21,6 +21,7 @@ class RefreshService
       channel: 'refreshTicket',
       arguments: { id: ticket.id },
       response: { ticket: ticket },
+      async: false
     )
   end
 
