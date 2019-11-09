@@ -10,7 +10,7 @@ class RefreshService
   def myself
     dispatch(
       channel: 'refreshCurrentIdentity',
-      response: { current_identity: identity }
+      response: { current_identity: identity },
     )
   end
 
@@ -20,13 +20,14 @@ class RefreshService
     dispatch(
       channel: 'refreshTicket',
       arguments: { id: ticket.id },
-      response: { ticket: ticket }
+      response: { ticket: ticket },
     )
   end
 
   def tickets_list
     dispatch(
-      channel: 'refreshTicketsList'
+      channel: 'refreshTicketsList',
+      async: false
     )
   end
 
