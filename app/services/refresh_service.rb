@@ -43,7 +43,7 @@ class RefreshService
       DispatchSubscriptionWorker.perform_async(
         channel,
         arguments,
-        serialize_response_for_worker(response),
+        RedisTransmissionService.serialize(response),
         scope
       )
     else
@@ -53,24 +53,6 @@ class RefreshService
         response,
         scope
       )
-    end
-  end
-
-  def serialize_response_for_worker(response)
-    response.reduce({}) do |acc, hash|
-      key = hash.first
-      value = hash.last
-
-      if value.respond_to? :id
-        acc.merge(
-          "#{key}": {
-            id: value.id,
-            class_name: value.class.name
-          }
-        )
-      else
-        acc.merge("#{key}": value)
-      end
     end
   end
 
