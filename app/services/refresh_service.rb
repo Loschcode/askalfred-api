@@ -38,13 +38,40 @@ class RefreshService
 
   private
 
-  def dispatch(channel:, arguments: {}, response: { success: true })
-    AskalfredApiSchema.subscriptions.trigger(
-      channel,
-      arguments,
-      response,
-      scope
-    )
+  def dispatch(channel:, arguments: {}, response: { success: true }, async: true)
+    if async
+      DispatchSubscriptionWorker.perform_async(
+        channel,
+        arguments,
+        serialize_response_for_worker(response),
+        scope
+      )
+    else
+      AskalfredApiSchema.subscriptions.trigger(
+        channel,
+        arguments,
+        response,
+        scope
+      )
+    end
+  end
+
+  def serialize_response_for_worker(response)
+    response.reduce({}) do |acc, hash|
+      key = hash.first
+      value = hash.last
+
+      if value.respond_to? :id
+        acc.merge(
+          "#{key}": {
+            id: value.id,
+            class_name: value.class.name
+          }
+        )
+      else
+        acc.merge("#{key}": value)
+      end
+    end
   end
 
   def scope
