@@ -35,9 +35,6 @@ module Mutations
           current_identity.update! stripe_customer_id: stripe_customer.id
         end
 
-        # we need to track this down in the early stage of Alfred.
-        TrackingService.new(current_identity).amount_selected_for_payment(amount)
-
         # STEP 2 : create the payment intent
         stripe_payment_intent = begin
           if stripe_payment_intent_id.present?

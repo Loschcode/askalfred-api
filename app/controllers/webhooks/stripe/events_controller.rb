@@ -79,8 +79,4 @@ class Webhooks::Stripe::EventsController < ApiController
   def refresh_service
     @refresh_service ||= RefreshService.new(current_identity)
   end
-
-  def tracking_service
-    @tracking_service ||= TrackingService.new(current_identity)
-  end
 end
