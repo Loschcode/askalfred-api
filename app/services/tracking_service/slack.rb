@@ -30,7 +30,7 @@ class TrackingService::Slack
     )
 
     client.post(
-      channel: '#general',
+      channel: '#leads',
       icon_emoji: ':alfred:',
       username: 'AskAlfred',
       attachments: [
