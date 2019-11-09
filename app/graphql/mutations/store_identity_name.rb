@@ -25,7 +25,7 @@ module Mutations
         return GraphQL::ExecutionError.new current_identity.errors.full_messages.join(', ')
       end
 
-      refresh_service.myself
+      # refresh_service.myself
 
       {
         current_identity: current_identity
