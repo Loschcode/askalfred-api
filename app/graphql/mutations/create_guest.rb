@@ -23,8 +23,9 @@ module Mutations
         city: '',
         country: '',
         region: '',
+        timezone: '',
         ip: current_request.remote_ip,
-        timezone: current_request.user_agent
+        user_agent: current_request.user_agent
       }
 
       identity = Identity.create!(attributes)
