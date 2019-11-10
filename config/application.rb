@@ -25,9 +25,17 @@ module AskalfredApi
     config.paths.add File.join('app', 'services'), glob: File.join('**', '*.rb')
     config.paths.add File.join('app', 'workers'), glob: File.join('**', '*.rb')
 
-    config.autoload_paths += Dir[Rails.root.join('app', 'services', '*'), Rails.root.join('lib'), Rails.root.join('workers')]
+    config.autoload_paths += Dir[
+      Rails.root.join('app', 'services', '*'),
+      Rails.root.join('app', 'workers', '*'),
+      Rails.root.join('lib', '*')]
+
     # this is for Sidekiq
-    config.eager_load_paths += Dir[Rails.root.join('lib'), Rails.root.join('workers')]
+    config.eager_load_paths += Dir[
+      Rails.root.join('app', 'services'),
+      Rails.root.join('app', 'workers'),
+      Rails.root.join('lib')
+    ]
 
     ENV.update YAML.load_file('config/application.yml')[Rails.env] rescue {}
 
