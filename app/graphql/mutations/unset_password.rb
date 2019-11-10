@@ -7,8 +7,6 @@ end
 
 module Mutations
   class UnsetPassword < Mutations::BaseMutation
-    description 'store the first and last name within the getting started'
-
     argument :input, Types::UnsetPasswordInput, required: true
     field :current_identity, ::Types::Identity, null: false
 

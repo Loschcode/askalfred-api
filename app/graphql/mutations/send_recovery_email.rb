@@ -27,7 +27,7 @@ module Mutations
 
       IdentityMailer.with(identity: identity).recovery_email.deliver_later
 
-      refresh_service.myself
+      RefreshService.new(identity).myself
 
       {
         current_identity: identity
