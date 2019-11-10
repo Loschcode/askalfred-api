@@ -3,7 +3,7 @@ class RedisTransmissionService
     def serialize(response)
       response.reduce({}) do |acc, hash|
         key = hash.first.to_sym
-        value = hash.last.symbolize_keys
+        value = hash.last
 
         end_value = if to_serialize?(value)
           serialized_hash_from value
