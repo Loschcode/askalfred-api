@@ -1,5 +1,9 @@
 class Webhooks::Mailgun::IncomingsController < ApiController
   def create
+    # if the identity cannot be found or the mailbox
+    # we throw the notification away silently
+    render json: {}, status: :ok unless identity.present?
+
     MailboxMail.create!(
       ticket: ticket,
       identity: identity,
@@ -29,7 +33,7 @@ private
     if ticket
       ticket.identity
     else
-      Identity.find_by!(mailbox: to)
+      Identity.find_by(mailbox: to)
     end
   end
 
