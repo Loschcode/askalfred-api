@@ -16,8 +16,6 @@ module Mutations
     field :token, String, null: false
 
     def resolve(input:)
-      return GraphQL::ExecutionError.new('Your identity was not recognized.') unless current_identity
-
       identity = Identity.find_by(email: input[:email])
 
       unless identity.present?
