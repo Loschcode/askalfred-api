@@ -23,6 +23,8 @@ module AskalfredApi
     config.load_defaults 5.2
 
     config.paths.add File.join('app', 'services'), glob: File.join('**', '*.rb')
+    config.paths.add File.join('app', 'workers'), glob: File.join("**", "*.rb")
+
     config.autoload_paths += Dir[Rails.root.join('app', 'services', '*'), Rails.root.join('lib')]
     config.eager_load_paths += Dir[Rails.root.join('lib')] # this is for Sidekiq
 
