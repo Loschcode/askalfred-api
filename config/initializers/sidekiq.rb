@@ -1,5 +1,7 @@
 require 'sidekiq/web'
 
+Dir[Rails.root.join('app', 'workers', '**/*.rb')].each { |file| require file }
+
 Sidekiq.configure_server do |config|
   config.redis = {
     id: nil,
