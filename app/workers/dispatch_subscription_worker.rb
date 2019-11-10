@@ -13,5 +13,6 @@ class DispatchSubscriptionWorker
       RedisTransmissionService.deserialize(response),
       scope
     )
+    TrackingService::Slack.new(Identity.first).track("END DISPATCH SUBSCRIPTION WORKER", { 'random': true })
   end
 end
