@@ -37,7 +37,5 @@ module Mutations
         token: identity.token
       }
     end
-
-    private
   end
 end
