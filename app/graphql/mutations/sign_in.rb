@@ -16,6 +16,8 @@ module Mutations
     field :token, String, null: false
 
     def resolve(input:)
+      return GraphQL::ExecutionError.new('It seems there is a problem of authorization. Please refresh the page.') unless current_identity
+
       identity = Identity.find_by(email: input[:email])
 
       unless identity.present?
