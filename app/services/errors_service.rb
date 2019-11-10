@@ -6,12 +6,19 @@ class ErrorsService
   end
 
   def perform
-    return if silent?
+    return if silent_mode?
+    return if ignored_exceptions?
 
     Raven.capture_exception(exception, message: exception.message)
   end
 
-  def silent?
+  def silent_mode?
     Rails.env.development?
+  end
+
+  def ignored_exceptions?
+    return true if exception.class == ActionController::RoutingError
+    return true if exception.class == ActiveRecord::RecordNotFound
+    false
   end
 end
