@@ -20,15 +20,12 @@ module Mutations
       attributes = {
         role: 'guest',
         origin: origin,
-        city: '',
-        country: '',
-        region: '',
-        timezone: '',
         ip: current_request.remote_ip,
         user_agent: current_request.user_agent
       }
 
       identity = Identity.create!(attributes)
+      StoreLocationWorker.perform_async(identity.id)
 
       {
         token: identity.token

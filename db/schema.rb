@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_08_192420) do
+ActiveRecord::Schema.define(version: 2019_11_11_192421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(version: 2019_11_08_192420) do
     t.string "timezone"
     t.string "user_agent"
     t.string "ip"
+    t.jsonb "location"
     t.index ["city"], name: "index_identities_on_city"
     t.index ["confirmation_sent_at"], name: "index_identities_on_confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_identities_on_confirmation_token"
@@ -182,6 +183,7 @@ ActiveRecord::Schema.define(version: 2019_11_08_192420) do
     t.index ["email_opt_out_at"], name: "index_identities_on_email_opt_out_at"
     t.index ["encrypted_password"], name: "index_identities_on_encrypted_password"
     t.index ["ip"], name: "index_identities_on_ip"
+    t.index ["location"], name: "index_identities_on_location"
     t.index ["mailbox"], name: "index_identities_on_mailbox"
     t.index ["recovery_sent_at"], name: "index_identities_on_recovery_sent_at"
     t.index ["recovery_token"], name: "index_identities_on_recovery_token"
