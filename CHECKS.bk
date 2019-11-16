@@ -1,3 +1,0 @@
-WAIT=4
-ATTEMPTS=3
-/check_deploy.txt deploy_successful

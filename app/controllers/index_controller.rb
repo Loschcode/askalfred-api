@@ -1,5 +1,5 @@
 class IndexController < ApiController
   def show
-    render json: {}, status: :not_found
+    render json: { application: 'askalfred' }, status: :not_found
   end
 end
