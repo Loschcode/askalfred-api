@@ -25,7 +25,7 @@ if Rails.env.development?
 else
   Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'app.askalfred.to'
+      origins ['app.askalfred.to', 'askalfred.to']
       resource '*', headers: :any, methods: [:get, :post, :options]
     end
   end
