@@ -23,9 +23,19 @@ class CreateGuestService
 
   def origin
     if params[:origin].present?
-      params[:origin].permit!.to_h
+      if params[:origin].instance_of? String
+        origin_from(params[:origin])
+      else
+        params[:origin].permit!.to_h
+      end
     else
       {}
     end
+  end
+
+  def origin_from(string)
+    JSON.parse(string)
+  rescue JSON::ParserError
+    {}
   end
 end
