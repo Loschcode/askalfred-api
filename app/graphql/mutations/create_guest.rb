@@ -15,17 +15,7 @@ module Mutations
     def resolve(input:)
       return GraphQL::ExecutionError.new('We cannot create a guest as you already have an identity') if current_identity
 
-      origin = input[:origin].permit!.to_h
-
-      attributes = {
-        role: 'guest',
-        origin: origin,
-        ip: current_request.remote_ip,
-        user_agent: current_request.user_agent
-      }
-
-      identity = Identity.create!(attributes)
-      StoreLocationWorker.perform_async(identity.id)
+      identity = CreateGuestService.new(current_request, input).perform
 
       {
         token: identity.token

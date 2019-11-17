@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   post '/graphql', to: 'graphql#execute'
   root to: 'index#show'
 
+  resource :open, only: [], controller: 'open' do
+    post :create_guest
+  end
+
   namespace :webhooks do
     namespace :mailgun do
       resource :incoming
